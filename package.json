@@ -1,0 +1,17 @@
+{
+    "name": "myblog-vuepress",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "serve": "vuepress dev .",
+        "build": "vuepress build ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "gh-pages": "^3.0.0"
+    }
+}
