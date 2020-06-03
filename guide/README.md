@@ -305,6 +305,19 @@ git reflog
 git reset --hard XXX版本记录编号
 ```
 ![image.png](https://i.loli.net/2020/06/03/wCaIu7zNx5jnokY.png)
+>  清空 github 仓库  
+>> 谨慎使用。  
+```bash
+#从中删除历史记录
+rm -rf .git
+#仅从当前内容重新创建存储库
+git init
+git add .
+git commit -m "Initial commit"
+#推送到github远程仓库，以确保您覆盖历史记录
+git remote add origin git@github.com:<YOUR ACCOUNT>/<YOUR REPOS>.git
+git push -u --force origin master
+```
 #### 分支管理（重头戏）  
 1. 创建分支： `git branch XXX分支名`  
 > 此时我们创建了一个xxx分支，代码与主分支master保持一致  
@@ -339,5 +352,50 @@ git merge XXX分支名
 >> 当前处于XXX分支，XXX分支是不能被删除的，需要先切换到其他分支  
 >> git branch -a 查看所有分支，再进行操作  
 >> 删除远程分支属于危险操作，如果权限不合理，可能会出现大问题。  
-> 结束推荐——个人感觉写得很好的一篇文章：[程序员都要掌握的 Git](https://juejin.im/post/5d157bf3f265da1bcc1954e6#heading-5)  
-### 
+> 结束推荐：个人感觉写得很好的一篇文章  
+>> [程序员都要掌握的 Git](https://juejin.im/post/5d157bf3f265da1bcc1954e6#heading-5)  
+>> [程序员都要掌握的 Git](https://juejin.im/post/5b4d66125188251ace75ba27#heading-0)  
+>> [Sourcetree-界面窗口的git管理](https://juejin.im/post/59bc944d51882519777c5e07#heading-9)  
+### 使用github-Pages托管代码
+#### 前置知识
+> Github创建项目仓库后随即只产生一个master分支，只需要再添加`gh-pages`分支就可以创建静态页面了。  
+> 这利用了项目站点（即Project Pages）的方式。还有一种创建站点的方式叫做`User/Organization Pages`。  
+> 我们这里介绍前者。  
+> 首先，创建一个名为 Github用户名.github.io 的仓库。  
+> 接着大家可以在这仓库里放一些静态页面，在外网访问: Github用户名.github.io,就能访问到里面的静态资源了。  
+> 如果你想知道楼主如何基于github搭建自己的博客，可以看[这篇文章](http://www.cnblogs.com/MuYunyun/p/5927491.html)，这次讲的重点主要是gh-pages。
+#### 为什么有了Github用户名.github.io 的仓库，我们还需要gh-pages呢？
+> 大家不会只有一个项目要展示的吧，万一你和楼主一样把 Github用户名.github.io 作为博客了，那不就没地方展示项目了吗？所以就有了gh-pages这个东东。  
+#### 进入主题
+1. 进入dist文件夹下
+```bash
+cd dist
+```
+2. git初始化
+```bash
+git init
+```
+3. 创建并切换gh-pages分支
+```bash
+git checkout --orphan gh-pages
+```
+4. 添加文件到暂存区
+```bash
+git add .
+```
+5. 添加信息
+```bash
+git commit -m "init project"
+```
+6. 设置远程仓库地址
+```bash
+git remote add origin git@github.com:nqmysb/shared-library-ui.git
+```
+7. 推送项目到 gh-pages分支
+```bash
+git push origin gh-pages
+```
+> 此时你的github该项目会多一个gh-pages分支，点击切换分支可以看到刚刚上传的项目文件。  
+> 展示地址：Github用户名.github.io/当前创建的仓库名
+
+* **[推荐命令]** 指定的dist文件提交到gh-pages分支：`git subtree push --prefix=dist origin gh-pages`
