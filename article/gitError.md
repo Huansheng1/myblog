@@ -1,6 +1,6 @@
 # git报错解决指南
 ## 提交报错
-### git push -u origin master报错
+### git push -u origin master报错如下：
 ```bash
 The authenticity of host 'github.com (13.250.177.223)' can't be established.
 RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
@@ -48,10 +48,39 @@ and the repository exists.
 ![image.png](https://i.loli.net/2020/06/03/ArZzyWu3dYt9Jis.png)  
 >> 复制公钥输入到key的输入框，不要名字！  
 >> `git push --set-upstream origin master` 成功了！  
-### git commit -m 'xxx'提示：……up to date……
+### git push -u origin master出错如下：
 ```bash
-On branch master
-Your branch is up to date with 'origin/master'.
-
-nothing to commit, working tree clean
+To github.com:Edward125/DetectFileEncoding.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@github.com:Edward125/DetectFileEncoding.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+> 解决方法有两种  
+> 1. 根据提示，使用git pull，将github上的分支和本地的分支合并  
+> 2. 使用push -f origin master 强制push  
+### git push 后dist文件夹就是无法上传：
+> 尝试过N个办法，个人最粗暴的办法：  
+>> 将项目目录里的.git目录删除  
+>> 这就相当于将本地仓库的全部记录全部删掉，重新连接远程仓库  
+```bash
+git init
+git add .
+git commit -m 'message'
+git remote add origin 'git@github.com:Huansheng1/Huansheng1.github.io.git'
+git push -u origin master
+```
+>> 然后强制push！  
+## 连接仓库
+### 已连接其他仓库修改地址
+> 多种方法操作：  
+> 一种是直接使用git命令来操作  
+```bash
+#断开连接
+git remote remove origin
+#与仓库关联
+git remote add origin 'git@github.com:Huansheng1/Huansheng1.github.io.git'
 ```
