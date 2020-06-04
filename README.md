@@ -2,7 +2,7 @@
 home: true
 lang: zh-CN
 heroText: 菜鸡前端
-heroImage: ../../assets/img/logo.png
+heroImage: /img/logo.png
 tagline: 一点一滴都是进步
 actionText: 如何搭建 →
 actionLink: /guide/

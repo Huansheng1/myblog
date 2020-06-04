@@ -136,7 +136,7 @@ module.exports = [{
                 text: '组件图标',
                 items: [
                     { text: 'Iconfont 图标库', link: 'https://www.iconfont.cn/' },
-                    { text: 'CanIuse - 兼容性查询', link: 'https://www.iconfont.cn/' },
+                    { text: 'CanIuse - 兼容性查询', link: 'https://www.caniuse.com/' },
                     { text: 'Element-ui', link: 'https://element.eleme.cn/#/zh-CN' },
                     { text: '免费字体', link: 'https://www.fontspace.com/' },
                     { text: 'undraw - 免费可商用自定义颜色图表库', link: 'https://undraw.co/illustrations' }
