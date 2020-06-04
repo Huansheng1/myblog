@@ -184,6 +184,49 @@ git merge XXX分支名
 ```
 > 3. 在cmd输入：`ipconfig/flushdns` ------>  刷新本地dns缓存！  
 ### 一个项目同时提交到码云和GitHub两个仓库
+* 配置ssh公钥  
+> 在目录C:\Users\Administrator\.ssh下右键，git bash here  
+> 输入命令：  
+```bash
+# 产生github公钥
+ssh-keygen -t rsa -C "2933903535@qq.com" -f "github_id_rsa"
+# 产生gitee码云SSH公钥
+ssh-keygen -t rsa -C "2933903535@qq.com" -f "gitee_id_rsa"
+```
+> 按照提示完成三次回车，即可生成 ssh key  
+![image.png](https://i.loli.net/2020/06/04/wsPKGm5Ri6ZC9ez.png)
+> 显示ssh公钥  
+```bash
+# 显示gitee公钥
+cat ~/.ssh/gitee_id_rsa.pub
+# 显示github公钥
+cat ~/.ssh/github_id_rsa.pub
+```
+> 复制生成后的 ssh key，通过仓库主页 「管理」->「部署公钥管理」->「添加部署公钥」 ，添加生成的 public key 添加到仓库中。  
+![添加公钥](https://images.gitee.com/uploads/images/2018/0814/170141_5aa5bc98_551147.png)
+> 在 ~/.ssh 目录下新建一个`config`文件，添加如下内容：  
+```bash
+# 其中Host和HostName填写git服务器的域名，IdentityFile指定私钥的路径
+# gitee_id_rsa 和 github_id_rsa 是当前目录的.pub文件名，就我们之前生成的！
+# gitee
+Host gitee.com
+HostName gitee.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/gitee_id_rsa
+# github
+Host github.com
+HostName github.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/github_id_rsa
+```
+> 确认Git配置成功了*多个SSH-Key*，输入命令：  
+```bash
+# 注意这里的 T 一定要大写
+ssh -T git@github.com
+ssh -T git@gitee.com
+```
+>> 首次使用需要确认并添加主机到本机SSH可信列表。若返回 Hi XXX! You've successfully authenticated, but Gitee.com does not provide shell access. 内容，则证明添加成功。
+>> ![确认成功](https://images.gitee.com/uploads/images/2018/0814/170837_4c5ef029_551147.png)
 * 1. **一次性提交两个仓库**  
 > 在项目目录里找到.git文件夹然后找到config文件。  
 > 打开这个文件后找到下面的代码  
