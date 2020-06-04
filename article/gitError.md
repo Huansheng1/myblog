@@ -1,6 +1,6 @@
 # git报错解决指南
 ## 提交报错
-### git push -u origin master报错如下：
+### git push -u origin master报错：Permission denied (publickey).
 ```bash
 The authenticity of host 'github.com (13.250.177.223)' can't be established.
 RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
@@ -48,7 +48,7 @@ and the repository exists.
 ![image.png](https://i.loli.net/2020/06/03/ArZzyWu3dYt9Jis.png)  
 >> 复制公钥输入到key的输入框，不要名字！  
 >> `git push --set-upstream origin master` 成功了！  
-### git push -u origin master出错如下：
+### git push -u origin master出错： [rejected]
 ```bash
 To github.com:Edward125/DetectFileEncoding.git
  ! [rejected]        master -> master (fetch first)

@@ -66,9 +66,9 @@ myBlogVue
 home: true
 lang: zh-CN
 heroText: 菜鸡前端
-heroImage: ../../assets/img/logo.png
+heroImage: /img/logo.png
 tagline: 一点一滴都是进步
-actionText: 欣赏文章 →
+actionText: 如何搭建 →
 actionLink: /guide/
 features:
 - title: 个人博客
@@ -101,20 +101,24 @@ footer: MIT Licensed | Copyright © 2020-present 幻生
 >  一个 VuePress 网站必要的配置文件
 > 采用CommonJS的模块导入导出语法
 ```js
+// 一个 VuePress 网站必要的配置文件
 const path = require('path');
 module.exports = { //这个js变动时本地调试服务会自动重新 启动服务刷新网页，但是md文件改动保存是无法检测到的
         title: '幻生博客', //网站标题
         keywords: "幻生,vue,vuepress,vuepress技术博客,前端,blog,vuepress-blog,golang,script,windows,git,小程序", // 关键字
         description: '如有错误，敬请提交意见与指导，QQ：2933903535', //网站描述
-        repo: 'https://github.com/Huansheng1', //设置 repo属性，VuePress 会在导航栏中添加一个 Github 仓库的链接。
-        base: '/', //ase 属性的默认值是 /。设置站点根路径，如果你在访问的地址是 'www.xxxx.com/wxDocs' 那么就设置成 '/wxDocs/'  
+        // repo: 'https://github.com/Huansheng1', //设置 repo属性，VuePress 会在导航栏中添加一个 Github 仓库的链接。
+        //vuepress默认使用.vuepress/public存放静态资源(可以修改)，在config.js中base值会影响静态资源引用路径。 
+        //一个 base 路径一旦被设置，它将会自动地作为前缀插入到 .vuepress/config.js 中所有以 / 开始的资源路径中。
+        //这里因为我部署到码云上的仓库项目叫myblog，静态编译后的dist在仓库根目录，所以配置了base  
+        base: '/myblog/dist/', //ase 属性的默认值是 /。设置站点根路径，如果你在访问的地址是 'www.xxxx.com/wxDocs' 那么就设置成 '/wxDocs/'  
         dest: './dist', //指定编译路径，该处为根目录下的dist文件夹，VuePress默认路径为.vuepress/dist文件夹
-        port: '7777', //指定端口号
+        port: '7788', //指定端口号
         head: [
-            ['link', { rel: 'icon', href: './public/assets/img/logo.png' }], //头部引入logo图片，也可引入CSS/JS，public目录
-            ['meta', { 'name': 'viewport', content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" }],
+            ['link', { rel: 'icon', href: '/img/logo.png' }], //头部引入logo图片，也可引入CSS/JS，public目录
+            ['meta', { 'name': 'viewport', content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" }],
             ['meta', { name: 'referrer', content: 'never' }],
-            ['script', { type: 'text/javascript', src: './public/assets/js/load.js' }],
+            ['script', { type: 'text/javascript', src: '/js/load.js' }],
         ],
         markdown: {
             lineNumbers: true // 是否在每个代码块的左侧显示行号。
@@ -140,7 +144,9 @@ module.exports = { //这个js变动时本地调试服务会自动重新 启动�
                 alias: { //目录别名
                     '@': path.join(__dirname, '../'), //相对于config.js文件的路径->.vuepress目录
                     'public': '@/public',
-                    'assets': 'public/assets', //MD文件里可这样使用别名  ![](~assets/img/003.png)
+                    // 'assets': 'public/assets', //MD文件里可这样使用别名  ![](~assets/img/003.png)
+                    'img': 'public/img',
+                    'js': 'public/js',
                     'web': '@/web',
                     'project': '@/project',
                     'article': '@/article',
@@ -229,10 +235,46 @@ module.exports = [{
 npm run serve
 npm run build
 ```
+## 静态资源与目录的关系(踩坑！)
+### 项目静态资源[超级重要]
+> *你们一定要明白这个目录与文件的关系*  
+> 踩了好几天的坑，我就这点一直没搞明白：**搞明白就分分钟搭建成功**  
+> vuepress程序默认的资源目录是 `/docs/.vuepress/public`  
+> 所以 我们：  
+> 1. 使用`public`目录下的`img`目录里的`Logo.png`文件：  
+>> 只需要 将路径地址写为：`/img/logo.jpg`  
+> 2. 使用`public`目录下的`js`目录里的`load.js`文件：  
+>> 只需要 将路径地址写为：`/js/load.js`  
+* **基准地址**
+> 如果你的网站部署到非根 URL，则需要在 .vuepress/config.js 中设置 base 选项。  
+> 例如，如果你打算将你的网站部署到 https://foo.github.io/bar/，那么base应该设置为 "/bar/"（它应该始终以斜杠开始和结束）。  
+> 使用基准 URL，如果你想在 .vuepress/public 中引用图片，则必须使用像 /bar/image.png 这样的 URL。  
+> 但是，如果你有朝一日会决定更改 base ，这样的路径就显得很脆弱了。为了解决这个问题，VuePress 提供了一个内置的帮助器 $withBase（注入到 Vue 的原型中），它可以生成正确的路径：  
+```html
+<img :src="$withBase('/foo.png')" alt="foo">
+```
+> 请注意，你不仅可以在主题组件中使用上述语法，还可以在 markdown 文件中使用上述语法。   
+> 另外，如果设置了 base，它会自动作为前缀拼接到 `.vuepress/config.js` 选项中的所有静态资源 URL 中。  
+> 听不懂么？没关系，来，看这里：<a :href="$withBase('/copyleft/#博客源码')" alt="基准用处">基准场景</a>  
+![image.png](https://i.loli.net/2020/06/04/n5VxA24ap3kvmL7.png)
+### 目录别名
+> ……疯狂报错，没搞懂……
 ## 增加插件
 ### 新增评论系统
 > ……待更新……
 ### 新增第三方搜索
+> ……待更新……
+### 使用修改主题
+> ……待更新……
+## 自定义并使用组件
+### Vuepress使用style样式和Javascript  
+> * 1. 添加指定样式  
+>> * ![image.png](https://i.loli.net/2020/06/04/UHvu7JcDs96jkEo.png)  
+> * 2. 添加指定js  
+>> * ![image.png](https://i.loli.net/2020/06/04/ZNlCb1fEgLuv45B.png)  
+### Vuepress使用Vue组件  
+> * MD文件里你可以直接把他当Vue文件写代码  
+
 > ……待更新……
 ## 发布部署
 > **git基础：**[点我](git)
@@ -269,7 +311,7 @@ git commit -m "init project"
 ```
 6. 设置远程仓库地址
 ```bash
-git remote add origin git@github.com:nqmysb/shared-library-ui.git
+git remote add origin git@github.com:Huansheng1/Myblog.git
 ```
 7. 推送项目到 gh-pages分支
 ```bash
@@ -278,4 +320,85 @@ git push origin gh-pages
 > 此时你的github该项目会多一个gh-pages分支，点击切换分支可以看到刚刚上传的项目文件。  
 > 展示地址：Github用户名.github.io/当前创建的仓库名
 
-* **[推荐命令]** 指定的dist文件提交到gh-pages分支：`git subtree push --prefix=dist origin gh-pages`
+* **[推荐命令]** 指定的dist文件提交到gh-pages分支：`git subtree push --prefix=dist origin gh-pages`  
+### shell命令自动部署
+* 利用shell指令，我们可以直接用脚本一键部署：  
+> 项目根目录创建一个shell脚本文件，我的文件叫：`build.sh`  
+> 打开文件-文本方式，粘贴一下shell指令：  
+```shell
+#!/usr/bin/env sh
+# 执行该文件，bash build.sh
+# 终止一个错误
+set -e
+echo '开始执行命令'
+# 构建vuepress build .
+echo '执行命令：vuepress build .'
+npm run build
+#如果文件夹不存在，创建文件夹
+if [ ! -d "/build-git" ]; then
+  echo "build-git文件夹不存在，开始创建……"
+  mkdir /build-git
+elif [ ! -d "/build-git/.git" ];then
+  echo "build-git/.git文件夹存在"
+  echo "执行命令，进入build-git备份git分支gh-pages文件夹"
+  cd build-git
+  echo "执行命令，复制备份git分支gh-pages文件夹到dist文件夹"
+  cp -r .git ../dist
+  cd -
+else
+  echo "build-git/.git文件夹不存在"
+fi
+# 进入生成的构建文件夹
+echo "执行命令，进入生成的构建文件夹"
+cd ./dist
+# 如果你是要部署到自定义域名
+# echo 'www.example.com' > CNAME
+# git init
+echo "执行命令，add所有到暂存区"
+git add -A
+echo "执行命令，commit到本地仓库"
+git commit -m 'auto-deploy'
+echo "执行命令，push到静态分支"
+git push -f origin gh-pages
+echo "执行备份命令，备份git分支gh-pages的.git文件夹到build-git文件夹"
+cp -r .git ../build-git
+# 如果你想要部署到 https://<USERNAME>.github.io
+# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
+
+# 如果你想要部署到 https://<USERNAME>.github.io/<REPO>
+# git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
+echo "回到刚才工作目录"
+cd -
+```
+> 现在我们可以来运行这个shell脚本 -> `bash build.sh`  
+> 代码一键将dist文件夹的内容发布到了github的pages页面上了，我们可以打开 github用户名.github.io/项目名 来查看我们的静态网页  
+### shell命令自动推送
+* 利用shell指令，我们可以直接用脚本一键push到码云和github：  
+> 项目根目录创建一个shell脚本文件，我的文件叫：`push.sh`  
+> 打开文件-文本方式，粘贴一下shell指令：  
+```shell
+#!/usr/bin/env sh
+# 执行该文件，bash push.sh
+# 终止一个错误
+set -e
+echo '开始执行命令'
+# 构建vuepress build .
+echo '执行命令：npm run serve'
+#如果文件夹不存在，创建文件夹
+if [ ! -d "/.git" ];then
+  echo "本地仓库.git文件夹存在"
+else
+  echo "/.git文件夹不存在"
+  git init
+  git remote add origin 'git@github.com:Huansheng1/myblog.git'
+  git remote add origin 'git@gitee.com:huanshenga/Myblog.git'
+fi
+echo "执行命令，add所有到暂存区"
+git add .
+echo "执行命令，commit到本地仓库"
+git commit -m 'auto-push'
+echo "执行推送命令"
+git push
+```
+> 现在我们可以来运行这个shell脚本 -> `bash push.sh`  
+> 这会一键将本地项目一键同步到远程仓库  

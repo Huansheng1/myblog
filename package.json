@@ -12,6 +12,7 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "gh-pages": "^3.0.0"
+        "gh-pages": "^3.0.0",
+        "webpack-dev-server": "^3.11.0"
     }
 }
