@@ -382,8 +382,6 @@ cd -
 # 终止一个错误
 set -e
 echo '开始执行命令'
-# 构建vuepress build .
-echo '执行命令：npm run serve'
 #如果文件夹不存在，创建文件夹
 if [ ! -d "/.git" ];then
   echo "本地仓库.git文件夹存在"
