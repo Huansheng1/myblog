@@ -121,6 +121,7 @@ git merge XXX分支名
 >> [程序员都要掌握的 Git](https://juejin.im/post/5d157bf3f265da1bcc1954e6#heading-5)  
 >> [程序员都要掌握的 Git](https://juejin.im/post/5b4d66125188251ace75ba27#heading-0)  
 >> [Sourcetree-界面窗口的git管理](https://juejin.im/post/59bc944d51882519777c5e07#heading-9)  
+>> [常用-git-命令](https://maomao1996.github.io/mm-notes/git/#常用-git-命令)  
 ## "奇技淫巧"
 ### github加速下载
 > 国内[github]的访问速度，大部分情况下还是比较堪忧  

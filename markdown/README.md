@@ -326,3 +326,6 @@ ___粗斜体文本___
 <em>字体倾斜</em>  
 <strong>字体加粗</strong>  
 <!-- 注释 -->  
+
+* [markdown让文字居中和带颜色](https://www.cnblogs.com/bigmagic/p/3301b25e8b0b8ef8b9415379385a798c.html)  
+* [让微信排版变 Nice](https://mdnice.com/)

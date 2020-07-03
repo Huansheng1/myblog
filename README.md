@@ -2,7 +2,7 @@
 home: true
 lang: zh-CN
 heroText: 菜鸡前端
-heroImage: /img/logo.png
+heroImage: https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200701181319.png
 tagline: 一点一滴都是进步
 actionText: 如何搭建 →
 actionLink: /guide/
@@ -13,8 +13,8 @@ features:
   details: 巩固自我，记录一点一滴，方便用时自我查阅。
 - title: 实战项目
   details: 个人开发的免费开源项目步骤详细记录，编程->从博客开始。
-- title: 搭建技术
-  details: node.js环境下vuepress为基础，github或者码云部署搭建。
+- title: 记住本站
+  details: http://hs.xuexizuoye.com/ -- > 翻译：幻生学习作业
 - title: 作品源码
   details: 以往作品开源在github，可通过导航前往获取我的历史项目源码。
 - title: 学习目标
