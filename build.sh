@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# 执行该文件，bash build.sh
+# 执行该文件，bash build.sh，该脚本的用处是项目打包并部署到git仓库静态页
 # 终止一个错误
 set -e
 echo '开始执行命令'

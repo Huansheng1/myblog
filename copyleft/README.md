@@ -2,7 +2,8 @@
 ## 博客源码
 > Github：[https://github.com/Huansheng1/Huansheng1.github.io](https://github.com/Huansheng1/Huansheng1.github.io)   
 > Gitee码云：<https://gitee.com/huanshenga/Myblog>  
->> 成品地址 ：<http://huanshenga.gitee.io/myblog/dist/>  
+>> 成品地址 ：<http://hs.xuexizuoye.com>  
+>> 最初版本地址 ：<http://huanshenga.gitee.io/myblog/dist/> --- 停更，请使用上面地址  
 > 注意，这种***引入图片写法有个坑***！  
 > 1. 当部署到github的gh-pages时，因为网站静态页域名为 github用户名.io/项目名；  
 > 2. 但是：  

@@ -1,7 +1,3 @@
 # 基础认知
-'''
-sss
-1111
-sss 
-'''
-[可点击的链接](https://baidu.com '百度')
+## 基础
+### [CSS基础与截图](https://mubu.com/doc/HG-rIVSIy_ '以前的笔记')

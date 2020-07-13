@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# 执行该文件，bash push.sh
+# 执行该文件，bash push.sh，该脚本的用处是将本地项目推送到git仓库备份
 # 终止一个错误
 set -e
 echo '开始执行命令'

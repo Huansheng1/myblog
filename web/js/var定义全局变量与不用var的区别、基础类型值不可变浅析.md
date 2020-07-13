@@ -7,7 +7,7 @@
 当然，我们不要求 了解得特别深，不然 没法讲完， 只需要 简单知道：栈的基本功能和操作 就可以了。  
 
 栈 的**功能**：  
-* 存放 基础数据类型 的 值  
+* 存放 基础数据类型
 * > 基本类型有 `Undefined`、`Null`、`Boolean`、`Number` 和`String`。
 * > [ES6新增 `Symbol`、ES7新增 `BigInt`](JS基础篇1：数据类型（8种）https://blog.csdn.net/u013592575/article/details/95087953)
 * > 这些类型在内存中分别占有固定大小的空间，他们的值保存在栈空间，JS通过按值来访问的。
@@ -33,7 +33,7 @@
 > 如何栈溢出：递归调用方法，随着栈深度的增加，直到内存不够分配，产生栈溢出，报错。
 ### 堆(heap)
 首先，我们明确一个概念：这里的堆 不是 数据结构 里的那个堆！  
-
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200710142708.png)
 **堆 主要 用于 存放 引用类型（JS里就是指对象） 的 复杂数据**  
 * 常见Object对象：Date()、Array()、Function()、Math()等
 * > 不信，可看这篇文章：[js 判断各种数据类型 typeof 几种类型值](https://www.cnblogs.com/chaoyuehedy/p/7885277.html])
@@ -79,7 +79,6 @@ object string string
 * 基本类型在当前执行环境结束时销毁，而引用类型不会随执行环境结束而一同销毁，它的生命周期取决于垃圾回收机制
 * > 低版本IE浏览器  -  引用计数回收机制：只有当所有引用它的变量不存在时这个对象才被垃圾回收机制回收。
 * > 现代浏览器  -  标记清除GC算法以及对于它的改进算法
-* 强调：栈区存放的是值！
 
 > 注意：  
 0. 传统的“堆栈”概念不太适用于JS：JavaScript 属于解释型语言，JavaScript 的执行分为：解释和执行两个阶段
@@ -94,6 +93,7 @@ object string string
 * [内存管理-堆栈和堆在哪里？](https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap)
 * [谈谈程序的堆和栈](https://cloud.tencent.com/developer/news/420596)
 * [深入理解堆与栈](https://blog.csdn.net/u014608280/article/details/82218079)
+* [JavaScript的内存管理](https://juejin.im/post/5e2155cee51d4552455a8878)
 
 
 ## var定义浅析

@@ -746,7 +746,8 @@ this.WeChat
 ### 完善封装
 > 封装代码扩展：  
 ....待更新...
-
+### 快速对接后台
+扩展：[怎样让后台小哥哥快速对接你的前端页面](https://lindaidai.wang/2019/09/24/webNotes/advanced/JavaScript/%E6%80%8E%E6%A0%B7%E8%AE%A9%E5%90%8E%E5%8F%B0%E5%B0%8F%E5%93%A5%E5%93%A5%E5%BF%AB%E9%80%9F%E5%AF%B9%E6%8E%A5%E4%BD%A0%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2/)
 ## 更多文档
 * [Axios起步_w3cschool](https://www.w3cschool.cn/jquti/jquti-kb3a35x1.html)  
 * [axios中文文档](http://www.axios-js.com/zh-cn/docs/)  
