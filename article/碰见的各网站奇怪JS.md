@@ -49,6 +49,7 @@
 更多方法：  
 * [突破前端反调试--阻止页面不断debugger](https://blog.csdn.net/qq_41879417/article/details/105494582)
 * [爬虫技巧:突破前端反调试(无限debugger)](https://blog.csdn.net/qq_29556507/article/details/103578552)
+* [你想逆向我的 js 代码？呵呵，先过了我的反 debug 再说吧！](https://zhuanlan.zhihu.com/p/80008429)
 
 ## 禁止F12和右键打开调试模式
 禁止F12代码：
