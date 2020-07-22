@@ -741,7 +741,7 @@ promise变量 = 返回新对象(Promise对象) {
   })
   })
 ```
-* 看明白了么？`promise`变量就等于调用一个方法返回方法本身的代码，这就是一个没有条件结尾的自我迭代！
+* 看明白了么？`promise`变量就等于调用一个方法返回方法本身的代码，这就是一个没有条件结尾的递归循环！
 
 </details>
 
@@ -974,6 +974,49 @@ Promise回调函数中的第一个参数resolve，会对Promise执行"拆箱"动
 
 ```
 </details>
+
+### `then()`异步微任务
+```js
+Promise.resolve().then(() => {
+  console.log('mm')
+  Promise.resolve()
+    .then(() => {
+      console.log('xx')
+    })
+
+    .then(() => {
+      console.log('yy')
+    })
+})
+
+  .then(() => {
+    console.log('nn')
+  })
+```
+<details>
+<summary>答案与解析</summary>
+
+答案：
+```js
+mm
+xx
+nn
+yy
+```
+解析：
+```js
+1. Promise.resolve() 立即返回一个 Promise对象
+2. 状态确定调用then()，启动异步微任务，将其回调函数压入微任务队列
+3. 微任务队列取出then()开始执行，执行console.log('mm')，控制台打印：mm
+4. Promise.resolve() 立即返回另一个 Promise对象，调用then(()=>console.log('xx'))，执行异步微任务，then()的回调函数()=>console.log('xx')压入微任务队列；第二个then(()=>console.log('yy'))需等到前一个返回状态确定的Promise对象方可调用
+5. 里面代码已完成，给外部返回状态为fulfilled，值为undefined的Promise对象，调用then()，将其回调()=>console.log('nn')压入微任务队列
+6. 从微任务回调函数队列取出队首函数开始执行，执行console.log('xx')，控制台打印：xx
+7. 调用then(()=>console.log('yy'))，启动异步微任务，将其回调函数()=>console.log('yy')压入微任务队列
+8. 从微任务回调函数队列取出队首函数开始执行，执行console.log('nn')，控制台打印：nn
+9. 从微任务回调函数队列取出队首函数开始执行，执行console.log('yy')，控制台打印：yy
+```
+</details>
+
 
 ### `all()`和`race()`传入空数组
 ```js

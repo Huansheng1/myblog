@@ -85,6 +85,25 @@
 * > `npm help <command>`  
 查看某条命令的详细帮助，例如npm help install
 
+#### NodeJs版本更新
+> window系统升级node只能从node[官网](https://nodejs.org/zh-cn/download/)下载window安装包覆盖安装！
+
+第一步，先安装管理版本的模块 `n` ：
+* `npm install -g n`  
+> 如出错可强制安装：`npm i -g n --force`
+
+第二步，再安装稳定版：
+* `n stable`
+> 如出错可尝试：`n --stable`
+
+第三步，查看版本是否更新成功：
+* `node -V`
+#### npm更新
+更新`npm`自己：
+* `npm install -g npm`
+
+更新其他的全局模块，比如：[`Vue Cli`](https://blog.csdn.net/qq_39953537/article/details/102759821)也是如此：
+* `npm install -g @vue/cli`
 #### npm安装命令 效果差别  
 * npm install：本地安装  
 * > (1)将安装包放在 ./node_modules 下（运行 npm 命令时所在的目录），如果没有 node_modules 目录，会在当前执行 npm 命令的目录下生成 node_modules 目录。

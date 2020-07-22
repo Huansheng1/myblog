@@ -1,4 +1,6 @@
 # git知识小课堂
+## 安装了解
+[git 使用简易指南](https://www.bootcss.com/p/git-guide/)
 ## 指令与基础
 > git注册、登录、创建仓库、安装客户端、命令行登录 自行百度
 ![image.png](https://i.loli.net/2020/06/03/iZRaxNPmCd4GHK8.png)
@@ -6,6 +8,11 @@
 ### git命令
 > 原理图：![简易图](https://user-gold-cdn.xitu.io/2019/6/28/16b9d385970c7b6c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 ![image.png](https://i.loli.net/2020/06/03/yoMI5cNDLOszVxE.png)
+#### 版本升级
+```bash
+git update-git-for-windows
+```
+版本升级，免除下载安装包再安装的复杂步骤
 #### 配置
 ```bash
 # 显示当前的Git配置
@@ -308,3 +315,28 @@ git push gitee master
 ![image.png](https://i.loli.net/2020/06/04/EndHis9XPxTU5hG.png)
 ## git错误及解决
 > git错误及解决-[点我](../article/gitError)
+## git工具
+### vscode图形化管理
+1. 查看仓库：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721164428.png)
+2. 添加暂存区：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721164532.png)
+> 消息处可输入更新日志
+3. 提交到本地仓库：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721164659.png)
+4. 推送到远程仓库：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721164843.png)
+5. 创建分支：
+* 选择创建分支：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721165230.png)
+* 分支名称：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721165327.png)
+> 分支切换我们直接点击对应分支即可
+* 提交远程仓库：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721165426.png)
+> `tag`版本发布得通过命令行的形式
+6. 合并分支：
+* 切换到我们`demo-1`分支，快捷键`ctrl+shift+P`唤起命令，输入：合并分支![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721165819.png)
+* 选择`master`分支合并：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721170049.png)
+* 这时我们就将`master`分支代码合并到了`demo-1`分支
+* 最后推送到远程：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721170328.png)
+7. 插件快捷显示本地仓库与远程仓库的冲突：
+* 安装插件：`Git History Diff`
+* 如果远程仓库被人修改了
+* 我们本地仓库自己写了新的代码提交时，就会发生冲突，提示信息：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721170937.png)
+* 点击冲突的文件，该插件会帮我们显示出来，可以点击一个按钮进行我们相应的操作：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721170610.png)
+> 当然，更建议在提交前先`pull`将远程仓库代码拉取到本地。
+### SourceTree图形化管理

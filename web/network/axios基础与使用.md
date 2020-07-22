@@ -4,6 +4,7 @@ Axios 是一个基于 `promise` 的 HTTP 库，可以用在浏览器和 node.js 
 
 > 特性：  
 * 从浏览器中创建 XMLHttpRequests  
+> 推荐阅读：[你真的会使用XMLHttpRequest吗？](https://segmentfault.com/a/1190000004322487)
 * 从 node.js 创建 http 请求  
 * 支持 Promise API  
 * 拦截请求和响应  
@@ -25,7 +26,8 @@ npm install axios
 ### 简单使用Get、Post、并发请求all
 **Get使用**：  
 ```js
-// GET数据放在URL上，注意url为相对地址时是建立在设置过baseUrl的基础上，不然用绝对路径
+// GET数据放在URL上，注意url为相对地址时如果设置过baseUrl会自动追加在其后面
+// 反之则追加到当前域名的后面，比如我们本地测试：localhost:8888/xxx
 axios.get('/user?ID=12345')
   // 请求成功处理方法，response是返回的服务器数据
   .then(function (response) {
@@ -242,6 +244,9 @@ axios({
 
     // withCredentials 表示跨域请求时是否需要使用凭证
     // 主要用于 cros 跨域请求 时 是否带上 cookie
+    // 永远不会影响到同源请求
+    // 如果在发送来自其他域的XMLHttpRequest请求之前，未设置withCredentials 为true，那么就不能为它自己的域设置cookie值。
+    // 更多  - https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/withCredentials
     withCredentials: false,    // default
     
     // adapter 允许自定义处理请求，以使测试更轻松
@@ -326,6 +331,17 @@ axios({
     })
 }
 ```
+注意：
+* 如果前端配置了`withCredentials=true`，后段设置`Access-Control-Allow-Origin`不能为 `*`,必须明确指定为包含 `Origin` 的值。
+```js
+// 指定来源
+header("Access-Control-Allow-Origin","前端地址";
+// 允许跨域携带cookie，浏览器才会把响应结果给我们前端
+header("Access-Control-Allow-Credentials", "true");
+```
+* 跨域请求时协议头不会自动携带`cookie`，`withCredentials`适用于一个项目在发起跨域请求时需要携带`cookie`的情况。
+
+> [明确一下 XMLHttpRequest#withCredentials 的作用](https://gerhut.me/xmlhttprequest-withcredentials/)
 ### 创建axios示例：axios.create()
 **语法**：  
 ```js
@@ -511,8 +527,7 @@ source.cancel('Operation canceled by the user.');
 * [axios 之cancelToken原理以及使用](https://www.cnblogs.com/ysk123/p/11544211.html)
 
 更多取消使用的文章：  
-
-* [Vue踩坑日记之cancelToken](https://www.jianshu.com/p/42d1c58e785e)
+* [Axios源码深度剖析](https://juejin.im/post/5b0ba2d56fb9a00a1357a334#heading-28)
 * [Vue踩坑日记之cancelToken](https://www.jianshu.com/p/42d1c58e785e)
 
 ### data序列化
@@ -561,9 +576,9 @@ err => console.log(err)
 ```
 
 这个有以下几个问题：  
-* 处理方法都作为参数传递进去，一点都不优雅
+* 处理方法都作为参数传递进去，一点都不优雅，这可能导致回调地狱的出现，而且`Promise`链式调用的优雅没用上，一点都不美观
 * 如果重复调用，那就等于重复创建了axios对象，这样浪费内存，毫无必要
-* 不如返回axios实例，可既然返回实例为什么还要在里面处理，直接promise.then和catch不好么？  
+* 于是我们不如返回axios实例，可既然返回实例为什么还要在里面处理，直接promise.then和catch不好么？  
 
 > 所以我们为什么不这样封装？  
 ```js
@@ -589,8 +604,7 @@ http({
 > 但是，这样封装的话，感觉有没有种脱裤子放屁-多此一举的感觉？  
 > 于是，我们决定将封装进行扩展：  
 
-但是！  
-不好意思，我们之前只是对config大概配置有个了认知，为了方便理解我们后面的封装，先来学习下config里我们用到的配置相关知识：  
+可是，我们之前只是对config大概配置有个了认知，为了方便理解我们后面的封装，先来学习下config里我们用到的配置相关知识：  
 ### 请求协议头
 **post请求常见的数据格式（content-type）**
 
@@ -745,18 +759,307 @@ this.WeChat
 参考：[multipart/form-data请求与文件上传的细节](https://blog.csdn.net/zshake/article/details/77985757)
 ### 完善封装
 > 封装代码扩展：  
-....待更新...
-### 快速对接后台
-扩展：[怎样让后台小哥哥快速对接你的前端页面](https://lindaidai.wang/2019/09/24/webNotes/advanced/JavaScript/%E6%80%8E%E6%A0%B7%E8%AE%A9%E5%90%8E%E5%8F%B0%E5%B0%8F%E5%93%A5%E5%93%A5%E5%BF%AB%E9%80%9F%E5%AF%B9%E6%8E%A5%E4%BD%A0%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2/)
+
+我们首先在 项目`src`源代码目录创建一个 `api`或者`network`文件夹，里面存放我们决定封装的多个接口请求文件：
+* `env.js`：自动根据当前环境选择恰当的`baseurl`
+* `http.js`：对我们的`axios`进行常见的封装与处理：`axios`实例初始化，传入延时时间，请求就加载提示弹窗 - 请求中 ，对请求数据判断 - 如果需要权限就判断协议头是否含有`token`；对返回数据进行判断，成功就取出data传回调用处，失败就取出状态码对应错误信息提示给用户
+* `api.js`：导入 `http.js` ，对常用`method`方法进行封装，比如：`get`、`post`等
+
+> 文件新建完毕，里面包含我们准备使用的三个文件：
+
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722120302.png)
+#### env.js封装完善
+> 首先，开始完善`env.js`：  
+
+为什么我们需要该文件？  
+因为项目环境可能有`开发环境`、`测试环境`和`生产环境`。通过`node`环境变量来匹配我们预设的接口`baseURL`前缀可以到达开发时不需要来回修改代码的目的。
+```js
+// ./src/network/env.js
+let baseURL
+// 根据 process.env.NODE_ENV 区分状态，切换不同的 baseURL
+switch (process.env.NODE_ENV) {
+  // 注意，如果我们npm scripts里主动传 --mode 参数必须全称，默认的可用简写判断
+  // 开发环境，也可简写为：dev
+  case 'development':
+    baseURL = 'httP://development.xuexizuoye.com/api'
+    break
+  // 测试环境，虽然官方没指出，但是传递过来可用
+  case 'test':
+    baseURL = 'httP://test.xuexizuoye.com/api'
+    break
+  // 生产环境，也可简写为：prod
+  case 'production':
+    baseURL = 'httP://production.xuexizuoye.com/api'
+    break
+  default :
+    baseURL = 'httP://production.xuexizuoye.com/api'
+    break
+}
+// 根据浏览器本地自动更换接口主域名
+function autoChangeBaseURL () {
+  const apiURL = localStorage.getItem('apiURL') // 获取浏览器本地存储localStorage中Key为apiURL那一项的值
+  if (process.env.NODE_ENV === 'development' && apiURL) { // 判断当前的环境是否为开发环境，如果是，判断apiURL是否存在
+    baseURL = apiURL // 将baseURL修改为开发人员在浏览器预设的接口主域名
+  }
+  return baseURL
+}
+autoChangeBaseURL()
+// console.log(baseURL)
+export default {
+  baseURL
+}
+```
+上面就是我们的`env.js`封装的全部代码，其中有几个小技巧：  
+* 我们通过`process.env.NODE_ENV`自动切换不同的`baseURL`
+* 不仅如此，对于我们预设的`baseURL`如果满足不了我们开发小哥哥的测试场景，比如多个小哥哥都要测试，而他们的接口地址不同，我们通过`autoChangeBaseURL`实现根据`localStorage`本地存储自动切换开发人员预设的接口地址
+* 设置开发环境自适应接口步骤：
+1. 打开我们，并打开控制台(`window`快捷键`F12`, `Mac`快捷键`option`＋`command`＋`i`);
+2. 在控制台输入以下代码：
+```js
+// baseURL格式:后台本地的IP地址(包括端口号)，如http://hs.xuexizuoye.com/api
+localStorage.setItem('apiURL','这里面写开发测试想设置的baseURL')
+```
+3. 刷新页面即可。
+
+**如何自定义`mode`？**
+
+1. 在项目根目录找到`package.json`文件，定位到`scripts`脚本设置
+2. 可加入我们的`npm scripts`设置：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722124635.png)
+> 注意：默认无需设置支持的有：`development`、`production`、`test`（[官方](https://www.webpackjs.com/concepts/mode/)没写但确实支持）
+3. 对于我们自定义的模式：`testApi`，直接传入`process.env.NODE_ENV`是无法识别的，我们需要在项目根目录新建个文件`env.testApi`，里面写入：`NODE_ENV = 'testApi'`：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722125009.png)
+4. `env.js`里通过`process.env.NODE_ENV`即可接收到该参数，然后我们可以进行想要的设置。
+
+**我们还可以通过`proxy`代理来实现切换`baseURL`**：
+```js
+const service = axios.create({
+	baseURL: process.env.NODE_ENV === 'production' ? `/api` : '/dev',
+})
+```
+> 详细代理配置：[vue.config.js配置](./../vue/vue.config配置.md)
+#### http.js封装
+```js
+import axios from 'axios'
+import env from './env'
+import qs from 'qs'
+// import store from '../store/index';
+// import router from '../router'
+// 根据不同的状态码，生成不同的提示信息
+const showStatus = (err) => {
+  console.log('showStatus接收到的错误：')
+  console.log(err)
+  const status = Object.prototype.hasOwnProperty.call(err, 'response') ? err.message : err.response.status
+  let message = ''
+  // 这一坨代码可以使用策略模式进行优化
+  switch (status) {
+    case 400:
+      message = '请求错误(400)'
+      break
+    case 401:
+      message = '未授权，请重新登录(401)'
+      // toLogin() // 401: 未登录状态，跳转登录页
+      break
+    case 403:
+      message = '拒绝访问(403)'
+      localStorage.removeItem('token')// 登录过期，请重新登录
+      config.headers.Authorization = ''
+      // store.commit('loginSuccess', null)
+      // setTimeout(() => {
+      //   toLogin()
+      // }, 1000)
+      break
+    case 404:
+      message = '请求出错(404)'
+      break
+    case 405:
+      message = '跨域请求被禁止(405)'
+      break
+    case 408:
+      message = '请求超时(408)'
+      break
+    case 500:
+      message = '服务器错误(500)'
+      break
+    case 501:
+      message = '服务未实现(501)'
+      break
+    case 502:
+      message = '网络错误(502)'
+      break
+    case 503:
+      message = '服务不可用(503)'
+      break
+    case 504:
+      message = '网络超时(504)'
+      break
+    case 505:
+      message = 'HTTP版本不受支持(505)'
+      break
+    default:
+      message = status > 200 && status < 300 ? `服务器接受请求成功，由于部分原因未能正确给出结果：(${status})!` : `接口请求出错：(${status})`
+  }
+  // alert(`${message}，请求出错！`)// 也可使用ui组件的弹窗或者toast提示等，alert会阻塞代码不推荐
+  return `${message}，请检查网络或联系网络管理员！`
+}
+// 错误处理
+const errHandle = (error) => {
+  const err = {
+    msg: showStatus(error),
+    online: window.navigator.online, // 判断是否有网
+    errormessage: error // 原始错误代码保存一份方便调试
+  }
+  // if (!err.online) store.commit('goodNetwork', false)// 断网时向store设置网络状态变量为假
+  // 错误抛到业务代码
+  return Promise.reject(new Error(err.msg))
+}
+// 待请求任务队列对象
+const pending = {}
+// 取消请求令牌
+const CancelToken = axios.CancelToken
+const removePending = (key) => {
+  if (pending[key]) {
+    console.log('重复api：' + key + '请求被取消！')
+    pending[key]('取消重复请求')// 如果不为假则说明之前添加过方法，调用取消方法将队列里请求取消
+  }
+  delete pending[key]// 删除队列里的元素
+}
+// 请求标识生成
+const getHttpIdentify = (config, isReuest = false) => {
+  let url = config.url
+  if (isReuest) {
+    url = config.baseURL + config.url// .substring(1, config.url.length)
+  }
+  return config.method === 'get' ? encodeURIComponent(url + config.params) : encodeURIComponent(config.url + config.data)
+}
+/**
+ * 跳转登录页
+ * 携带当前页面路由，以期在登录页面完成登录后返回当前页面
+ */
+// const toLogin = () => {
+//   router.replace({
+//     path: '/login',
+//     query: {
+//       redirect: router.currentRoute.fullPath
+//     }
+//   })
+// }
+// config默认配置
+const config = {
+  baseURL: env.baseURL,
+  timeout: 6000,
+  headers: {
+    'x-requested-with': 'XMLHttpRequest', // xhr标识
+    // 'Content-Type': 'multipart/form-data'
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    // 配置此参数为真表示跨域请求带上cookie凭证，MDN上写默认为false，但是实际上似乎默认为true（当该行不写时可测试）
+    withCredentials: true, // [跨域资源共享 CORS 详解 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2016/04/cors.html)
+    'Accept-Language': 'zh-cn,zh;q=0.5', // 浏览器支持的语言分别是简体中文和中文，优先支持简体中文。
+    get: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      // 单点登录或者其他功能的通用请求头，可一并配置
+    }
+  },
+  validateStatus: function (status) {
+    // 当返回状态码为200才判断为真
+    return status === '200'
+  }
+}
+// 创建axios实例
+const http = axios.create(config)
+// 请求拦截器
+http.interceptors.request.use((config) => {
+  const qsMethods = ['post', 'put', 'patch']
+  // 如果是提交数据的method则将data序列化
+  if (qsMethods.indexOf && typeof (qsMethods.indexOf) === 'function' && (qsMethods.indexOf(config.method) > -1)) {
+    config.data = qs.stringify(config.data)
+  }
+  // 拦截重复请求(即当前正在进行的相同请求)
+  const requestData = getHttpIdentify(config, true) // 生产标识请求
+  removePending(requestData, true)// 取消重复请求
+  config.cancelToken = new CancelToken(cancel => { // 创建当前请求的取消方法
+    pending[requestData] = cancel// 将该请求的取消方法加入队列对象作为标识字段的值
+  })
+  // 如果不是登录页面，给headers添加一个token令牌标识身份
+  if (config.url.toLowerCase().indexOf('login') > -1 && config.headers.Authorization) {
+    config.headers.Authorization = localStorage.getItem('token') || ''
+  }
+  return config
+}, (error) => {
+  console.log('请求前出现错误：' + error)
+  return errHandle(error)
+})
+// 响应拦截器
+http.interceptors.response.use((response) => {
+  // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
+  const data = response.data ? response.data : response.request.responseText || {}
+  return data
+}, (error) => {
+  console.log('响应出现错误：' + error)
+  return errHandle(error)
+})
+export default http
+```
+> 还可以增加`取消全局Loading`、`上传文件`、`上传出错``下载文件`以及`下载出错`等提示，不过暂时不需要就不搞了。
+#### api.js封装
+```js
+import http from './http'
+// 封装常用的get/post方法
+export default {
+  get (url, params = {}, config = {}) {
+    return http.get(url, {
+      params,
+      ...config
+    })
+  },
+  post (url, data = {}, config = {}) {
+    return http.post(url, data, config)
+  }
+}
+```
+简单的方法就封装完毕啦，我们可以去使用了。
+
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722204556.png)
+在项目入口`main.js`上引入我们的常用方法`api.js`，并将包含`get`与`post`方法的实例挂载到我们`Vue`原型上，方便我们的`Vue`实例调用
+
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722204743.png)
+在`Vue`组件上使用我们封装的方法
+
+#### 各接口抽离封装
+你以为就上面那样就结束了？哈哈，还没呢。
+
+我们的项目往往有许许多多的`api`请求，比如：`login`登录请求、`article`文章请求、`shop`商品请求等等，我们可以将这些不同组件需要的请求各自抽取成新的`.js`文件  
+* `shop.js`含有：商品列表`shopList`、商品信息`shopInfo`、商品详情`shopDetail`等方法
+#### 接口集中管理index.js封装
+`api`目录下新建个`index.js`文件，里面将我们各个接口文件导入再一同导出，这样方便Vue组件导入所需的接口方法
+```js
+/** 
+ * api接口的统一出口
+ */
+// 文章模块接口
+import article from '@/api/article';
+// 其他模块的接口……
+
+// 导出接口
+export default {    
+    article,
+    // ……
+}
+```
+再修改`main.js`和`.vue`组件就可实现直接调用方法获取信息，而不需要操心太多的不相干业务。
+> 当然，我们需要注意一个[细节](https://segmentfault.com/a/1190000012533993)：**箭头函数内部的`this`是词法作用域，由上下文确定，因此箭头函数在`Promise`特别常用。**
+
+> 通过箭头函数，其`this`就与它所在的`function`的`this`一致，使得可以获取到`Vue`组件实例的数据
 ## 更多文档
 * [Axios起步_w3cschool](https://www.w3cschool.cn/jquti/jquti-kb3a35x1.html)  
 * [axios中文文档](http://www.axios-js.com/zh-cn/docs/)  
 * **[axios官方文档 - npm](https://www.npmjs.com/package/axios)**  
 * [axios全攻略 | 羸弱的小金鱼](https://ykloveyxk.github.io/2017/02/25/axios%E5%85%A8%E6%94%BB%E7%95%A5/#more)
 * 相关文章：  
+* > [Vue项目经验总结（持续更新中...）](https://juejin.im/post/5e82dca6e51d4546fd48039b#heading-3)
 * > [如何使用axios发出高大上的HTTP请求](https://juejin.im/post/5e64c66e6fb9a07ccd5197e5)  
 [axios详解](https://juejin.im/post/5e82b4db51882573ad5e0338)  
 [Axios你可能不知道使用方式 - 掘金](https://juejin.im/post/5eaa29b6e51d454db55fa2ec)  
 * > [聊聊 Vue 中 axios 的封装](https://juejin.im/post/5da90c3e6fb9a04e031c0413)  
 * > [vue中Axios的封装和API接口的管理](https://juejin.im/post/5b55c118f265da0f6f1aa354)  
 * > [axios怎么封装，才能提升效率？](https://juejin.im/post/5ea15045e51d4546e14f6aa5#heading-1)
+* > [怎样让后台小哥哥快速对接你的前端页面](https://lindaidai.wang/2019/09/24/webNotes/advanced/JavaScript/%E6%80%8E%E6%A0%B7%E8%AE%A9%E5%90%8E%E5%8F%B0%E5%B0%8F%E5%93%A5%E5%93%A5%E5%BF%AB%E9%80%9F%E5%AF%B9%E6%8E%A5%E4%BD%A0%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2/)
+* > [HTTP协议网络请求状态码，详细~](https://blog.csdn.net/u011506543/article/details/81676500)
