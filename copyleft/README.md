@@ -19,6 +19,14 @@
 ## 已完成项目
 * [饿了么实战上手](vue-eleme)
 
+> 图片演示：[商品详情忘记录制了](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200729170157.gif)
+
+> Github：[饿了么源码地址](https://github.com/Huansheng1/eleme-page)   
+
+> 国内效果访问：<http://huanshenga.gitee.io/eleme-page/#/seller/goods>  
+
+> 成品地址 ：<http://eleme.xuexizuoye.com/#/seller/goods>  
+
 ## 计划中的实战项目
 **参考列表***：  
 网页：  
