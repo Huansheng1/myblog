@@ -16,8 +16,8 @@
 <!-- <img :src="$withBase('/img/myblog.png')" alt="myBlog">  加载太慢，我们图片改用gitee -->
 <img src="https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200701181426.png" alt="myBlog">
 
-## 正在实践的项目
-* [饿了么简单实战上手](vue-eleme)
+## 已完成项目
+* [饿了么实战上手](vue-eleme)
 
 ## 计划中的实战项目
 **参考列表***：  

@@ -960,7 +960,7 @@ const config = {
   },
   validateStatus: function (status) {
     // 当返回状态码为200才判断为真
-    return status === '200'
+    return status === 200
   }
 }
 // 创建axios实例

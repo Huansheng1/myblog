@@ -1,5 +1,6 @@
 # 胡说八道文章合集
 ## Git经验
+### [Git基础知识](./../guide/git.md)
 ### [Github错误解决办法](./gitError.md)
 ## 网络杂谈
 ### [Http与Https杂谈](./http与https杂谈.md)

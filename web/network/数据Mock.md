@@ -29,4 +29,12 @@
 3. 在`main.js`里加入我们少量的`mock`代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721221520.png)
 > 注意`require`与`import`的区别：`import`导入插件会在项目发布时编译，`require`则在项目运行时才决定是否运行（我们这里通过`mock`状态判断是否引入`mock.js`）
 
+**注意**：
+* 不能直接用字符串拦截`'/api/getSeller'`，因为其代码实际会把相对路径当成完整的路径去和`'http://localhost:8080/api/getSeller'`比较，导致拦截不到
+* 我们应该使用正则形式：`/\/api\/getSeller/`才能匹配到；上面示例能成功是因为其`axios`的`baseURL`只是`/api`
 > 更多请看官网：[Mock.js](http://mockjs.com/examples.html)
+
+## 参考资料
+* [如何在Vue项目中使用Mockjs，模拟接口返回的数据](https://blog.csdn.net/dadiyang/article/details/79686637)
+* [正确开启Mockjs的三种姿势：入门参考](https://www.cnblogs.com/soyxiaobi/p/9846057.html)
+* [vue-本地mock后台-本地静态资源引入，解决跨域](https://zhuanlan.zhihu.com/p/139785015)
