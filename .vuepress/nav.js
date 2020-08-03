@@ -39,7 +39,7 @@ module.exports = [{
                 items: [
                     { text: 'Vue', link: 'https://cn.vuejs.org/index.html' },
                     { text: 'Vuepress', link: 'https://vuepress.docschina.org/guide/' },
-                    { text: 'uni-app', link: 'https://uniapp.dcloud.io/' },
+                    { text: 'Uni-app', link: 'https://uniapp.dcloud.io/' },
                     { text: 'Webpack', link: 'https://www.webpackjs.com/' }
                 ]
             },
@@ -47,7 +47,7 @@ module.exports = [{
                 text: '学习教程',
                 link: 'http://xuexizuoye.com',
                 items: [
-                    { text: 'bilibili', link: 'https://bilibili.com/' },
+                    { text: '哔哩哔哩', link: 'https://bilibili.com/' },
                     { text: 'MDN文档', link: 'https://developer.mozilla.org/zh-CN/' },
                     { text: '菜鸟教程', link: 'https://www.runoob.com/' },
                     { text: '吾爱破解', link: 'https://52pojie.cn/' },
@@ -71,13 +71,13 @@ module.exports = [{
         //link: '/web/',//有分类的情况下不推荐给上级目录页加上可点击路径
         items: [ //面试宝典导航下的子分类导航
             { text: 'Html', link: '/web/html/' }, //设置点击该导航时跳转路径，默认寻找该目录下的README.md文件
-            { text: 'css', link: '/web/css/' },
-            { text: 'js', link: '/web/js/' },
-            { text: 'vue', link: '/web/vue/' },
-            { text: '网络', link: '/web/network/' },
-            { text: '浏览器', link: '/web/browser/' },
-            { text: 'webpack', link: '/web/webpack/' },
-            { text: 'nodejs', link: '/web/nodejs/' }
+            { text: 'Css', link: '/web/css/' },
+            { text: 'JavaScript', link: '/web/js/' },
+            { text: 'Vue', link: '/web/vue/' },
+            { text: '网络相关', link: '/web/network/' },
+            { text: '浏览器知识', link: '/web/browser/' },
+            { text: 'Webpack', link: '/web/webpack/' },
+            { text: 'NodeJs', link: '/web/nodejs/' }
         ]
     },
     {

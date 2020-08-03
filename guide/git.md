@@ -129,6 +129,59 @@ git merge XXX分支名
 >> [程序员都要掌握的 Git](https://juejin.im/post/5b4d66125188251ace75ba27#heading-0)  
 >> [Sourcetree-界面窗口的git管理](https://juejin.im/post/59bc944d51882519777c5e07#heading-9)  
 >> [常用-git-命令](https://maomao1996.github.io/mm-notes/git/#常用-git-命令)  
+#### 版本标签
+1. 创建标签：
+```js
+// 给当前本地仓库代码打上一个标签 ---> commit 到本地仓库的版本
+// tagName一般是发布版本号，比如:V1.00
+git tag tagName
+```
+> 还可以添加的同时 备注信息： `git tag -a tagName -m "备注信息"`
+
+> 打`tag`也可在之前的版本上打，需要你知道某个提交对象的校验和 - 我称为 哈希值  
+```js
+// 通过git log获取，取校验和的前几位数字即可
+git tag -a tagName 哈希值 -m "标签描述"
+```
+2. 版本回退到某个版本，比如这里我们回退到没打`TagName`之前：
+```js
+// 为什么要回退，因为现在的场景是通过Tag将不同章节的知识点打上版本，方便学习者阅读
+// 分支也可以做到方便学习不同知识代码的目的
+// 哈希值可通过 git log 来查看
+git reset 哈希值
+```
+> 如果回退不了（本地代码有变动未提交），可强制回退：`git reset --hard 哈希值`
+3. 列出所有标签版本：
+```js
+git tag
+```
+4. 将标签同步到远程仓库：
+```js
+// 单独推送标签名为tagName的标签到远程仓库
+git push origin tagName
+```
+> 推送本地所有`tag`，使用`git push origin --tags`
+
+5. 某版本想查看指定`Tag`版本：
+```js
+// 这时候我们就切换回来了TagName版本
+git checkout TagName
+```
+6. 删除`Tag`：
+```js
+// 本地删除某个标签
+git tag -d TagName
+// 远程仓库删除 TagName
+git push origin :refs/tags/TagName
+```
+
+注意：
+`Tag` 与 `branch` 有什么区别呢？
+* `Tag` 常用发布版本，其创建出来的与分支的区别在于 分支是可随意修改的项目支线，标签只是在某个点打上标记，不可修改，游离于项目分支的单独一点。
+
+参考：
+* [git打tag](https://www.jianshu.com/p/cdd80dd15593)
+* [Git - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE)
 ## "奇技淫巧"
 ### github加速下载
 > 国内[github]的访问速度，大部分情况下还是比较堪忧  

@@ -27,6 +27,13 @@
 
 > 成品地址 ：<http://eleme.xuexizuoye.com/#/seller/goods>  
 
+* [云开发邂逅豆瓣电影](doubanmovies/大概描述.md)
+> 图片演示：[隐私问题没展示上传图片操作](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200803183025.gif)
+> [Github源码](https://github.com/Huansheng1/movie-cloud)
+## 正在写的项目
+### [云开发打造云音乐](music-cloud/readme)
+> Github：[云开发微信小程序音乐播放](https://github.com/Huansheng1/music-cloud)
+
 ## 计划中的实战项目
 **参考列表***：  
 网页：  
