@@ -17,7 +17,7 @@
 <img src="https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200701181426.png" alt="myBlog">
 
 ## 已完成项目
-* [饿了么实战上手](vue-eleme)
+* [饿了么网站实战](vue-eleme)
 
 > 图片演示：[商品详情忘记录制了](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200729170157.gif)
 
@@ -27,9 +27,20 @@
 
 > 成品地址 ：<http://eleme.xuexizuoye.com/#/seller/goods>  
 
+* [旧岛商业小程序](旧岛小程序)
+
+> 图片演示：![主要功能演示](https://pic.imgdb.cn/item/5f33cd6a14195aa594007dae.gif)
+
+> Github：[源码地址](https://github.com/Huansheng1/miniprogram_jiudao)   
+
+
+
 * [云开发邂逅豆瓣电影](doubanmovies/大概描述.md)
+
 > 图片演示：[隐私问题没展示上传图片操作](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200803183025.gif)
+
 > [Github源码](https://github.com/Huansheng1/movie-cloud)
+
 ## 正在写的项目
 ### [云开发打造云音乐](music-cloud/readme)
 > Github：[云开发微信小程序音乐播放](https://github.com/Huansheng1/music-cloud)
