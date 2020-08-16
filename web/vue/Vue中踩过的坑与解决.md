@@ -56,6 +56,76 @@ watch:{
 
 ## 优化时遇到的坑
 
+## 网络请求遇到的坑
+### 跨域问题
+`axios`是不能随便配置的哦
+
+我们之前不是写了一篇文章，最后贴出来了最终整理的封装代码么，于是，在某个项目中，我直接复制了之前的代码。
+
+请求之前，我先测试了下，嗯，这接口是允许跨域访问的；那就不用`vue.config.js`本地代理，直接使用吧。
+
+可是，一运行，emm，报错了？
+
+```html
+Request header field withCredentials is not allowed by Access-Control-Allow-Headers in preflight response.
+```
+> 中文翻译：在预发请求返回相应结果中，`Access-Control-Allow-Headers`不允许`request`请求使用带凭证的请求标头字段。
+
+所以，结果很明显了：
+
+* `axios`的属性 `withCredentials: true` 配置不能乱用，之前理解有误：服务器可能允许我们跨域请求，但并未设置允许我们跨域请求携带`cookies`，因此，不要将该属性设置为默认的哦。
+
+
+[详细原因](https://www.jb51.net/article/137278.htm)：
+* `HTTP` 请求方式有许多种，有些请求会触发 `CORS` 预检请求。“需预检的请求”会使用 `OPTIONS` 方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。
+
+* 对于跨域请求浏览器一般不会发送身份凭证信息。如果要发送凭证信息，需要设置 `XMLHttpRequest` 的 `withCredentials` 属性为 `true：withCredentials: true`。此时要求服务器的响应信息中携带 `Access-Control-Allow-Credentials: true`，否则响应内容将不会返回。
+
+* 另外，响应头中也携带了 `Set-Cookie` 字段，尝试对 `Cookie` 进行修改。如果操作失败，将会抛出异常。
+
+最后贴上后端解决跨域的常见代码：
+```js
+// 最简单的方法就是在被访问的服务端返回的内容上面加上Access-Control-Allow-Origin响应头, 值为*或是当前网站的域名. 使用*的话虽然方便, 但容易被别的网站乱用,总归有些不太安全; 设置为当前网站的域名的话又只能设置一个. 
+// 推荐解决办法是设置一个允许的域名白名单, 判断当前请求的refer地址是否在白名单里,如果是,就设置这个地址到Access-Control-Allow-Origin中去,否则就不设置这个响应头.
+response.setHeader("Access-Control-Allow-Origin", "*");
+// 后台通过cookie与前端交互的,但跨域时每次请求都是独立的,都会生成不同的cookie.为了保证前端与后端能够正常交互，后端需要设置这个，允许跨域请求携带cookies
+// 需要注意，如果使用，两者皆要使用，反之不行
+response.setHeader("Access-Control-Allow-Credentials", "true");
+// 允许所有请求方式
+response.setHeader("Access-Control-Allow-Methods", "*");
+// 请求头Content-Type字段内容没有在Access-Control-Allow-Headers中被设置为允许.可能也会发生错误
+response.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token");
+response.setHeader("Access-Control-Expose-Headers", "*");
+// header里面包含自定义字段，浏览器是会先发一次options请求，如果请求通过，则继续发送正式的post请求，而如果不通过则返回以上错误
+// 直接允许就行了
+if (request.getMethod().equals("OPTIONS")) {
+    HttpUtil.setResponse(response, HttpStatus.OK.value(), null);
+    return;
+}
+```
+
+或者 
+
+```php
+// php解决
+header('Access-Control-Allow-Methods:OPTIONS, GET, POST');
+header('Access-Control-Allow-Headers:x-requested-with');
+header('Access-Control-Max-Age:86400');  
+header('Access-Control-Allow-Origin:'.$_SERVER['HTTP_ORIGIN']);
+header('Access-Control-Allow-Credentials:true');
+header('Access-Control-Allow-Methods:GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers:x-requested-with,content-type');
+header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With');
+```
+
+参考文章：
+* [js网络请求跨域问题汇总(携带cookie)](https://www.jianshu.com/p/552daaf2869c)
+
+* [如何解决出现not allowed by Access-Control-Allow-Headers in preflight response.](https://www.cnblogs.com/caimuqing/p/6733405.html)
+
+* [前端AJAX请求跨域时遇到的一些坑](https://icewing.cc/post/about-cross-origin.html)
+
+* [前端 | 浅谈preflight request](https://www.jianshu.com/p/b55086cbd9af)
 ## 部署托管遇到的坑
 
 ### 多级路由刷新出现404问题

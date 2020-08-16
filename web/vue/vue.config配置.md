@@ -71,6 +71,20 @@ devServer: {
 * [Vue项目devServer.proxy代理配置详解](https://www.jianshu.com/p/8493282fe232)
 * [Vue项目devServer.proxy代理配置详解](https://www.jianshu.com/p/8493282fe232)
 * [详解Webpack-dev-server的proxy用法](https://www.jb51.net/article/147081.htm)
+### 关闭SourceMap生成功能
+```js
+productionSourceMap:false
+```
+这样能避免我们线上环境将源码暴露，也能加快打包速度！
+
+> [配置参考 | Vue CLI](https://cli.vuejs.org/zh/config/#productionsourcemap)
+### 彻底删除js预加载
+```js
+// 删除js预加载功能，真正做到只在使用时加载
+  chainWebpack: config => {
+    config.plugins.delete("prefetch");
+  }
+```
 ## 完整配置
 ```js
 // vue.config.js
@@ -100,6 +114,8 @@ module.exports = {
             args[0].chunksSortMode = "none";
             return args;
         });
+        // 删除预加载功能
+        config.plugins.delete("prefetch");
         config.resolve.alias // 添加别名
             .set('@', resolve('src'))
             .set('@assets', resolve('src/assets'))
