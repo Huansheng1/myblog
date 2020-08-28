@@ -77,7 +77,8 @@ module.exports = [{
             { text: '网络相关', link: '/web/network/' },
             { text: '浏览器知识', link: '/web/browser/' },
             { text: 'Webpack', link: '/web/webpack/' },
-            { text: 'NodeJs', link: '/web/nodejs/' }
+            { text: 'NodeJs', link: '/web/nodejs/' },
+            { text: '小程序', link: '/web/小程序/' }
         ]
     },
     {
