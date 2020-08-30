@@ -94,7 +94,7 @@ module.exports = [
       { text: "Webpack", link: "/web/webpack/" },
       { text: "NodeJs", link: "/web/nodejs/" },
       { text: "小程序", link: "/web/小程序/" },
-      { text: "Angular", link: "/web/Angular" },
+      { text: "Angular", link: "/web/angular/" },
     ],
   },
   {
