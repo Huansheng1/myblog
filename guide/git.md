@@ -368,6 +368,8 @@ git push gitee master
 ![image.png](https://i.loli.net/2020/06/04/EndHis9XPxTU5hG.png)
 ## git错误及解决
 > git错误及解决-[点我](../article/gitError)
+
+> git踩到的坑-[点我](git踩到的坑)
 ## git工具
 ### vscode图形化管理
 1. 查看仓库：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721164428.png)

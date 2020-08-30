@@ -13,7 +13,9 @@
 ### [promise简单入门](promise简单入门.md)
 ### 计划中，暂未写
 > 后面的暂未写，待更新....
-* [作用域、匿名函数、执行上下文与词法环境](作用域、匿名函数、执行上下文与词法环境.md)
+<!-- * [作用域、匿名函数、执行上下文与词法环境](作用域、匿名函数、执行上下文与词法环境.md)
 * [this指针与全局对象](this指针与全局对象.md)
 * [迭代、递归 与 遍历](迭代、递归 与 遍历.md)
-* [对象属性特性与Ojbect.defineProperty](对象属性特性与Ojbect.defineProperty().md)
+* [对象属性特性与Ojbect.defineProperty](对象属性特性与Ojbect.defineProperty().md) -->
+## typescript
+### [typescript](typescript/)
