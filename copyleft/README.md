@@ -42,11 +42,12 @@
 > [Github源码](https://github.com/Huansheng1/movie-cloud)
 
 ## 正在写的项目
+### [NodeJs开发旧岛后端](NodeJs开发旧岛后端)
+
 ### [云开发打造云音乐](music-cloud)
 > Github：[云开发微信小程序音乐播放](https://github.com/Huansheng1/music-cloud)
 
 ### [蘑菇街电商移动端Webapp](蘑菇街)
-
 
 ## 计划中的实战项目
 **参考列表***：  
