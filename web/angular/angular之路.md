@@ -66,55 +66,61 @@ ng g c xxx
 
 2. 自动创建指令：`ng g d MyDirective`
 3. 自动创建服务：`ng g s MyService`
+4. 自动创建模块：`ng g m MyModule`
 
 ## angualar 项目目录结构
+
 > [模块、组件和服务都是使用装饰器的类，这装饰器会标出它们的类型并提供元数据，以告知 Angular 该如何使用它们。](https://angular.cn/guide/architecture#introduction-to-angular-concepts)
+
 ### NgModule - 模块
-* 每个 Angular 应用都有一个根模块，通常命名为 `AppModule`。根模块提供了用来启动应用的引导机制。
-* `NgModule` 为其中的组件提供了一个编译上下文环境。根模块总会有一个根组件，并在引导期间创建它。
-* 模块里最少有一个组件，那些属于这个 `NgModule` 的组件会共享同一个编译上下文环境。
-* 应该类似于 包 机制。
-* 我将 模块 理解为 该项目的最小独立功能单元
+
+- 每个 Angular 应用都有一个根模块，通常命名为 `AppModule`。根模块提供了用来启动应用的引导机制。
+- `NgModule` 为其中的组件提供了一个编译上下文环境。根模块总会有一个根组件，并在引导期间创建它。
+- 模块里最少有一个组件，那些属于这个 `NgModule` 的组件会共享同一个编译上下文环境。
+- 应该类似于 包 机制。
+- 我将 模块 理解为 该项目的最小独立功能单元
 
 示例：
+
 ```js
 // app.module.ts
 // 导入模块的原因
 // 当你想要在浏览器中运行应用时
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+// Angular核心模块
+import { NgModule } from "@angular/core";
 // 双向绑定需要导入该项
-import  {FormsModule} from "@angular/forms";
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { FormsModule } from "@angular/forms";
+// Angular路由模块
+import { AppRoutingModule } from "./app-routing.module";
+// 根组件
+import { AppComponent } from "./app.component";
 
 @NgModule({
   // 属于本 NgModule 的组件、指令、管道。
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   // 导入哪些模块使用
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  // 配置项目所需要的的服务
   providers: [],
   // 应用的主视图，称为根组件。
   // 它是应用中所有其它视图的宿主。只有根模块才应该设置这个 bootstrap 属性。
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 // 将本模块的哪些东西导出给其他模块使用
-export class AppModule { }
+// 根模块不需要导出任何东西，其他模块才需要
+export class AppModule {}
 
 // 更多信息：https://angular.cn/guide/architecture-modules
 ```
+
 ### 组件
-* 组件分为 模板html、样式css、行为ts文件
-* 我将 组件 理解为 渲染视图（界面）的最小单元
+
+- 组件分为 模板 html、样式 css、行为 ts 文件
+- 我将 组件 理解为 渲染视图（界面）的最小单元
 
 示例：
+
 ```js
 // app.component.ts
 // 从 @angular/core 库中导入 Angular 的 Component 装饰器
@@ -133,7 +139,7 @@ export class AppComponent {
   inputText = '';
   title = '6666';
   flag = false;
-  obj = { 
+  obj = {
     a: 666
    };
   message = ['Hello Vue.js!', 'Hello!', ' Vue.js!', 'e.js!'];
@@ -153,11 +159,14 @@ export class AppComponent {
 }
 // public声明公共的，可被其他模块import 导入使用
 ```
+
 ### 服务
-* 模块之间 共同的方法与数据共享，通过 依赖注入 使用
-> 与视图耦合度不高，可复用或者功能较独立的东西，我觉得抽离到服务里再使用比较合适
+
+- 模块之间 共同的方法与数据共享，通过 依赖注入 使用
+  > 与视图耦合度不高，可复用或者功能较独立的东西，我觉得抽离到服务里再使用比较合适
 
 > 常用于`api`请求
+
 ## angualar 的 api 与 vue 的 api 对比
 
 ### 数据存放
@@ -274,15 +283,16 @@ export class AppComponent {
 2. `angular`属性内是可以使用 模板插值语法的，因此，上述的 属性绑定变量也可以这样写：`<img src="{{url + '.png'}}" />`
 3. 带方括号 或者 模板插值 时，等号内必须是一个变量、对象或表达式，不能是普通字符串；如果非要是字符串数据，请用 单引号包裹起来：`[src]="'https://x.xx.com/xxx.jpg'"`
 4. `angular`中动态绑定样式：
+
 ```html
 <!-- 普通写法 -->
 <div [class]="flag ? 'test' : ''">
-    <!-- ... -->
+  <!-- ... -->
 </div>
 <!-- 单个样式快速写法 -->
 <!-- [class.样式名]="判断表达式" 是在应用单个class时的常用技巧 -->
 <div [class.test]="flag">
-    <!-- ... -->
+  <!-- ... -->
 </div>
 ```
 
@@ -325,12 +335,13 @@ public changeShow(e: object): void {
     this.flag = !this.flag;
   }
 ```
-3. [angular绑定事件与监听输入](https://angular.cn/guide/user-input)
+
+3. [angular 绑定事件与监听输入](https://angular.cn/guide/user-input)
 
 常用事件：
-* `key.enter`：回车事件
-* `blur`：失去焦点事件
 
+- `key.enter`：回车事件
+- `blur`：失去焦点事件
 
 ### `v-modal`---> `ngModal`
 
@@ -346,30 +357,33 @@ public changeShow(e: object): void {
 <input type="text" name="" id="" [(ngModel)]="inputText" />
 <div>{{ inputText }}</div>
 ```
+
 ```js
 // vue语法获取虚拟Dom对象 .$refs.box
 data: {
-  inputText: ''
+  inputText: "";
 }
 // angular语法 传入直接使用即可
-inputText = '';
+inputText = "";
 ```
+
 注意：
-* `angular`的双向绑定指令无法直接使用，必须先导入对应的模块；
-* 在`app.module.ts`中导入`FormsModule`：
+
+- `angular`的双向绑定指令无法直接使用，必须先导入对应的模块；
+- 在`app.module.ts`中导入`FormsModule`：
+
 ```js
 // 双向绑定需要导入该项
-import  {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 ```
-* 将要使用的模块加入到列表里：
+
+- 将要使用的模块加入到列表里：
+
 ```js
 // 导入哪些模块使用
-imports: [
-  BrowserModule,
-  AppRoutingModule,
-  FormsModule
-]
+imports: [BrowserModule, AppRoutingModule, FormsModule];
 ```
+
 ### `ref` ---> `#`
 
 > 代码对比：
@@ -394,6 +408,7 @@ imports: [
   </ng-template>
 </div>
 ```
+
 ```js
 // vue语法获取虚拟Dom对象 .$refs.box
 changeShow(v){
@@ -406,6 +421,7 @@ public onEnter(v: any): void {
   console.log(v.offsetHeight)
 }
 ```
+
 注意：
 
 1. `vue`可不给相应方法传入数据，直接在方法里通过`$refs.box`直接获得虚拟`Dom`对象
@@ -421,6 +437,7 @@ public onEnter(v: any): void {
 <!-- angular语法 内置管道 -->
 <div>{{ time | date:'medium' }}</div>
 ```
+
 ```js
 // vue语法
 filters: {
@@ -431,64 +448,79 @@ filters: {
 // angular语法 传入直接使用即可
 time = new Date();
 ```
+
 注意：
 
-1. `vue`过滤器处理方法需要定义，而`angular`管道则内置了不少方法；更多请查看：[内置管道Api文档](https://angular.cn/api?type=pipe)
-2. [angular自定义管道格式方法](https://blog.csdn.net/hbiao68/article/details/84563018)
+1. `vue`过滤器处理方法需要定义，而`angular`管道则内置了不少方法；更多请查看：[内置管道 Api 文档](https://angular.cn/api?type=pipe)
+2. [angular 自定义管道格式方法](https://blog.csdn.net/hbiao68/article/details/84563018)
 
 ### 自定义指令 ---> 指令
-* vue：[自定义指令](https://cn.vuejs.org/v2/guide/custom-directive.html)
 
-* angular：[指令](https://angular.cn/guide/architecture-components#directives)、[详细自定义指令](https://angular.cn/guide/attribute-directives#write-the-directive-code)
+- vue：[自定义指令](https://cn.vuejs.org/v2/guide/custom-directive.html)
+
+- angular：[指令](https://angular.cn/guide/architecture-components#directives)、[详细自定义指令](https://angular.cn/guide/attribute-directives#write-the-directive-code)
 
 [大概步骤](https://angular.cn/guide/attribute-directives#write-the-directive-code)：
+
 1. 终端输入：`ng generate directive highlight` - 创建 自定义指令的文件，脚手架自动生成的文件有：
-* > `src/app/highlight.directive.ts`
-* > `src/app/highlight.directive.spec.ts`
-* > 在根模块 AppModule 中声明这个指令类
+
+- > `src/app/highlight.directive.ts`
+- > `src/app/highlight.directive.spec.ts`
+- > 在根模块 AppModule 中声明这个指令类
+
 2. `src/app/highlight.directive.ts`代码：
+
 ```js
 // 导入 Angular 的 @Directive 装饰器 、还从 Angular 的 core 库中导入了一个 ElementRef 符号。
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef } from "@angular/core";
 // 在选择器名字前面添加前缀，以确保它们不会与标准 HTML 属性冲突。 它同时减少了与第三方指令名字发生冲突的危险。
 // 叫myHighlight也是可以的
 @Directive({
-  selector: '[appHighlight]'
+  selector: "[appHighlight]",
 })
 export class HighlightDirective {
   constructor(el: ElementRef) {
     // ElementRef 通过其 nativeElement 属性给你了直接访问宿主 DOM 元素的能力。
-       el.nativeElement.style.backgroundColor = 'yellow';
-    }
+    el.nativeElement.style.backgroundColor = "yellow";
+  }
 }
 ```
+
 3. 使用自定义属性指令：
+
 ```html
 <!-- src/app/app.component.html -->
 <p appHighlight>Highlight me!</p>
 ```
+
 ### 安全导航运算符(？)
 
-vue好像没有该功能，一般通过`v-if`或者`xxx&&xxx.xx`之类的方法间接达到类似效果
+vue 好像没有该功能，一般通过`v-if`或者`xxx&&xxx.xx`之类的方法间接达到类似效果
 
-angular代码：
+angular 代码：
+
 ```html
 <div>{{ obj?.a }}</div>
 ```
+
 ```js
-obj = { 
-    a: 666
-   };
+obj = {
+  a: 666,
+};
 ```
+
 作用：
-* 对在属性路径中出现 `null` 和 `undefined` 值进行保护；避免空指针错误导致视图渲染失败。
-* 使用安全导航运算符 `?`，当 `Angular` 表达式遇到第一个空值时，它将停止对表达式的求值，并渲染出无错误的视图。（也就是空白符）
+
+- 对在属性路径中出现 `null` 和 `undefined` 值进行保护；避免空指针错误导致视图渲染失败。
+- 使用安全导航运算符 `?`，当 `Angular` 表达式遇到第一个空值时，它将停止对表达式的求值，并渲染出无错误的视图。（也就是空白符）
 
 注意事项：
+
 1. 前者`obj为例`，必须要是“正常”对象类型，数组什么的都不行
 2. 后面只可以是`.属性名`，不可用`[]`
 3. 主要是 处理 `null` 和 `undefined` 值；对于空对象或者属性不存在时渲染还是会报错的
 
 ## 生命周期
-* [vue文档](https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
-* [angular文档](https://angular.cn/guide/lifecycle-hooks)
+
+- [vue 文档](https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
+- [angular 文档](https://angular.cn/guide/lifecycle-hooks)
