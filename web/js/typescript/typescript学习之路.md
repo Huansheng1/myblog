@@ -32,7 +32,10 @@ tsc demo.ts
 ```
 ## 开始学习
 > [官方手册](https://www.typescriptlang.org/docs/handbook/basic-types.html)
-
+### 声明方式
+1. `public`：默认声明，所有文件都可获取使用该属性
+2. `protected`：只有当前类和其子类可访问该属性
+3. `private`：只有当前类可访问该属性
 ### 变量类型指定
 变量可自己手动设置类型`: string` 也可根据 变量值 自动设置 类型，因此 变量类型一旦确定，不可赋予 新类型的值；但是，`: unknown` 表示 我们手动指定 一个不确定的值！
 ```typescript

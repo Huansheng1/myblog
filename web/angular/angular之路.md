@@ -263,6 +263,8 @@ export class AppComponent {
 
 - `elseBlock` 是固定的，不能改哦；`else`必须在`ng-template`上，好像没有语法糖简写哦。
 
+* `ngSwitch`：![](https://pic.downk.cc/item/5f61c79c160a154a6771203e.jpg)
+
 ### `v-bind`或者`:` ---> `[]`
 
 > 代码对比：
@@ -295,6 +297,37 @@ export class AppComponent {
   <!-- ... -->
 </div>
 ```
+
+### `v-html` ---> `[innerHtml]`
+
+> 代码对比：
+
+```html
+<!-- vue语法 -->
+<div id="app">
+  <div v-html="message">测试</p>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    message: '<h1>innerHtml测试效果啊</h1>'
+  }
+})
+</script>
+<!-- angular语法 -->
+<!-- html文件 -->
+<div [innerHtml]="content"></div>
+<!-- Js文件 -->
+export class HeaderComponent implements OnInit {
+  content:string = '<h1>innerHtml测试效果啊</h1>';
+  constructor() {}
+  ngOnInit(): void {}
+}
+```
+效果：
+* ![](https://pic.downk.cc/item/5f61ba9c160a154a676e12d1.jpg)
+* ![](https://pic.downk.cc/item/5f61bab9160a154a676e1b7c.jpg)
 
 ### `v-on`或者`@` ---> `()`
 
