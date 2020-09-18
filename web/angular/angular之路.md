@@ -265,6 +265,23 @@ export class AppComponent {
 
 * `ngSwitch`：![](https://pic.downk.cc/item/5f61c79c160a154a6771203e.jpg)
 
+* 和`vue`一样，`*ngIf`和`*ngFor`是有优先级冲突的，不能同时写在一个标签上。
+
+### `v-show` ---> `[hidden]`
+
+> 代码对比：
+
+```html
+<!-- vue语法 -->
+<div v-show="flag">
+  <div>我显示</div>
+</div>
+<!-- angular语法 -->
+<div [hidden]="flag">
+  <div>我显示</div>
+</div>
+```
+
 ### `v-bind`或者`:` ---> `[]`
 
 > 代码对比：
@@ -298,6 +315,10 @@ export class AppComponent {
 </div>
 ```
 
+- 对象形式绑定样式：![](https://pic.downk.cc/item/5f61c8d6160a154a67716525.jpg)
+- 配合循环更改样式：![](https://pic.downk.cc/item/5f61c963160a154a67717dd0.jpg)
+- 动态设置行内样式：![](https://pic.downk.cc/item/5f62fd53160a154a67c74de4.jpg)
+
 ### `v-html` ---> `[innerHtml]`
 
 > 代码对比：
@@ -325,9 +346,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 }
 ```
+
 效果：
-* ![](https://pic.downk.cc/item/5f61ba9c160a154a676e12d1.jpg)
-* ![](https://pic.downk.cc/item/5f61bab9160a154a676e1b7c.jpg)
+
+- ![](https://pic.downk.cc/item/5f61ba9c160a154a676e12d1.jpg)
+- ![](https://pic.downk.cc/item/5f61bab9160a154a676e1b7c.jpg)
 
 ### `v-on`或者`@` ---> `()`
 
@@ -457,8 +480,77 @@ public onEnter(v: any): void {
 
 注意：
 
-1. `vue`可不给相应方法传入数据，直接在方法里通过`$refs.box`直接获得虚拟`Dom`对象
+1. `vue`可不给相应方法传入数据，直接在方法里通过`this.$refs.box`直接获得虚拟`Dom`对象
 2. `angular`不传入的话，经测试通过`this`获取好像是不行的？
+
+> 其实`angular`也是可以不传入直接获取元素 Dom 对象或者组件对象的
+
+这里，我们需要使用[`ViewChild`](https://angular.cn/api/core/ViewChild)属性装饰器：
+
+1. 给想要获取的元素/组件 做个`#`标记：
+
+```html
+<div [class.test]="flag" #box>
+  <div *ngIf="flag; else elseBlock">
+    <div>我显示</div>
+  </div>
+  <ng-template #elseBlock>
+    <div>现在为假</div>
+  </ng-template>
+</div>
+```
+
+2. 给`ts`文件导入装饰器并使用
+
+```ts
+// 从 @angular/core 库中导入 Angular 的 Component 装饰器
+import { Component, ViewChild } from "@angular/core";
+
+export class AppComponent {
+  // 通过box获取到标记的Dom对象将赋值给变量 myBox ，该变量类型为any
+  @ViewChild("box") myBox: any;
+
+  public onEnter(): void {
+    // 注意，Dom对象需要用 .nativeElement 属性
+    console.log(this.myBox.nativeElement.innerText);
+    console.log(this.myBox.nativeElement.offsetHeight);
+  }
+}
+```
+
+调用组件方法同理：
+```ts
+// header.component.ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+})
+export class HeaderComponent implements OnInit {
+  public console(): void {
+    console.log('调用组件方法');
+  }
+  constructor() {}
+  ngOnInit(): void {}
+}
+```
+
+
+```html
+<app-header #header></app-header>
+```
+
+```ts
+export class AppComponent {
+  @ViewChild("header") myHeader: any;
+  // 方法声明
+  public onEnter(): void {
+    this.myHeader.console();
+  }
+}
+```
 
 ### 过滤器 ---> 管道
 
@@ -557,3 +649,36 @@ obj = {
 
 - [vue 文档](https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
 - [angular 文档](https://angular.cn/guide/lifecycle-hooks)
+
+生命周期示意图：![https://www.jianshu.com/p/a2f1d54097f8](https://pic.downk.cc/item/5f646af6160a154a673ad776.jpg)
+
+> `tips：`
+
+- 绿色表示 指令与组件共用的生命周期钩子
+- 蓝色表示 组件特有的生命周期钩子
+
+> 指令生命周期钩子的作用及调用顺序：
+
+1. `ngOnChanges` - 当数据绑定输入属性的值发生变化时调用
+2. `ngOnInit` - 在第一次 ngOnChanges 后调用
+
+- > 大致等于 `vue`的`created`钩子
+
+3. `ngDoCheck` - 自定义的方法，用于检测和处理值的改变
+4. `ngAfterContentInit` - 在组件内容初始化之后调用
+5. `ngAfterContentChecked` - 组件每次检查内容时调用
+6. `ngAfterViewInit` - 组件相应的视图初始化之后调用
+
+- > 大致等于 `vue`的 `mouted`钩子
+
+7. `ngAfterViewChecked` - 组件每次检查视图时调用
+8. `ngOnDestroy` - 指令销毁前调用
+
+注意事件：
+
+- `constructor`多用于 简单数据初始化、依赖注入，会在所有生命周期钩子之前先被调用
+
+更多：
+
+- [angular 生命周期 - 当然，结合上面的官方文档食用更佳！](https://www.jianshu.com/p/a2f1d54097f8)
+- [Angular 生命周期完全指南](https://www.zcfy.cc/article/the-a-to-z-guide-to-angular-lifecycle)
