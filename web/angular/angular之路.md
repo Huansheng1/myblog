@@ -86,15 +86,15 @@ ng g c xxx
 // app.module.ts
 // 导入模块的原因
 // 当你想要在浏览器中运行应用时
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule } from '@angular/platform-browser'
 // Angular核心模块
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core'
 // 双向绑定需要导入该项
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms'
 // Angular路由模块
-import { AppRoutingModule } from "./app-routing.module";
+import { AppRoutingModule } from './app-routing.module'
 // 根组件
-import { AppComponent } from "./app.component";
+import { AppComponent } from './app.component'
 
 @NgModule({
   // 属于本 NgModule 的组件、指令、管道。
@@ -417,10 +417,10 @@ public changeShow(e: object): void {
 ```js
 // vue语法获取虚拟Dom对象 .$refs.box
 data: {
-  inputText: "";
+  inputText: ''
 }
 // angular语法 传入直接使用即可
-inputText = "";
+inputText = ''
 ```
 
 注意：
@@ -430,14 +430,14 @@ inputText = "";
 
 ```js
 // 双向绑定需要导入该项
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms'
 ```
 
 - 将要使用的模块加入到列表里：
 
 ```js
 // 导入哪些模块使用
-imports: [BrowserModule, AppRoutingModule, FormsModule];
+imports: [BrowserModule, AppRoutingModule, FormsModule]
 ```
 
 ### `ref` ---> `#`
@@ -504,24 +504,29 @@ public onEnter(v: any): void {
 
 ```ts
 // 从 @angular/core 库中导入 Angular 的 Component 装饰器
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild } from '@angular/core'
 
 export class AppComponent {
   // 通过box获取到标记的Dom对象将赋值给变量 myBox ，该变量类型为any
-  @ViewChild("box") myBox: any;
+  @ViewChild('box') myBox: any
 
   public onEnter(): void {
     // 注意，Dom对象需要用 .nativeElement 属性
-    console.log(this.myBox.nativeElement.innerText);
-    console.log(this.myBox.nativeElement.offsetHeight);
+    console.log(this.myBox.nativeElement.innerText)
+    console.log(this.myBox.nativeElement.offsetHeight)
+    // 操作Dom修改样式
+    this.mybox.nativeElement.style.width = '200px'
+    this.mybox.nativeElement.style.height = '200px'
+    this.mybox.nativeElement.style.background = 'pink'
   }
 }
 ```
 
 调用组件方法同理：
+
 ```ts
 // header.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-header',
@@ -530,13 +535,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   public console(): void {
-    console.log('调用组件方法');
+    console.log('调用组件方法')
   }
   constructor() {}
   ngOnInit(): void {}
 }
 ```
-
 
 ```html
 <app-header #header></app-header>
@@ -544,12 +548,265 @@ export class HeaderComponent implements OnInit {
 
 ```ts
 export class AppComponent {
-  @ViewChild("header") myHeader: any;
+  @ViewChild('header') myHeader: any
   // 方法声明
   public onEnter(): void {
-    this.myHeader.console();
+    this.myHeader.console()
   }
 }
+```
+
+### `props` ---> `@input装饰器`
+
+_父组件向子组件传值常规用法：_
+
+> 代码对比：
+
+```html
+<!-- 注意，angular组件使用了ng的指令 ng g c xxx组件 创建的，自动在app.module.ts里引入了 header和home，因此不需要我们手动引入 -->
+
+<!-- vue语法  -->
+<!-- header.vue里html代码 -->
+<p>{{ title }}</p>
+<!-- home.vue里html代码 -->
+<app-header :title="title"></app-header>
+<hr />
+<p>主页的内容！</p>
+
+<!-- angular语法  -->
+
+<!-- header.components.html里代码 -->
+<p>{{ title }}</p>
+<!-- home.components.html代码 -->
+<app-header [title]="title"></app-header>
+<hr />
+<p>主页的内容！</p>
+```
+
+```ts
+// vue语法
+
+// header.vue里javaScript代码
+props: {
+  title: {
+    type: String,
+    default: ''
+  }
+}
+
+// angular语法
+
+// header.component.ts 子组件接受并使用
+// 先引入Input装饰器
+import { Component, OnInit, Input } from '@angular/core'
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+})
+export class HeaderComponent implements OnInit {
+  @Input() title: any // 用title变量存储起来
+  constructor() {}
+  ngOnInit(): void {}
+}
+
+// home.component.ts  父组件准备传入的变量
+import { Component, OnInit } from '@angular/core'
+import { HeaderComponent } from './../header/header.component'
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+})
+export class HomeComponent implements OnInit {
+  public title: string = '父组件title变量'
+  constructor() {}
+
+  ngOnInit(): void {}
+}
+```
+
+_父组件向子组件传值进阶用法：_
+
+> `angular`代码：
+
+```html
+<!-- angular语法  -->
+
+<!-- header.components.html里代码 -->
+<p>{{ title }} --- {{ info }}</p>
+
+<!-- home.components.html代码 -->
+<!-- 分别传递了 title变量、固定字符串和父组件自己 -->
+<app-header
+  [title]="title"
+  [info]="'你猜我传了啥'"
+  [parent]="this"
+></app-header>
+<hr />
+<p>主页的内容！</p>
+```
+
+```ts
+// angular语法
+
+// header.component.ts 子组件接受并使用
+// 先引入Input装饰器
+import { Component, OnInit, Input } from '@angular/core'
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+})
+export class HeaderComponent implements OnInit {
+  @Input() title: any
+  @Input() info: string
+  @Input() parent: any
+
+  constructor() {}
+
+  ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    console.log(this.info)
+    this.parent.say()
+  }
+}
+
+// home.component.ts  父组件准备传入的变量
+import { Component, OnInit } from '@angular/core'
+import { HeaderComponent } from './../header/header.component'
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+})
+export class HomeComponent implements OnInit {
+  public title: string = '父组件title变量'
+  public say(): void {
+    console.log('父组件方法执行---say！')
+  }
+  constructor() {}
+
+  ngOnInit(): void {}
+}
+```
+
+### `$emit` ---> `@Output装饰器`、`EventEmitter`
+
+> 使用 上面的`ViewChild`虽然可以做到 父组件调用执行子组件的方法，但是，这是主动调用，通过 事件触发机制，我们可以被动地由子组件触发
+
+> 代码对比：
+
+```html
+<!-- angular语法 事件触发 -->
+
+<!-- header.component.html代码 -->
+<button (click)="handleClick()">子组件按钮</button>
+<!-- home.component.html代码 -->
+<app-header (headerClick)="handleClick($event)"></app-header>
+<hr />
+<p>主页的内容！</p>
+```
+
+```js
+// angular语法
+
+// header.component.ts
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+})
+export class HeaderComponent implements OnInit {
+  // 通过EventEmitter()创建一个自定义事件，再通过@Output()装饰器向外暴露这个自定义事件（事件广播）
+  @Output() headerClick: any = new EventEmitter();
+  public handleClick(): void {
+    console.log('子组件按钮被点击');
+    this.headerClick.emit('子组件传递给父组件的内容');
+  }
+  constructor() {}
+
+  ngOnInit(): void {}
+  ngAfterViewInit(): void {}
+}
+// home.components.ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+})
+export class HomeComponent implements OnInit {
+  public handleClick(event): void {
+    console.log('父组件方法执行---', event);
+  }
+  constructor() {}
+
+  ngOnInit(): void {}
+}
+
+```
+
+`Vue代码`：
+
+```html
+<!-- Header.vue -->
+<template>
+  <div>
+    <button @click="handlerClick">点我</button>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Header',
+    props: {
+      msg: String,
+    },
+    methods: {
+      handlerClick() {
+        this.$emit('headerClick', '子组件传递给父组件的方法')
+      },
+    },
+  }
+</script>
+<style scoped></style>
+```
+
+```html
+<!-- Home.vue -->
+<template>
+  <div class="root">
+    <header @headerClick="handerClick"></header>
+    <hr />
+    <p>主页的内容！</p>
+  </div>
+</template>
+
+<script>
+  import Header from './Header'
+  export default {
+    name: 'HelloWorld',
+    props: {
+      msg: String,
+    },
+    components: {
+      Header,
+    },
+    methods: {
+      handerClick(value) {
+        console.log('父组件方法执行---', value)
+      },
+    },
+  }
+</script>
+<style scoped></style>
 ```
 
 ### 过滤器 ---> 管道
@@ -597,16 +854,16 @@ time = new Date();
 
 ```js
 // 导入 Angular 的 @Directive 装饰器 、还从 Angular 的 core 库中导入了一个 ElementRef 符号。
-import { Directive, ElementRef } from "@angular/core";
+import { Directive, ElementRef } from '@angular/core'
 // 在选择器名字前面添加前缀，以确保它们不会与标准 HTML 属性冲突。 它同时减少了与第三方指令名字发生冲突的危险。
 // 叫myHighlight也是可以的
 @Directive({
-  selector: "[appHighlight]",
+  selector: '[appHighlight]',
 })
 export class HighlightDirective {
   constructor(el: ElementRef) {
     // ElementRef 通过其 nativeElement 属性给你了直接访问宿主 DOM 元素的能力。
-    el.nativeElement.style.backgroundColor = "yellow";
+    el.nativeElement.style.backgroundColor = 'yellow'
   }
 }
 ```
@@ -631,7 +888,7 @@ angular 代码：
 ```js
 obj = {
   a: 666,
-};
+}
 ```
 
 作用：
@@ -660,16 +917,28 @@ obj = {
 > 指令生命周期钩子的作用及调用顺序：
 
 1. `ngOnChanges` - 当数据绑定输入属性的值发生变化时调用
+
+- > 父组件向子组件传的值或者值变化时会触发。
+
 2. `ngOnInit` - 在第一次 ngOnChanges 后调用
 
-- > 大致等于 `vue`的`created`钩子
+- > **大致等于 `vue`的`created`钩子，一般用于请求数据。**
 
 3. `ngDoCheck` - 自定义的方法，用于检测和处理值的改变
+
+- > 数据改变后触发，可用于检测之前的操作是否如期运行。
+
 4. `ngAfterContentInit` - 在组件内容初始化之后调用
+
+- > 组件初始化完成后
+
 5. `ngAfterContentChecked` - 组件每次检查内容时调用
+
+- > 类似于上面的`ngDoCheck`相对于 数据初始化 的意义，在 组件初始化完成后才运行，可看作 检查阶段
+
 6. `ngAfterViewInit` - 组件相应的视图初始化之后调用
 
-- > 大致等于 `vue`的 `mouted`钩子
+- > **视图全部渲染完成，大致等于 `vue`的 `mouted`钩子，如果涉及到元素则在这调用。**
 
 7. `ngAfterViewChecked` - 组件每次检查视图时调用
 8. `ngOnDestroy` - 指令销毁前调用
@@ -682,3 +951,241 @@ obj = {
 
 - [angular 生命周期 - 当然，结合上面的官方文档食用更佳！](https://www.jianshu.com/p/a2f1d54097f8)
 - [Angular 生命周期完全指南](https://www.zcfy.cc/article/the-a-to-z-guide-to-angular-lifecycle)
+
+## RxJS - 异步解决方案
+
+之前我所知道的异步解决方案：
+
+1. 回调函数`CallBackFunction`
+2. `promise`
+3. `async`和`await`
+
+`angular`提供一种新的异步解决方案（用法类似于`promise`，但更强大）
+
+### **基础用法**：
+
+1. 创建公共的服务（为了顺带学习下服务的使用与注入）：`ng g s service/service`
+2. `service.service.ts`文件定义个异步方法
+
+```ts
+import { Injectable } from '@angular/core'
+// 引入rxjs的Observable
+import { Observable } from 'rxjs'
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ServiceService {
+  // 模拟异步返回数据
+  public getRxjsData(): any {
+    // 返回Observable实例
+    return new Observable((oberver) => {
+      // 定时器模拟异步操作
+      setTimeout(() => {
+        // 类似于resolve将成功的数据传递出去
+        oberver.next('定时器运行完毕')
+        // oberver.error('错误结果');// 类似于reject
+      }, 3000)
+    })
+  }
+  constructor() {}
+}
+```
+
+3. `header.component.ts`文件引入并注入服务，获取异步返回的值：
+
+```ts
+import { Component } from '@angular/core'
+// 引入服务
+import { ServiceService } from '../../service/service.service'
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+})
+export class HeaderComponent {
+  public handleClick(): void {
+    // 调用服务类里的异步方法
+    // subscribe类似于promise的then方法
+    this.serviceService.getRxjsData().subscribe((res) => {
+      console.log('header组件接收到的数据：', res)
+    })
+  }
+  // 依赖注入服务
+  constructor(private serviceService: ServiceService) {}
+}
+```
+
+### 强大之处
+
+#### **`unsubscribe`取消订阅**
+
+> 理解：异步操作依旧会执行，但是订阅会被取消，也就是说，我们之前设置`subscribe`不再执行。
+
+```html
+<button (click)="handleClick()">子组件按钮</button>
+<button (click)="cancleClick()">取消异步执行</button>
+```
+
+```ts
+import { Component } from '@angular/core'
+// 引入服务
+import { ServiceService } from '../../service/service.service'
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+})
+export class HeaderComponent {
+  public rxjs: any
+  public handleClick(): void {
+    console.log('子组件按钮被点击')
+    this.rxjs = this.serviceService.getRxjsData().subscribe((res) => {
+      console.log('header组件接收到的数据：', res)
+    })
+  }
+  public cancleClick(): void {
+    console.log('取消按钮被点击')
+    // 取消订阅
+    this.rxjs.unsubscribe()
+  }
+  constructor(private serviceService: ServiceService) {}
+}
+```
+
+效果：点击取消按钮后不再进入之前设置的订阅回调事件里
+
+#### **`next`多次传值**
+
+`Promise`我们知道：状态一旦更改就不可改变，因此，每个`Promise`对象只会`resolve`一个值，但`Rxjs`不一样，其`next`可一直传递出去。
+
+通过一个`subcribe`订阅可以一直接收到发射过来的数据。
+
+因此，其实`Rxjs`与`Promise`还是不一样的，它更像是个`事件监听与订阅`的机制。
+
+代码示例：
+
+1. 修改`service/service`内的异步方法，改为定时器来实现多次发射：
+
+```ts
+import { Injectable } from '@angular/core'
+// 引入rxjs的Observable
+import { Observable } from 'rxjs'
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ServiceService {
+  // 模拟异步返回数据
+  public getRxjsData(): any {
+    let count = 0
+    // 返回Observable实例
+    return new Observable((oberver) => {
+      // 定时器模拟异步操作
+      setInterval(() => {
+        console.log('异步操作执行了')
+        // 类似于resolve将成功的数据传递出去
+        oberver.next('定时器运行完毕：' + count)
+        // oberver.error('错误结果');
+        count++
+      }, 3000)
+    })
+  }
+  constructor() {}
+}
+```
+
+2. 其他代码不变，查看效果：
+   ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919123601.png)
+
+#### 管道和工具方法
+
+> 查看官网中文文档：
+> [RxJS 库](https://angular.cn/guide/rx-library)
+
+## HttpClientModule - 网络请求
+
+> 中文网：[Angular - 使用 HTTP 与后端服务进行通信](https://angular.cn/guide/http)
+
+简单使用步骤：
+
+1. `app.module.ts`引入`HttpClientModule`模块：
+
+```ts
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
+// 1. 引入HttpClientModule模块
+import { HttpClientModule } from '@angular/common/http'
+
+import { AppComponent } from './app.component'
+import { HeaderComponent } from './components/header/header.component'
+import { HomeComponent } from './components/home/home.component'
+
+@NgModule({
+  declarations: [AppComponent, HeaderComponent, HomeComponent],
+  // 2. 声明模块
+  imports: [BrowserModule, HttpClientModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+2. 组件使用`HttpClient`请求数据：
+
+```ts
+import { Component, OnInit } from '@angular/core'
+// 3. 组件内引入HttpClient服务
+import { HttpClient } from '@angular/common/http'
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+})
+export class HomeComponent implements OnInit {
+  // 4. 依赖注入服务
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    // 5. 请求数据
+    this.http
+      .get('http://a.itying.com/api/productlist')
+      .subscribe((res) => {
+        console.log(res)
+      })
+  }
+}
+```
+
+**Post 使用：**
+
+1. 组件需要多引入个 `HttpHeaders`：
+
+```ts
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+```
+
+2. 主要代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919141149.png)
+
+**JsonP跨域请求**：
+1. ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919141803.png)
+2. 组件内使用主要代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919143119.png)
+
+## axios - 前端最流行请求模块
+`Angular`使用：
+1. 通常我们都在使用`axios`前会进行一层封装，于是我们先创建一个公共服务，方便其他组件使用：
+```bash
+ng g s service/http
+```
+2. 创建完服务后，安装`axios`：
+```bash
+npm install axios --S
+```
+3. 在`http.service.ts`内使用，用于与之前我的`axios封装`文章一致用法：
+```ts
+import axios from 'axios'
+// ...更多代码请参考之前的封装文章。
+```
