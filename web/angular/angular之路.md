@@ -86,15 +86,15 @@ ng g c xxx
 // app.module.ts
 // 导入模块的原因
 // 当你想要在浏览器中运行应用时
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule } from "@angular/platform-browser";
 // Angular核心模块
-import { NgModule } from '@angular/core'
+import { NgModule } from "@angular/core";
 // 双向绑定需要导入该项
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from "@angular/forms";
 // Angular路由模块
-import { AppRoutingModule } from './app-routing.module'
+import { AppRoutingModule } from "./app-routing.module";
 // 根组件
-import { AppComponent } from './app.component'
+import { AppComponent } from "./app.component";
 
 @NgModule({
   // 属于本 NgModule 的组件、指令、管道。
@@ -221,6 +221,7 @@ export class AppComponent {
   <div>{{ i }}----{{ item }}</div>
 </div>
 ```
+* 此外需要注意，在`angular`里是想像`vue`一样使用`diff`算法来避免重复渲染相同元素必须使用`trackBy`来完成。
 
 更多：
 
@@ -296,6 +297,13 @@ export class AppComponent {
 <img [src]="url + '.png'" />
 ```
 
+少见写法：
+
+```html
+<!-- 等于[href]="'https://baidu.com'" -->
+<a bind-href="'https://baidu.com'">百度</a>
+```
+
 注意：
 
 1. `vue`中 模板差值语法`{{}}` 适合用于双标签之间，自定义指令比如`v-bind`、`v-if`是不支持模板差值的，会当做普通字符串或者变量名处理
@@ -316,8 +324,13 @@ export class AppComponent {
 ```
 
 - 对象形式绑定样式：![](https://pic.downk.cc/item/5f61c8d6160a154a67716525.jpg)
+
+* > `[ngClass]="{classname1:true,className2:true}"`：适合用来设置元素的多个 `css` 类属性，如果只设置一个 `css` 类，应该使用模板绑定语法中 `class` 类绑定
+
 - 配合循环更改样式：![](https://pic.downk.cc/item/5f61c963160a154a67717dd0.jpg)
 - 动态设置行内样式：![](https://pic.downk.cc/item/5f62fd53160a154a67c74de4.jpg)
+
+* > `[ngStyle]="{'font-style': 'italic','font-weight': 'bold','font-size': '24px'}"`：用来设置元素的多个内联样式，如果只设置一个内联样式，应该使用模板绑定语法中的样式绑定
 
 ### `v-html` ---> `[innerHtml]`
 
@@ -373,6 +386,13 @@ export class HeaderComponent implements OnInit {
 </ng-template>
 ```
 
+少见写法：
+
+```html
+<!-- 等于(click)="test()" -->
+<button on-click="test()"></button>
+```
+
 注意：
 
 1. `$event`对象为 DOM 事件对象，一般使用 `event.target.value` 来获取当前元素的值。
@@ -386,8 +406,8 @@ export class HeaderComponent implements OnInit {
  }
 // angular中
 // 推荐typescript写法
-public changeShow(e: object): void {
-    console.log(e);
+public changeShow(e: KeyboardEvent): void {
+    console.log((event.target as HTMLInputElement).value);
     this.flag = !this.flag;
   }
 ```
@@ -396,6 +416,7 @@ public changeShow(e: object): void {
 
 常用事件：
 
+- `keyup`：按键弹起事件
 - `key.enter`：回车事件
 - `blur`：失去焦点事件
 
@@ -417,10 +438,17 @@ public changeShow(e: object): void {
 ```js
 // vue语法获取虚拟Dom对象 .$refs.box
 data: {
-  inputText: ''
+  inputText: "";
 }
 // angular语法 传入直接使用即可
-inputText = ''
+inputText = "";
+```
+
+少见写法：
+
+```html
+<!-- 等于[(ngModel)]="'繁华声遁入空门折煞了世人'" -->
+<input type="text" bindon-ngModel="'繁华声遁入空门折煞了世人'" />
 ```
 
 注意：
@@ -430,14 +458,14 @@ inputText = ''
 
 ```js
 // 双向绑定需要导入该项
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from "@angular/forms";
 ```
 
 - 将要使用的模块加入到列表里：
 
 ```js
 // 导入哪些模块使用
-imports: [BrowserModule, AppRoutingModule, FormsModule]
+imports: [BrowserModule, AppRoutingModule, FormsModule];
 ```
 
 ### `ref` ---> `#`
@@ -478,6 +506,14 @@ public onEnter(v: any): void {
 }
 ```
 
+少见写法：
+
+```html
+<!-- 等于#testDiv -->
+<div ref-testDiv>测试ref-指令</div>
+<button on-click="test(testDiv)">点我</button>
+```
+
 注意：
 
 1. `vue`可不给相应方法传入数据，直接在方法里通过`this.$refs.box`直接获得虚拟`Dom`对象
@@ -504,20 +540,20 @@ public onEnter(v: any): void {
 
 ```ts
 // 从 @angular/core 库中导入 Angular 的 Component 装饰器
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild } from "@angular/core";
 
 export class AppComponent {
   // 通过box获取到标记的Dom对象将赋值给变量 myBox ，该变量类型为any
-  @ViewChild('box') myBox: any
+  @ViewChild("box") myBox: any;
 
   public onEnter(): void {
     // 注意，Dom对象需要用 .nativeElement 属性
-    console.log(this.myBox.nativeElement.innerText)
-    console.log(this.myBox.nativeElement.offsetHeight)
+    console.log(this.myBox.nativeElement.innerText);
+    console.log(this.myBox.nativeElement.offsetHeight);
     // 操作Dom修改样式
-    this.mybox.nativeElement.style.width = '200px'
-    this.mybox.nativeElement.style.height = '200px'
-    this.mybox.nativeElement.style.background = 'pink'
+    this.mybox.nativeElement.style.width = "200px";
+    this.mybox.nativeElement.style.height = "200px";
+    this.mybox.nativeElement.style.background = "pink";
   }
 }
 ```
@@ -526,16 +562,16 @@ export class AppComponent {
 
 ```ts
 // header.component.ts
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent implements OnInit {
   public console(): void {
-    console.log('调用组件方法')
+    console.log("调用组件方法");
   }
   constructor() {}
   ngOnInit(): void {}
@@ -548,10 +584,10 @@ export class HeaderComponent implements OnInit {
 
 ```ts
 export class AppComponent {
-  @ViewChild('header') myHeader: any
+  @ViewChild("header") myHeader: any;
   // 方法声明
   public onEnter(): void {
-    this.myHeader.console()
+    this.myHeader.console();
   }
 }
 ```
@@ -653,44 +689,72 @@ _父组件向子组件传值进阶用法：_
 
 // header.component.ts 子组件接受并使用
 // 先引入Input装饰器
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent implements OnInit {
-  @Input() title: any
-  @Input() info: string
-  @Input() parent: any
+  @Input() title: any;
+  @Input() info: string;
+  @Input() parent: any;
 
   constructor() {}
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    console.log(this.info)
-    this.parent.say()
+    console.log(this.info);
+    this.parent.say();
   }
 }
 
 // home.component.ts  父组件准备传入的变量
-import { Component, OnInit } from '@angular/core'
-import { HeaderComponent } from './../header/header.component'
+import { Component, OnInit } from "@angular/core";
+import { HeaderComponent } from "./../header/header.component";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  public title: string = '父组件title变量'
+  public title: string = "父组件title变量";
   public say(): void {
-    console.log('父组件方法执行---say！')
+    console.log("父组件方法执行---say！");
   }
   constructor() {}
 
   ngOnInit(): void {}
+}
+```
+注意事项：
+
+1. `@Input() defineProperty: any;` -> 输入属性（用来获取父级传递过来的数据），父级向该组件传递数据时的属性就是我们定义的`defineProperty`名
+2. 可以通过`set`和`get`来实现`vue`里的`watch`（小程序的`observers`）效果：
+```ts
+// 引入 Input 接口
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-child-component',
+  templateUrl: './child-component.component.html',
+  styleUrls: ['./child-component.component.scss']
+})
+export class ChildComponentComponent {
+
+  // 获取父组件的数据
+  // 使用 setter 对父组件的数据进行深加工
+  @Input()
+  set parentTitle(title: string) {
+    this._title = (title && title.trim()) || '父组件的 title 属性值为空';
+  }
+  get parentTitle(): string {
+    return this._title;
+  }
+
+  constructor() { }
 }
 ```
 
@@ -765,16 +829,16 @@ export class HomeComponent implements OnInit {
 
 <script>
   export default {
-    name: 'Header',
+    name: "Header",
     props: {
       msg: String,
     },
     methods: {
       handlerClick() {
-        this.$emit('headerClick', '子组件传递给父组件的方法')
+        this.$emit("headerClick", "子组件传递给父组件的方法");
       },
     },
-  }
+  };
 </script>
 <style scoped></style>
 ```
@@ -790,9 +854,9 @@ export class HomeComponent implements OnInit {
 </template>
 
 <script>
-  import Header from './Header'
+  import Header from "./Header";
   export default {
-    name: 'HelloWorld',
+    name: "HelloWorld",
     props: {
       msg: String,
     },
@@ -801,14 +865,15 @@ export class HomeComponent implements OnInit {
     },
     methods: {
       handerClick(value) {
-        console.log('父组件方法执行---', value)
+        console.log("父组件方法执行---", value);
       },
     },
-  }
+  };
 </script>
 <style scoped></style>
 ```
-
+### 兄弟之间的通信
+通过创建服务，不同组件引入公共服务，[共享一个服务的方式来进行数据交互](https://juejin.im/post/6844904071007043591)。
 ### 过滤器 ---> 管道
 
 > 代码对比：
@@ -818,6 +883,8 @@ export class HomeComponent implements OnInit {
 <p>{{ time | formateDate }}</p>
 <!-- angular语法 内置管道 -->
 <div>{{ time | date:'medium' }}</div>
+<!-- 通过json管道符转换能避免展示的是[object object]信息 -->
+<div>{{ jsonData | json }}</div>
 ```
 
 ```js
@@ -835,6 +902,16 @@ time = new Date();
 
 1. `vue`过滤器处理方法需要定义，而`angular`管道则内置了不少方法；更多请查看：[内置管道 Api 文档](https://angular.cn/api?type=pipe)
 2. [angular 自定义管道格式方法](https://blog.csdn.net/hbiao68/article/details/84563018)
+3. 管道运算符的优先级比三元运算符（ ?: ）高，且管道符支持串联。
+
+常见的管道函数：
+
+|管道|代码|作用|
+|:-:|:-:|:-:|
+|`JsonPipe`|`<p>{{products | json}}</p>`|将一个值转换成 json 字符串|
+|`DatePipe`|`<p>{{date | date:'yyyy-MM-dd HH:mm:ss'}}</p>`|根据区域设置规则格式化日期值|
+|`UpperCasePipe`|`<p>{{data | uppercase}}</p>`|把文本转换成全大写形式|
+|`LowerCasePipe`|`<p>{{data | lowercase}}</p>`|把文本转换成全小写形式|
 
 ### 自定义指令 ---> 指令
 
@@ -854,16 +931,16 @@ time = new Date();
 
 ```js
 // 导入 Angular 的 @Directive 装饰器 、还从 Angular 的 core 库中导入了一个 ElementRef 符号。
-import { Directive, ElementRef } from '@angular/core'
+import { Directive, ElementRef } from "@angular/core";
 // 在选择器名字前面添加前缀，以确保它们不会与标准 HTML 属性冲突。 它同时减少了与第三方指令名字发生冲突的危险。
 // 叫myHighlight也是可以的
 @Directive({
-  selector: '[appHighlight]',
+  selector: "[appHighlight]",
 })
 export class HighlightDirective {
   constructor(el: ElementRef) {
     // ElementRef 通过其 nativeElement 属性给你了直接访问宿主 DOM 元素的能力。
-    el.nativeElement.style.backgroundColor = 'yellow'
+    el.nativeElement.style.backgroundColor = "yellow";
   }
 }
 ```
@@ -888,7 +965,7 @@ angular 代码：
 ```js
 obj = {
   a: 666,
-}
+};
 ```
 
 作用：
@@ -901,6 +978,17 @@ obj = {
 1. 前者`obj为例`，必须要是“正常”对象类型，数组什么的都不行
 2. 后面只可以是`.属性名`，不可用`[]`
 3. 主要是 处理 `null` 和 `undefined` 值；对于空对象或者属性不存在时渲染还是会报错的
+
+### 非空运算符（!）
+
+非空断言运算符用来告诉编译器对特定的属性不做严格的空值校验；
+
+当属性值为 `null` 或者 `undefined` 时，不抛错误。
+
+```html
+<!-- 不针对 `obj.name` 进行校验 -->
+<span>{{obj!.name}}</span>
+```
 
 ## 生命周期
 
@@ -916,11 +1004,11 @@ obj = {
 
 > 指令生命周期钩子的作用及调用顺序：
 
-1. `ngOnChanges` - 当数据绑定输入属性的值发生变化时调用
+1. `ngOnChanges` - 当数据绑定输入属性的值发生变化时调用（父子组件传值）
 
 - > 父组件向子组件传的值或者值变化时会触发。
 
-2. `ngOnInit` - 在第一次 ngOnChanges 后调用
+2. `ngOnInit` - 在第一次 ngOnChanges 后调用，初始化组件时会调用一次，一般是用来在构造函数之后执行组件复杂的初始化逻辑
 
 - > **大致等于 `vue`的`created`钩子，一般用于请求数据。**
 
@@ -934,14 +1022,19 @@ obj = {
 
 5. `ngAfterContentChecked` - 组件每次检查内容时调用
 
-- > 类似于上面的`ngDoCheck`相对于 数据初始化 的意义，在 组件初始化完成后才运行，可看作 检查阶段
+- > 类似于上面的`ngDoCheck`相对于 数据变化 的意义，在 组件内容发生改变完成后才运行，可看作 检查阶段
 
 6. `ngAfterViewInit` - 组件相应的视图初始化之后调用
 
 - > **视图全部渲染完成，大致等于 `vue`的 `mouted`钩子，如果涉及到元素则在这调用。**
 
 7. `ngAfterViewChecked` - 组件每次检查视图时调用
+
+- > 视图发生变化时调用，在组件的生命周期中会调用多次
+
 8. `ngOnDestroy` - 指令销毁前调用
+
+- > 一般用来在组件销毁前执行某些操作
 
 注意事件：
 
@@ -968,12 +1061,12 @@ obj = {
 2. `service.service.ts`文件定义个异步方法
 
 ```ts
-import { Injectable } from '@angular/core'
+import { Injectable } from "@angular/core";
 // 引入rxjs的Observable
-import { Observable } from 'rxjs'
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ServiceService {
   // 模拟异步返回数据
@@ -983,10 +1076,10 @@ export class ServiceService {
       // 定时器模拟异步操作
       setTimeout(() => {
         // 类似于resolve将成功的数据传递出去
-        oberver.next('定时器运行完毕')
+        oberver.next("定时器运行完毕");
         // oberver.error('错误结果');// 类似于reject
-      }, 3000)
-    })
+      }, 3000);
+    });
   }
   constructor() {}
 }
@@ -995,22 +1088,22 @@ export class ServiceService {
 3. `header.component.ts`文件引入并注入服务，获取异步返回的值：
 
 ```ts
-import { Component } from '@angular/core'
+import { Component } from "@angular/core";
 // 引入服务
-import { ServiceService } from '../../service/service.service'
+import { ServiceService } from "../../service/service.service";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent {
   public handleClick(): void {
     // 调用服务类里的异步方法
     // subscribe类似于promise的then方法
     this.serviceService.getRxjsData().subscribe((res) => {
-      console.log('header组件接收到的数据：', res)
-    })
+      console.log("header组件接收到的数据：", res);
+    });
   }
   // 依赖注入服务
   constructor(private serviceService: ServiceService) {}
@@ -1029,27 +1122,27 @@ export class HeaderComponent {
 ```
 
 ```ts
-import { Component } from '@angular/core'
+import { Component } from "@angular/core";
 // 引入服务
-import { ServiceService } from '../../service/service.service'
+import { ServiceService } from "../../service/service.service";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent {
-  public rxjs: any
+  public rxjs: any;
   public handleClick(): void {
-    console.log('子组件按钮被点击')
+    console.log("子组件按钮被点击");
     this.rxjs = this.serviceService.getRxjsData().subscribe((res) => {
-      console.log('header组件接收到的数据：', res)
-    })
+      console.log("header组件接收到的数据：", res);
+    });
   }
   public cancleClick(): void {
-    console.log('取消按钮被点击')
+    console.log("取消按钮被点击");
     // 取消订阅
-    this.rxjs.unsubscribe()
+    this.rxjs.unsubscribe();
   }
   constructor(private serviceService: ServiceService) {}
 }
@@ -1070,28 +1163,28 @@ export class HeaderComponent {
 1. 修改`service/service`内的异步方法，改为定时器来实现多次发射：
 
 ```ts
-import { Injectable } from '@angular/core'
+import { Injectable } from "@angular/core";
 // 引入rxjs的Observable
-import { Observable } from 'rxjs'
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ServiceService {
   // 模拟异步返回数据
   public getRxjsData(): any {
-    let count = 0
+    let count = 0;
     // 返回Observable实例
     return new Observable((oberver) => {
       // 定时器模拟异步操作
       setInterval(() => {
-        console.log('异步操作执行了')
+        console.log("异步操作执行了");
         // 类似于resolve将成功的数据传递出去
-        oberver.next('定时器运行完毕：' + count)
+        oberver.next("定时器运行完毕：" + count);
         // oberver.error('错误结果');
-        count++
-      }, 3000)
-    })
+        count++;
+      }, 3000);
+    });
   }
   constructor() {}
 }
@@ -1114,14 +1207,14 @@ export class ServiceService {
 1. `app.module.ts`引入`HttpClientModule`模块：
 
 ```ts
-import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 // 1. 引入HttpClientModule模块
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from "@angular/common/http";
 
-import { AppComponent } from './app.component'
-import { HeaderComponent } from './components/header/header.component'
-import { HomeComponent } from './components/home/home.component'
+import { AppComponent } from "./app.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { HomeComponent } from "./components/home/home.component";
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, HomeComponent],
@@ -1136,14 +1229,14 @@ export class AppModule {}
 2. 组件使用`HttpClient`请求数据：
 
 ```ts
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from "@angular/core";
 // 3. 组件内引入HttpClient服务
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
   // 4. 依赖注入服务
@@ -1151,11 +1244,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // 5. 请求数据
-    this.http
-      .get('http://a.itying.com/api/productlist')
-      .subscribe((res) => {
-        console.log(res)
-      })
+    this.http.get("http://a.itying.com/api/productlist").subscribe((res) => {
+      console.log(res);
+    });
   }
 }
 ```
@@ -1165,27 +1256,35 @@ export class HomeComponent implements OnInit {
 1. 组件需要多引入个 `HttpHeaders`：
 
 ```ts
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 ```
 
 2. 主要代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919141149.png)
 
-**JsonP跨域请求**：
+**JsonP 跨域请求**：
+
 1. ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919141803.png)
 2. 组件内使用主要代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919143119.png)
 
 ## axios - 前端最流行请求模块
+
 `Angular`使用：
+
 1. 通常我们都在使用`axios`前会进行一层封装，于是我们先创建一个公共服务，方便其他组件使用：
+
 ```bash
 ng g s service/http
 ```
+
 2. 创建完服务后，安装`axios`：
+
 ```bash
 npm install axios --S
 ```
+
 3. 在`http.service.ts`内使用，用于与之前我的`axios封装`文章一致用法：
+
 ```ts
-import axios from 'axios'
+import axios from "axios";
 // ...更多代码请参考之前的封装文章。
 ```
