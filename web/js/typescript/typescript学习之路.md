@@ -188,8 +188,6 @@ let c: Number = Number.two;
 ```
 > [该处原文](https://juejin.im/post/6844903822981070855)
 
-> 说实话，我没看懂有啥用，最后`c`的值还是数字，因此这个的优势在哪呢？我不知道，感觉`symbol`类型更合适声明一个独一无二的值。
-
 ### 对象类型
 ```ts
 let obj: object = {name:'foo'};
