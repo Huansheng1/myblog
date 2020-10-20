@@ -217,11 +217,12 @@ export class AppComponent {
 
 ```html
 <!-- 效果等于let i = index -->
+<!-- 还支持显示长度：count as length -->
 <div *ngFor="let item of message; index as i">
   <div>{{ i }}----{{ item }}</div>
 </div>
 ```
-* 此外需要注意，在`angular`里是想像`vue`一样使用`diff`算法来避免重复渲染相同元素必须使用`trackBy`来完成。
+* 此外需要注意，在`angular`里是想像`vue`一样使用`diff`算法来避免重复渲染相同元素必须使用`trackBy`来完成。![](https://pic.downk.cc/item/5f88054d1cd1bbb86bfbbca2.jpg)![](https://pic.downk.cc/item/5f8810861cd1bbb86b01d0e9.jpg)
 
 更多：
 
@@ -262,11 +263,14 @@ export class AppComponent {
 </ng-template>
 ```
 
-- `elseBlock` 是固定的，不能改哦；`else`必须在`ng-template`上，好像没有语法糖简写哦。
+- `elseBlock` 是固定的，不能改哦；`else`必须在`ng-template`上，没有语法糖简写，其属于`BrowserModule`。
 
 * `ngSwitch`：![](https://pic.downk.cc/item/5f61c79c160a154a6771203e.jpg)
+* > 注意：`*ngIf`和`*ngFor`指令都是结构型指令（以`*`开头），而`[ngSwitch]`则是属性型指令
 
 * 和`vue`一样，`*ngIf`和`*ngFor`是有优先级冲突的，不能同时写在一个标签上。
+
+* 非语法糖的完整写法：![](https://pic.downk.cc/item/5f8800181cd1bbb86bf78259.jpg)
 
 ### `v-show` ---> `[hidden]`
 
@@ -283,6 +287,29 @@ export class AppComponent {
 </div>
 ```
 
+### `computed` ---> `get`
+
+> 代码对比：
+
+```html
+<!-- vue语法、angular语法 -->
+<div>
+  {{totalPrice}}
+</div>
+```
+```js
+computed:{
+  totalPrice(){
+  return 1+2+3
+}
+}
+```
+```ts
+其实是ES6语法，在类方法前面加个get即可！
+get totalPrice():number {
+  return 1 + 2 + 3
+}
+```
 ### `v-bind`或者`:` ---> `[]`
 
 > 代码对比：
@@ -302,6 +329,12 @@ export class AppComponent {
 ```html
 <!-- 等于[href]="'https://baidu.com'" -->
 <a bind-href="'https://baidu.com'">百度</a>
+<!-- 部分由两个词组成的属性动态绑定时也要改为驼峰形式，不然会报错，需要注意，如我们这里的colspan属性 -->
+<td [cloSpan]="cloSpan">注意属性</td>
+<!-- 在HTML5中添加了data-*的方式来自定义属性，所谓data-*实际上上就是data-前缀加上自定义的属性名，使用这样的结构可以进行数据存放。 -->
+<!-- 假设存在一个value变量 -->
+<!-- 我们发现，当我们想绑定一个自定义属性（非HTML标签自带属性）需要在前面加上`attr.`，不然遇见`-`将会报错 -->
+<span [attr.data-title]="value">自定义属性</span>
 ```
 
 注意：
@@ -330,7 +363,7 @@ export class AppComponent {
 - 配合循环更改样式：![](https://pic.downk.cc/item/5f61c963160a154a67717dd0.jpg)
 - 动态设置行内样式：![](https://pic.downk.cc/item/5f62fd53160a154a67c74de4.jpg)
 
-* > `[ngStyle]="{'font-style': 'italic','font-weight': 'bold','font-size': '24px'}"`：用来设置元素的多个内联样式，如果只设置一个内联样式，应该使用模板绑定语法中的样式绑定
+* > `[ngStyle]="{'font-style': 'italic','font-weight': 'bold','font-size': '24px'}"`：用来设置元素的多个内联样式，如果只设置一个内联样式，应该使用模板绑定语法中的样式绑定![](https://pic.downk.cc/item/5f85518d1cd1bbb86ba1cf33.jpg)
 
 ### `v-html` ---> `[innerHtml]`
 
@@ -405,8 +438,10 @@ export class HeaderComponent implements OnInit {
    this.flag = !this.flag;
  }
 // angular中
-// 推荐typescript写法
+// 推荐typescript写法，这里类型指的是键盘事件，如果鼠标的话是MouseEvent
 public changeShow(e: KeyboardEvent): void {
+  // 注意：不是所有的event.target都有value，因此如果我们直接打印是会报错的
+  // 通过类型断言，我们显式地告诉TS这一定是一个输入事件，你不用操心并且报错了
     console.log((event.target as HTMLInputElement).value);
     this.flag = !this.flag;
   }
@@ -419,6 +454,7 @@ public changeShow(e: KeyboardEvent): void {
 - `keyup`：按键弹起事件
 - `key.enter`：回车事件
 - `blur`：失去焦点事件
+4. 阻止事件冒泡：![](https://pic.downk.cc/item/5f8557d91cd1bbb86ba5c4d1.jpg)
 
 ### `v-modal`---> `ngModal`
 
@@ -467,7 +503,34 @@ import { FormsModule } from "@angular/forms";
 // 导入哪些模块使用
 imports: [BrowserModule, AppRoutingModule, FormsModule];
 ```
+#### 非表单双绑 `[()]`
+> `[]`为动态绑定变量、`()`为监听输入；两者结合不就实现了双向绑定？
+```html
+<div class="header">{{ title }}</div>
+```
+```ts
+// 组件Ts文件
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+})
+export class HeaderComponent implements OnInit {
+  @Input() title = '头部组件';
+  // 注意，双绑变量区别`@Output()`用`Change`,因为是变量名 相同名是会报错
+  @Output() titleChange = new EventEmitter<string>();
+  constructor() {}
+  ngOnInit(): void {}
+}
+```
+```html
+<!-- 使用方式 -->
+<app-header [(title)]="title"></app-header>
+<button on-click="title=title+' + 1'">点我</button>
+```
+> `Vue`里面的`.sync`与这个差不多。
 ### `ref` ---> `#`
 
 > 代码对比：
@@ -788,7 +851,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   // 通过EventEmitter()创建一个自定义事件，再通过@Output()装饰器向外暴露这个自定义事件（事件广播）
-  @Output() headerClick: any = new EventEmitter();
+  // 如果不需要传递参数，即emit()不传参数应该使用new EventEmitter<void>();
+  @Output() headerClick: any = new EventEmitter<string>();
   public handleClick(): void {
     console.log('子组件按钮被点击');
     this.headerClick.emit('子组件传递给父组件的内容');
