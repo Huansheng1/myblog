@@ -18,13 +18,10 @@ module.exports = [
         text: "博客社区",
         items: [
           { text: "掘金", link: "https://juejin.im/" },
-          { text: "CSDN", link: "https://blog.csdn.net/" },
           { text: "思否", link: "https://segmentfault.com/" },
-          { text: "简书", link: "https://jianshu.com/" },
           { text: "stackoverflow", link: "https://stackoverflow.com/" },
           { text: "牛客网", link: "https://www.nowcoder.com/" },
           { text: "知乎", link: "https://www.zhihu.com/" },
-          { text: "技术胖", link: "https://jspang.com/" },
           { text: "阮一峰", link: "http://www.ruanyifeng.com/home.html" },
           { text: "LeetCode", link: "https://leetcode-cn.com/" },
         ],
@@ -40,7 +37,6 @@ module.exports = [
         text: "框架编程",
         items: [
           { text: "Vue", link: "https://cn.vuejs.org/index.html" },
-          { text: "Vuepress", link: "https://vuepress.docschina.org/guide/" },
           { text: "Uni-app", link: "https://uniapp.dcloud.io/" },
           { text: "Webpack", link: "https://www.webpackjs.com/" },
         ],
@@ -53,10 +49,6 @@ module.exports = [
           { text: "MDN文档", link: "https://developer.mozilla.org/zh-CN/" },
           { text: "菜鸟教程", link: "https://www.runoob.com/" },
           { text: "吾爱破解", link: "https://52pojie.cn/" },
-          {
-            text: "微信小程序开发资源",
-            link: "https://github.com/justjavac/awesome-wechat-weapp",
-          },
           {
             text: "Vue渲染器源码解析文档",
             link: "http://hcysun.me/vue-design/zh/",
@@ -95,6 +87,7 @@ module.exports = [
       { text: "NodeJs", link: "/web/nodejs/" },
       { text: "小程序", link: "/web/小程序/" },
       { text: "Angular", link: "/web/angular/" },
+      { text: "性能优化与监控", link: "/web/性能优化与监控/" },
     ],
   },
   {
