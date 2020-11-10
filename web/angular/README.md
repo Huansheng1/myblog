@@ -10,3 +10,5 @@
 ### [angular基础之插槽](angular基础-2)
 ### [angular常用指令与配置](angular常用指令与配置)
 ### [angular小知识](angular小知识)
+## 个人常用代码
+### [angular个人常用技巧](angular个人常用技巧)
