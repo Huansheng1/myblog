@@ -19,6 +19,13 @@
 * 安装方式：[谷歌插件商店](https://chrome.google.com/webstore/detail/fehelper%E5%89%8D%E7%AB%AF%E5%8A%A9%E6%89%8B/pkgccpejnmalmdinmhkkfafefagiiiad)、[官网](https://www.baidufe.com/fehelper)
 
 ## VSCode插件
+**Angular Filers**
+> 功能介绍
+>> 不再需要手动敲击`ng g c components/tabbar`之类的动作，安装后鼠标右键即可快速完成
+
+> 好处：避免了路径过深时浪费太多时间在路径名上
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201108175003.png)
+
 **live-server**
 > 功能介绍
 >> 简易本地资源服务器，以真实的服务器托管的网页，而不是像直接用浏览器打开文件时是使用 file:// 协议托管的，更贴近实际生产环境，file:// 协议还会导致跨域等问题。  
@@ -84,12 +91,18 @@
 
 * 安装方式：[VSCode商店搜索](https://github.com/lishu/vscode-svg2)
 
-*Settings Sync*
+~~*Settings Sync*~~
+<details>
+
+<summary>废弃，`vscode`新版已经支持微软帐号同步</summary>  
+
 > 功能介绍
 >> 配置信息同步到git上面，这样就不会丢失信息了，换电脑都不怕，注意一定要记得保存秘钥和gistid  
 提供一个额外的方式，你可以把你的.vscode文件保存下来，然后移植到新电脑，这样也可以转移你的所有配置  
 
 * 安装方式：VSCode商店搜索
+
+</details>
 
 *koroFileHeader*
 > 功能介绍

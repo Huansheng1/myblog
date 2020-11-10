@@ -305,7 +305,8 @@ computed:{
 }
 ```
 ```ts
-其实是ES6语法，在类方法前面加个get即可！
+// 其实是ES6语法，在类方法前面加个get即可！
+// 当然，由于get调用时无法保证angular内变量初始化完成，因为如果里面使用变量最好先对变量进行下判断
 get totalPrice():number {
   return 1 + 2 + 3
 }
@@ -470,7 +471,10 @@ public changeShow(e: KeyboardEvent): void {
 <input type="text" name="" id="" [(ngModel)]="inputText" />
 <div>{{ inputText }}</div>
 ```
-
+> 其实`[(ngModel)]`是语法糖，完整写法是：
+```html
+<input type="text" [ngModel]="username" (ngModelChange)="username = $event">
+```
 ```js
 // vue语法获取虚拟Dom对象 .$refs.box
 data: {
@@ -607,7 +611,8 @@ import { Component, ViewChild } from "@angular/core";
 
 export class AppComponent {
   // 通过box获取到标记的Dom对象将赋值给变量 myBox ，该变量类型为any
-  @ViewChild("box") myBox: any;
+//   其实完整写法应该是@ViewChild('引用别名', { static: true })，第二个参数代表我们引用元素的类型，static:true表示是一个静态元素，如果我们引用元素本身标签上有*ngFor这种结构型指令则需要改为false
+  @ViewChild("box") myBox: ElementRef;
 
   public onEnter(): void {
     // 注意，Dom对象需要用 .nativeElement 属性
@@ -647,12 +652,34 @@ export class HeaderComponent implements OnInit {
 
 ```ts
 export class AppComponent {
-  @ViewChild("header") myHeader: any;
+// 如果非要打印，最好在ngAfterViewInit钩子里打印
+  @ViewChild("header") myHeader: HeaderComponent;
+//   也支持不用别名，直接使用组件名,如下也可
+// @ViewChild(HeaderComponent) myHeaderCpn: HeaderComponent;
+
   // 方法声明
   public onEnter(): void {
     this.myHeader.console();
   }
 }
+```
+
+注意： 
+
+1. 此外还支持引用`TemplateRef`模版：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201107115254.png)
+
+2. `@ViewChild()`对于多个同样的只会取第一个，因此我们需要知道`@ViewChildren()`可多个引入元素：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201107115452.png)
+
+3. `Angular`不推荐我们直接通过`nativeElement`来直接修改元素，推荐使用`Renderer2`来进行操作`Dom元素`。
+```ts
+constructor(private rd2: Renderer2) { }
+ngAfterViewInit() {
+        // 不推荐
+        this.aboutElement.nativeElement.style.color = 'red';
+        // 推荐Renderer2的方式，更安全，能有效防御xss攻击
+        // 接受三个参数：元素对象、样式名、样式值
+        this.rd2.setStyle(this.aboutElement.nativeElement, 'color', 'blue');
+    }
 ```
 
 ### `props` ---> `@input装饰器`

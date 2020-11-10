@@ -1,5 +1,6 @@
 # Angular之路 - 第二部分
 ## angualar  与 vue 的 语法对比
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201108180857.png)
 ### `slot` ---> `ng-content`
 
 > 代码对比：

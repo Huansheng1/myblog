@@ -10,6 +10,11 @@
 > 注册[github] 或者 [gitee码云] ，以后我们将部署的html文件放置到pages静态服务里  
 > 安装git客户端，我们用git同步，方便快捷。  
 > 安装VSCode客户端，轻量快捷，在文本编辑器和编译器寻找到一个完美的平衡
+## git须知
+### [git基础](git)
+### [git进阶操作](git进阶操作)
+### [git踩到的坑](git踩到的坑)
+
 # vuePress概述
 * Vue 驱动的静态网站生成器
 * 基于markdown语法生成网页
