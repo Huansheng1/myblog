@@ -12,5 +12,6 @@
 
 ### 更多接口
 * [有哪些好玩的免费的API接口? - 知乎](https://www.zhihu.com/question/32225726)
+* [JSONPlaceholder](https://jsonplaceholder.typicode.com/)
 ## RestfulApi
 ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201110230147.png)

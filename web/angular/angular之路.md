@@ -1344,6 +1344,20 @@ export class HomeComponent implements OnInit {
 }
 ```
 
+3. 携带参数的话：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201115171109.png)
+```ts
+// 此时get请求地址将会自动转换为http://a.itying.com/api/productlist?name=test&id=666
+this.http.get('http://a.itying.com/api/productlist',
+            {
+                params: { name: 'test', id: '666' },
+                // 默认监听的是body内容，如果想查看更多信息，比如返回协议头，则需要指定为response类型
+                observe: 'response',
+            })
+            .subscribe((res) => {
+                console.log(res);
+            });
+```
+
 **Post 使用：**
 
 1. 组件需要多引入个 `HttpHeaders`：

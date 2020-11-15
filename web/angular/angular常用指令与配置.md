@@ -8,7 +8,11 @@ ng g m views/pages/demoPage --routing
 ```bash
 ng generate component my-component --no-spec
 ```
-
+### 通过ip地址在手机端调试
+```bash
+ng serve --host 0.0.0.0
+```
+> 不需要手动打完整`ipv4`地址，达到配置在`package.json`里各电脑都可通过访问自己`ipv4`地址使用的效果
 ## 常用配置
 ### 修改全局组件开头
 系统默认的是`app-`，我们通过修改`tslint.json`文件可将默认开头改为我们自己想要的：
