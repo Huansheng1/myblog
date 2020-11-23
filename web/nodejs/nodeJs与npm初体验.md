@@ -1,6 +1,9 @@
 # node初体验
 ## 安装配置nodeJS
 ### Node.js概念
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121132818.png)  
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121132919.png)  
+![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121133002.png)  
 > 官方解释：  
 * Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 Node.js使用了一个事件驱动、非阻塞式I/O的模型（ Node.js的特性），使其轻量级又高效。 Node.js 的包管理器 npm 是全球最大的开源库生态系统。  
 
@@ -16,6 +19,7 @@
 * 与PHP、JSP、Python、Perl、Ruby的“既是语言，也是平台”不同，Node.js的使用JavaScript进行编程，运行在 Chrome 的 V8 引擎上。  
 * 与PHP、JSP等相比（PHP、JSP、.net都需要运行在服务器程序上，Apache、Naginx、Tomcat、IIS。 ），Node.js跳过了Apache、Naginx、IIS等HTTP服务器，它自己不用建设在任何服务器软件之上。   
 * Node.js的许多设计理念与经典架构（LAMP = Linux + Apache + MySQL + PHP）有着很大的不同，可以提供强大的伸缩能力。Node.js没有web容器。  
+
 ### nodeJs安装配置 
 * Node.js 安装包及源码下载地址为：<https://nodejs.org/en/download/>  
 * 注意，我们建议使用偶数版（V4、V6等)，不要用奇数版（比如V5），因为奇数版不稳定。  
