@@ -1,5 +1,5 @@
 # NodeJs常用内置模块
-> [http://nodejs.cn/api/](Node.js API 文档)
+> [Node.js API 文档](http://nodejs.cn/api/)
 ## Path路径模块
 ### resolve路径处理
 ```js
