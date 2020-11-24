@@ -198,3 +198,34 @@ console.log(__filename);
 // 获取当前运行js文件的所在目录（绝对路径）
 console.log(__dirname);
 ```
+## 定时器
+### 常用定时器
+```js
+// 如果在Node代码时没有代码提示，则可以通过安装插件的方式解决：
+// 1. npm init
+// 2. npm install --save-dev @types/node
+
+// 延迟执行
+setTimeout(() => {
+    console.log('setTimeout');
+}, 0)
+// 定时执行
+const handler = setInterval(() => {
+    console.log('setInterval');
+    clearInterval(handler);
+}, 0)
+// 立即执行，不需要加时间
+setImmediate(() => {
+    console.log('setImmediate');
+})
+// 下一帧执行
+process.nextTick(() => {
+    console.log('processs.nextTick');
+})
+
+// 执行结果：
+// processs.nextTick
+// setTimeout
+// setInterval
+// setImmediate
+```
