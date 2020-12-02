@@ -6,6 +6,7 @@
 ### [commonJs的node实现进阶理解](commonJs的node实现探究二)
 ### [nodeJs内置模块常用方法](nodeJs内置模块常用方法)
 ### [nodeJs事件循环、观察者与订阅模式](nodeJs事件循环、观察者与订阅模式)
+### [二进制与数据流初体验](buffer二进制处理)
 ### [http服务](http服务)
 ## 进阶
 ### [nodeJs与npm初体验](nodeJs与npm初体验.md)

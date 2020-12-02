@@ -27,6 +27,7 @@ checkClientWidth() {
 @Component({
 //   ...其他代码
 // 修改检测策略为OnPush策略，这种策略需要手动通过markForCheck标记改变了需要检测
+// 其实不设置这个也行
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 // 先在构造函数注入
@@ -36,4 +37,35 @@ private changeDetectorRef: ChangeDetectorRef,
 
 // 标记有数据更改了
 this.changeDetectorRef.markForCheck();
+```
+## 阻止冒泡和默认行为
+方式一：
+```html
+<!-- 阻止冒泡 -->
+<!-- $event.stopPropagation(); -->
+<!-- 阻止默认行为 -->
+<!-- $event.preventDefault(); -->
+<!-- handleClick是点击触发事件，与本次讨论重点无关 -->
+<button (click)="$event.stopPropagation();$event.preventDefault();handleClick($event)">阻止冒泡和默认行为</button>
+```
+方式二：
+```html
+<button class="btn btn-primary" (click)="handleClick($event)">阻止冒泡和默认行为</button>
+```
+```ts
+handleClick(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        console.log('点击了。');
+    }
+```
+方式三：
+```ts
+// 监听当前组件的： 全部click事件，装饰器装饰的方法参数为$event事件
+    @HostListener('click', ['$event'])
+    reset(event) {
+        // 将该组件全部click进行阻止冒泡处理和阻止默认行为
+        event.stopPropagation();
+        event.preventDefault();
+    }
 ```
