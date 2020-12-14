@@ -135,7 +135,7 @@ otherServer.listen(8000, "0.0.0.0", () => {
 ```js
 const express = require("express")
 
-const app = new express()
+const app = express()
 
 // 通用中间件，所有请求都能匹配到
 app.use((req, res, next) => {
@@ -184,6 +184,8 @@ app.use((req, res, next) => {
 app.get("/login", (req, res, next) => {
     console.log("提交了登录信息：")
     res.end("登录成功！")
+    // res.end返回数据便代表着结束了当前请求，因此下面的返回不会执行返回给客户端
+    res.end("返回2")
     next()
 })
 
@@ -318,7 +320,7 @@ const express = require("express")
 
 const fs = require("fs")
 
-const app = new express()
+const app = express()
 
 const morgan = require("morgan")
 
@@ -345,7 +347,7 @@ app.listen(8888, () => {
 ```js
 const express = require("express")
 
-const app = new express()
+const app = express()
 
 app.get("/search/:key", (req, res, next) => {
     res.end("动态参数params - 请求数据：" + JSON.stringify(req.params))
@@ -359,11 +361,12 @@ app.listen(8888, () => {
     console.log("express服务器启动成功")
 })
 ```
+2. 请求测试：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202225010.png)、![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202225555.png)
 #### 返回数据常见方法
 ```js
 const express = require("express")
 
-const app = new express()
+const app = express()
 
 app.post("/register", (req, res, next) => {
     // 设置返回状态码
@@ -384,8 +387,98 @@ app.listen(8888, () => {
 })
 ```
 #### 路由
+上面我们代码都集中在`index.js`里面写入接口数据，这有一个问题，现在我们的`demo`表面看起来没啥，但如果代码多了那么这个项目的文件将会极其混乱，为此我们可利用路由机制，将同一个模块的功能接口抽离成单独的路由模块，再引入到主程序里使用，就避免了不好管理的问题：
 
-2. 请求测试：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202225010.png)、![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202225555.png)
+1. 封装`users`用户操作的路由模块：
+```js
+const express = require("express")
+
+const user = express.Router()
+// 模拟查询用户数据
+user.get("/:id", (req, res, next) => {
+    res.json({
+        name: "ted",
+        age: 18,
+    })
+})
+// 模拟注册用户数据
+user.post("/", (req, res, next) => {
+    res.status(201)
+    res.json("创建用户成功")
+})
+// 模拟删除用户数据
+user.delete("/:id", (req, res, next) => {
+    res.json("删除编号为" + req.params.id + "的用户成功")
+})
+
+module.exports = user
+```
+2. 主程序导入并使用 用户路由模块：
+```js
+const express = require("express")
+
+const app = express()
+// 上面的路由模块文件
+const userRouter = require("./user-router")
+// 注意用法和koa有点不一样
+app.use("/users", userRouter)
+
+app.listen(8888, () => {
+    console.log("express服务器启动成功")
+})
+```
+#### 使用/部署打包完毕的静态资源
+```js
+const express = require("express")
+
+const app = express()
+// 支持静态目录地址或者绝对路径
+app.use("/", express.static("./"))
+
+app.listen(8888, () => {
+    console.log("express服务器启动成功")
+})
+
+```
+通过`express.static()`可快速搭建部署静态的资源文件，上面代码，我们启动后，访问服务器地址将会自动去`./dist`目录下寻找是否有`index.html`，有就返回，于是我们的网站就正常访问进去了：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201203205139.png)
+
+但是我们需要注意，通过`a`标签链接的相对页面地址得带上`.html`后缀，不然会报错`404`找不到资源哦。
+#### 全局错误处理中间件
+```js
+const express = require("express")
+
+const app = express()
+app.get("/err", (req, res, next) => {
+    // 模拟通过next抛出一个错误
+    next(new Error("错误信息测试"))
+})
+// err参数表示告诉express我们这是一个处理错误的中间件,如果前面有中间件通过next传递了错误信息这里就能捕获到
+// 通常我们也是通过全局中间件来处理错误的
+app.use((err, req, res, next) => {
+    console.log(err)
+    let statuCode = 400
+    let message = "该资源暂未找到"
+    switch (err.message) {
+        case "错误信息测试":
+            message = "我们模拟的错误信息"
+            break
+
+        default:
+            break
+    }
+    res.json({
+        errCode: statuCode,
+        errMessage: message,
+    })
+})
+
+app.listen(8888, () => {
+    console.log("express服务器启动成功")
+})
+```
+这里我们需要注意：
+1. 错误处理中间件只能处理通过`next()`传递的错误信息，因此像上面我们通过`static()`寻找静态资源没找到时404错误是无法捕获到的
+2. `next()`中间件第一个参数为`err`即代表这是一个错误处理中间件，因此不要传递非错误信息的数据，因为如果传递参数`express`便认为这个是抛出一个错误信息，将不会执行下面的正常中间件，而是让错误处理中间件处理相应数据。
 #### 脚手架
 1. 安装：`npm install -g express-generator`
 2. 创建项目：`express express-demo`
@@ -401,6 +494,164 @@ app.listen(8888, () => {
 缺点：
 1. 由于太简洁，需要依赖不少第三方的中间件，因此有时候也可以说是略带简陋
 
+#### 基本用法
+1. `index.js`主体代码：
+```js
+const Koa = require("koa")
+// 区别一：koa模块导出的是一个类，因此我们通过new关键字来创建一个对象，
+// 而express导出的是个方法，因此不需要new关键字
+const app = new Koa()
+
+// koa中间件的回调函数只有两个：context上下文和next
+// Koa路由不知道app.get()这种带请求方式匹配中间件
+// 也不支持app.use('/login',回调方法)这种带路径匹配的中间件
+// 还不支持app.use(中间件1,中间件2,中间件3)这种连续中间件
+
+// koa想获取Post这种类型传递过来的数据，如果不通过ctx.req.on('data',回调函数)获取的话难以处理；
+// 在express里我们通过express.json()中间件全局解析，然后在后面通过request.body即可获取到
+// 在koa里我们想需要这种类似功能可使用第三方模块 - npm install koa-bodyparser
+const bodyParser = require("koa-bodyparser")
+// 注意该模块不支持form-data格式的数据解析
+app.use(bodyParser())
+
+// 测试是否正常解析
+app.use((ctx, next) => {
+    // 获取解析到的body数据：{"name":"huansheng","age":18}
+    console.log("获取解析到的body数据：" + JSON.stringify(ctx.request.body))
+    next()
+})
+
+// 想要解析form-data，我们还需要使用另一个第三方库：koa-multer
+const multer = require("koa-multer")
+// 用法几乎和express的multer一致
+const upload = multer()
+app.use(upload.any())
+
+// 这里需要强烈注意！！！！它放的位置和上面不一样，他放在ctx.req对象里！
+app.use((ctx, next) => {
+    // 获取解析到的formData数据：{"name":"ted","age":"18","shuaiqi":"9999999999999999999999999999"}
+    console.log("获取解析到的formData数据：" + JSON.stringify(ctx.req.body))
+    next()
+})
+
+app.use((ctx, next) => {
+    // ctx里包含了ctx.request和ctx.response ，作用类似于req,res
+    // 注意，其实还要ctx.req和ctx.res属性，这个是nodeJs原生属性，相比于koa上面提供的对象，信息更多，但比较复杂，一般不使用
+    // ctx.request是koa提供的请求对象，比较简洁明了，ctx.req是node原生的request对象，信息更多
+    // console.log(ctx.req)
+
+    // 注意：koa里是没有ctx.params和ctx.request.params的！
+    console.log(ctx.params)
+    console.log(ctx.request.params)
+    // 但提供了以下常见参数：
+    // ctx.body（response对象里的）
+    // ctx.query(request对象)
+    // console.log(ctx.request, ctx.response)
+
+    // koa里ctx.request没有.end方法
+    // 当然，也可以这样做：res.response.body = "koa，你好！"
+    ctx.body = "koa，你好！"
+
+    // koa因为不是类似express.end这种方法，一次调用就关闭当前流，因此如果赋值两次，那么客户端接受到的数据是后面的那次
+    ctx.body = "二次返回数据"
+    next()
+})
+
+// 第三方路由：koa-router
+const userRouter = require("./user-router")
+// 导入并使用用户路由
+app.use(userRouter.routes())
+// 我们还可以通过allowedMethods方法对我们未处理的请求方式，返回koa-router给我们预设的默认错误提示而不是koa自带的not found提示
+app.use(userRouter.allowedMethods())
+
+// 区别二,express服务如果没有匹配到中间件里使用res.end中止；
+// 那么客户端请求会一直等待，而koa则是直接返回404Not Found提示
+app.listen(8888, () => {
+    console.log("Koa服务器启动成功")
+})
+```
+2. `user-router.index`用户路由：
+```js
+// 第三方热门路由模块：npm install koa-router
+// 地址：https://github.com/ZijianHe/koa-router
+const Router = require("koa-router")
+// 可以在创建路由时直接配置该路由前缀，这里我们设置用户路由模块统一前缀
+const router = new Router({
+    prefix: "/users",
+})
+// koa-router和express很像，支持express的带路径、带方法、连续中间件等express支持但koa不支持的写法
+router.get("/:id", (ctx, next) => {
+    // console.log(ctx.request.params.id)
+    // 效果一致，下面的是上面写法的别名
+
+    // 注意，koa-router里ctx.query不行，会报错，两种方法：ctx.request.querystring解析后对象或者ctx.querystring可获取原生的未解析数据：
+    // { test: 'demo' } test=demo
+    console.log(ctx.request.query, ctx.querystring)
+    ctx.body = `查询${ctx.params.id}用户信息成功，查询数据：${ctx.querystring}！`
+    next()
+})
+router.post("/", (ctx, next) => {
+    // 注意，想拿到post里的数据就得通过ctx.req来监听Node原生数据
+    ctx.req.on("data", (data) => {
+        ctx.body = `创建${data.toString()}用户成功！`
+    })
+    next()
+})
+router.put("/:id", (ctx, next) => {
+    // 注意：koa-ctx里的ctx对象有params属性但不代表koa官方的ctx里有！
+    console.log(ctx.params, ctx.request.params)
+    // 这种写法也可，但推荐别名写法，更简单
+    ctx.body = `更新${ctx.request.params.id}用户信息成功！`
+    next()
+})
+
+module.exports = router
+```
+#### 响应与编码
+`koa`中我们一般对响应进行如下设置：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201205165302.png)
+```js
+const Koa = require("koa")
+const app = new Koa()
+
+// koa里想要部署，也需要使用一个类似express的static模块：koa-static
+// 1. npm install koa-static
+const static = require("koa-static")
+
+app.use(static("./images"))
+
+// 测试是否正常解析
+app.use((ctx, next) => {
+    if (ctx.url === "/test") {
+        // 设置返回状态码
+        ctx.status = 201
+        // 注意，Koa有个优点，不需要你手动设置返回编码，你给个JSON格式的对象将会自动将返回设置为JSON
+        // 你可以理解为默认为express里的res.json()
+        ctx.body = {
+            name: "test",
+            age: 18,
+            address: "中国 上海市 静安区",
+        }
+    }
+    next()
+})
+
+// 错误处理：通过ctx.app这个koa全局对象实例来进行全局处理
+app.use((ctx, next) => {
+    if (ctx.url === "/err") {
+        // 注意，ctx是第三个参数传递过去的
+        ctx.app.emit("error", new Error("错误处理测试"), ctx)
+    }
+})
+// 参数都是上面事件触发的地方传递过来的
+app.on("error", (err, ctx) => {
+    ctx.status = 400
+    ctx.body = err.message
+})
+
+app.listen(8888, () => {
+    console.log("Koa服务器启动成功")
+})
+```
 ## RPC通信
 > 全称：`remote procedure call` - 远程过程调用
 
