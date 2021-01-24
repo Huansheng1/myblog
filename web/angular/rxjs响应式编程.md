@@ -1,12 +1,17 @@
 # Rxjs响应式编程
+
 ## Rxjs初始
+
 ### `fromEvent(元素对象，事件名)
-通过`fromEvent`可将元素事件转变为一个`observable`对象
-```html
+
+通过 `fromEvent` 可将元素事件转变为一个 `observable` 对象
+
+``` html
 <input type="text" #fromEventDemo>
 <div>{{demoShow}}</div>
 ```
-```ts
+
+``` ts
 // 声明需要的变量
 @ViewChild('fromEventDemo') fromEventDemo: ElementRef;
 demoShow = '';
@@ -31,19 +36,24 @@ ngAfterViewInit(): void {
             );
     }
 ```
+
 我们来解释下几个坑点：
+
 1. 为什么要在`ngAfterViewInit`钩子函数里订阅？
-> 因为，如果不在视图渲染完毕后再调用，而是在`ngOnInit`钩子里调用，此时的`fromEventDemo`变量不一定拿到了我们想要的元素对象，控制台会报`undefined`没有`nativeElement`属性
+
+> 因为，如果不在视图渲染完毕后再调用，而是在 `ngOnInit` 钩子里调用，此时的 `fromEventDemo` 变量不一定拿到了我们想要的元素对象，控制台会报 `undefined` 没有 `nativeElement` 属性
 
 2. 为什么`fromEventDemo`对象初始化比`ngOnInit`慢？
-> 这涉及到我们使用的`ViewChild`元数据设置不当导致的，`ViewChild`第一个参数是`selector`选择器，但还有第二个参数`options`配置对象，让我们看一下[文档](https://angular.cn/api/core/ViewChild):
 
-> `options`对象有个参数`static - 如果为true，则在运行更改检测之前解析查询结果；如果为false，则在更改检测之后解析。`
+> 这涉及到我们使用的 `ViewChild` 元数据设置不当导致的， `ViewChild` 第一个参数是 `selector` 选择器，但还有第二个参数 `options` 配置对象，让我们看一下[文档](https://angular.cn/api/core/ViewChild):
 
-> 什么意思？意思就是，如果你`设置引用别名`的当前元素是静态，即 没使用`结构型指令`等东西改变`元素Dom结构`，且你想在`ngOnInit()`钩子函数内使用，你最好 设置`static`为`true`，反之，则为`false`，这时，`ViewChild`设置的变量值没那么快初始化，就不建议在`ngOnInit()`里使用。
+> `options` 对象有个参数 `static - 如果为true，则在运行更改检测之前解析查询结果；如果为false，则在更改检测之后解析。`
 
-因此，如果我们想在`ngOnInit()`内使用该变量，其实可这样写：
-```ts
+> 什么意思？意思就是，如果你 `设置引用别名` 的当前元素是静态，即 没使用 `结构型指令` 等东西改变 `元素Dom结构` ，且你想在 `ngOnInit()` 钩子函数内使用，你最好 设置 `static` 为 `true` ，反之，则为 `false` ，这时， `ViewChild` 设置的变量值没那么快初始化，就不建议在 `ngOnInit()` 里使用。
+
+因此，如果我们想在 `ngOnInit()` 内使用该变量，其实可这样写：
+
+``` ts
 // 声明需要的变量
 @ViewChild('fromEventDemo', { static: true }) fromEventDemo: ElementRef;
 demoShow = '';
@@ -53,8 +63,9 @@ ngOnInit(): void {
     }
 ```
 
-但是，`rxjs`使用需要注意一个问题，为了避免内存泄漏，我们需要在组件销毁前取消订阅：
-```ts
+但是， `rxjs` 使用需要注意一个问题，为了避免内存泄漏，我们需要在组件销毁前取消订阅：
+
+``` ts
     sub: Subscription;
     ngOnInit(): void {
         // 将subscribe返回的订阅对象Subscription保存，以便取消订阅
@@ -68,8 +79,10 @@ ngOnInit(): void {
         this.sub.unsubscribe();
     }
 ```
-`rxjs`强大之处就在于：通过管道`pipe`它能对事件流进行各种转换筛选等强大操作：
-```ts
+
+`rxjs` 强大之处就在于：通过管道 `pipe` 它能对事件流进行各种转换筛选等强大操作：
+
+``` ts
 this.sub = fromEvent(this.fromEventDemo.nativeElement, 'input')
             // pipe - 对事件流事件进行管道化处理
             .pipe(
@@ -82,15 +95,19 @@ this.sub = fromEvent(this.fromEventDemo.nativeElement, 'input')
                 // ...代码
                         );
 ```
-### `async`管道符
+
+### `async` 管道符
+
 看见上面那么一大坨，我们能不能更简单点？
 
-答案是： 可以的，通过`async`管道符，我们可直接在`html模板`上进行`subscribe`订阅操作，而不再需要手动订阅取值再取消订阅！
-```html
+答案是： 可以的，通过 `async` 管道符，我们可直接在 `html模板` 上进行 `subscribe` 订阅操作，而不再需要手动订阅取值再取消订阅！
+
+``` html
 <input type="text" #fromEventDemo>
 <div>{{observable | async}}</div>
 ```
-```ts
+
+``` ts
 // 通常在变量末尾使用$标识这是一个Observable可监听数据流
 observable$: Observable<string>;
 
@@ -103,13 +120,16 @@ ngOnInit(): void {
             );
     }
 ```
-### `interval`定时可观察对象、`takeWhile`操作符
+
+### `interval` 定时可观察对象、 `takeWhile` 操作符
+
 为了方便我们的学习，可以通过实现一个简单的倒计时组件来熟悉它：
 
-```html
+``` html
 <div style="color:red">{{intervalTime$ | async}}</div>
 ```
-```ts
+
+``` ts
 import { Component, OnInit } from '@angular/core';
 import { interval, Observable } from 'rxjs';
 import { takeWhile, map, tap } from 'rxjs/operators';
@@ -154,10 +174,32 @@ export class CountDownComponent implements OnInit {
     }
 }
 ```
+
 效果图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201115162725.png)
-### `switchMap`高阶操作符
+
+### 一对多的可观察对象
+
+``` ts
+// Behavior比subject还强一点，如果在订阅Subject对象之前的更新，订阅者是获取不到的，但Behavior一订阅就能获取到上一次的结果
+const beh$: BehaviorSubject<string> = new BehaviorSubject('初始值');
+// 一对多，支持多个订阅
+const sub$: Subject<string> = new Subject();
+```
+
+### `switchMap` 高阶操作符
+
+### `forkJoin` - 类似 `Promise.all`
+
+将多个异步请求加入到一个队列，等队列里的请求全部完成后再将结果按顺序加入一个数组返回：
+```js
+forkJoin([Ob对象1, Ob对象2]).subscribe(result=>{
+
+    // result:[Ob对象1请求结果,Ob对象2请求结果]
+
+})
 
 ## 推荐文章
+
 * [RxJS 中文文档](https://cn.rx.js.org/)
 * [Rxjs宝石图](https://rxmarbles.com/#filter)
 * [响应式编程入门指南](https://hijiangtao.github.io/2020/01/13/RxJS-Introduction-and-Actions/)
