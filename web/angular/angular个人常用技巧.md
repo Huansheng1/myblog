@@ -46,16 +46,16 @@ fromEvent(window, 'resize').pipe(debounceTime(100)).pipe(map(this.checkClientWid
 ``` ts
 @Component({
 //   ...其他代码
-// 修改检测策略为OnPush策略，这种策略需要手动通过markForCheck标记改变了需要检测
-// 不设置这个大部分情况也行，但有时候也没反应，可再加上 this.changeDetectorRef.detectxxx（突然忘记了啥方法名）;
+// 修改检测变更策略为OnPush策略
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 // 先在构造函数注入
 private changeDetectorRef: ChangeDetectorRef,
 
 // 在数据更新后下面执行：
-
-// 标记有数据更改了
+// 检测当前组件变更 - 如果组件销毁过快会在控制台报错
+this.changeDetectorRef.detectChanges();
+// 标记有数据更改了 - markForCheck会对在整个应用范围内都进行Change，感觉更影响性能，不推荐使用
 this.changeDetectorRef.markForCheck();
 ```
 
@@ -97,3 +97,28 @@ handleClick(event) {
         event.preventDefault();
     }
 ```
+## 去除前后输入空格
+1. 自定义去除输入框前后输入数据空格的指令：
+```js
+import { Directive, HostListener } from '@angular/core';
+import { NgControl } from '@angular/forms';
+
+@Directive({
+    selector: '[HsInputTrim]',
+})
+export class InputTrimDirective {
+    constructor(private control: NgControl) { }
+    @HostListener('change', ['$event']) trimSpace(event) {
+        // NgControl来触发ngModel更新，如果直接通过rd2或者原生方式修改无法触发ngModel更新导致表单校验会出问题
+        this.control.control.setValue(event.target.value.trim());
+    }
+}
+```
+2. 在`input`上使用，输入内容完毕后会自动去除前后空格，校验也能正常运行：
+```html
+<input ktInputTrim type="text" class="form-control" [(ngModel)]="email" id="email" name="email" placeholder="如：xxxxxx@xx.com" maxlength="1024" #emailInput="ngModel" email>
+```
+## 推荐文章：
+1. [Angular运行性能（Runtime Performance）优化指南](https://zhuanlan.zhihu.com/p/37553497)
+2. [`ExpressionChangedAfterItHasBeenCheckedError`错误分析](https://segmentfault.com/a/1190000020886310#)
+3. [[Angular Directive] 输入框禁止为空字符串与自动去除空格指令](https://blog.csdn.net/t894690230/article/details/79209896)
