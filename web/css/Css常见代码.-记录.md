@@ -1,7 +1,40 @@
 # 常用 Css 代码
 
-## 文本溢出隐藏
+## 文本
 
+### 单行文本居中左右对齐
+```html
+<head>
+    <style>
+        .list-wrapper {
+            padding: 20px 10px;
+            border: 1px solid pink;
+        }
+
+        .list-wrapper li {
+            width: 100px;
+            background-color: tomato;
+            color: #fff;
+            padding: 4px 30px;
+            list-style: none;
+            text-align: center;
+            /* 核心代码 */
+            text-align-last: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="list-wrapper">
+        <li>测试</li>
+        <li>差啥砍价的</li>
+        <li>瓦尔达撒多</li>
+        <li>阿斯顿撒</li>
+        <li>盎司的</li>
+        <li>啊</li>
+    </div>
+</body>
+```
+效果：![](https://www.hualigs.cn/image/608bbcef28e3a.jpg)
 ### 单行文本溢出隐藏
 
 核心 CSS 语句
