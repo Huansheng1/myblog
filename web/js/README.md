@@ -5,6 +5,7 @@
 ### [老版复习基础笔记/备忘录](https://mubu.com/doc/cXz3tH_Ve7)
 
 ### [switch问题](switch问题.md)
+### [数组方法与小知识](数组方法与小知识.md)
 
 ## 知识巩固与提高
 
