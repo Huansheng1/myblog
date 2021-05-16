@@ -49,9 +49,11 @@
 
 > [Github源码](https://github.com/Huansheng1/movie-cloud)
 
-## 正在写的项目
+* [Node.js开发仿外卖平台](Node.js开发仿外卖平台)
 
-### [Node.js开发仿外卖平台](Node.js开发仿外卖平台)
+> 用于练习 `mysql` 和 `nodejs`
+
+## 正在写的项目
 
 ### [NodeJs开发旧岛后端](NodeJs开发旧岛后端)
 
@@ -94,7 +96,6 @@
 
 后台：
 
-* [nodeJs](#)
 * [golang](#)
 
 组件库：
