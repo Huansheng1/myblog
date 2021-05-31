@@ -26,7 +26,9 @@
 
 05. 通过 `git status`我们可查看当前 `git`工作区内的文件状态，`Untracked files`标识的是 工作区内还未纳入版本库的文件列表：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516131522.png)
 
-06. 通过`git add .`可以将当前工作区的所有文件加入到 `暂存区`：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516131748.png)
+06. 通过`git add .`可以将当前目录下的所有文件加入到 `暂存区`：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516131748.png)
+
+> 注意：如果是想确保本 `工作区` 的所有变更都加入到暂存区，需要使用 `git add -A` ，因为 `git add .` 只是将当前终端目录及以内的变更加入追踪。
 
 07. 通过`git commit -m '提交到本地仓库的本次提交说明'`来提交到本地仓库，此时的工作区会很干净：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516131936.png)
 
@@ -128,7 +130,38 @@ nodemodules/
 
 ### Gitflow - git工作管理规范
 
+`Gitflow` 所需的分支：
 ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516204904.png)
+
+**第一步**：创建主分支、打上版本号并创建开发分支 - ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516231349.png)
+
+01. 创建远程版本库，本地克隆远程版本库，修改一下做一次提交到远程仓库
+02. 给当前`commit`记录打上标记`v0.0.1` - ` git tag -a v0.0.1 -m '版本描述信息'` ：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516235747.png)
+03. 通过`git tag`可以查看当前有哪些`tag`（列表）
+04. `git show tag版本号`可以查看指定版本的tag的详细信息：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210517233824.png)
+05. 当然打上了标签标记版本后，我们肯定是希望它能够推送到远程的，因此我们通过`git push origin v0.0.1`推送指定版本到远程仓库：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210517234113.png)
+
+06. 接着我们按照`Gitflow`工作流继续创建 开发分支`Develop`：`git branch Develop`
+07. 切换到开发分支：`git switch Develop`
+08. 关联本地分支与远程分支并推送：`git push --set-upstream origin Develop`
+
+**第二步**：分配任务给对应人员，对应人员创建特性分支并开发提交，管理者代码审核并合并 - ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210517235355.png)
+
+01. `leader`分配张三做登录页，分配李四做主页
+02. 张三拉取克隆当前分支并创建`feature/login`新特性（功能）分支：`git clone 远程地址 && cd 仓库项目名 && git branch feature/login && git switch feature/login`
+03. 李四同样操作创建`feature/index`分支：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210518000100.png)
+04. 张三李四都进行开发，开发完毕后，推送到自己的分支，通知`leader`进行代码审查
+05. `leader`分别一个一个切到对应分支进行代码审核，审核通过则将该分支合并到`Develop`开发分支上
+
+**第三步**：开发完成后，进入预上线阶段， `leader` 根据当前 `Develop` 分支创建 `release/版本号` 分支，测试人员切到该分支测试 `bug` ，如果发现 `Bug` ，记录成 `Issue` 通知对应的开发人员，开发人员根据 `Issue` 创建对应的 `bugfix/issue编号` ，修复完毕后开发人员切回 `release` 分支并将修复 `Bug` 的分支合并进来，再通知测试人员继续测试，一直到 `Bug` 全部修复完毕， `leader` 将当前开发分支合并到 `master` 主分支并更新版本号：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210518000351.png)
+
+01. `leader`创建对应的发行分支并推送到远程版本库：`git branch release/v0.01 && git switch release/v0.01 && git push --set-upstream origin release/v0.01`
+02. 测试人员切到当前发行分支进行测试，如果发现`Bug`记录复现步骤和`Bug`表现通知开发人员修复
+03. 开发人员根据`Bug`对应的`Issue`进行创建修复分支并修复操作：`git pull && git switch release/v0.01 && git branch bugfix/issue01 && git switch bugfix/issue01`
+04. 开发人员修复完毕后，将当前修复分支合并到对应的发行版本分支并通知测试人员继续测试
+05. `Bug`全部修复完毕后，`leader`将当前`发行版本`合并到`开发分支`，再将`开发分支`合并到`master`分支并更新新的版本号。
+
+**第四步**：上线后如果遇见 `bug` ，这时我们创建基于 `master` 的 `hotfix/issue编号` 紧急修复分支，开发人员切到该分支进行修复，修复后将该分支分别合并到 `Develop` 开发分支和 `master` 主分支， `leader` 在 `master` 分支上打上新的版本号并推送发布：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210518003050.png)
 
 ## 其他文章
 
@@ -139,3 +172,4 @@ nodemodules/
 ## 推荐链接
 
 * [猴子都能懂的GIT入门](https://backlog.com/git-tutorial/cn/)
+* [Git - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE)
