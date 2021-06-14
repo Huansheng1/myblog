@@ -89,6 +89,7 @@ module.exports = [
             { text: "Angular", link: "/web/angular/" },
             { text: "React", link: "/web/react/" },
             { text: "性能优化与监控", link: "/web/性能优化与监控/" },
+            { text: "面试题库与知识", link: "/web/interview-ready/" },
         ],
     },
     {
