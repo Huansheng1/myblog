@@ -118,6 +118,25 @@ export class InputTrimDirective {
 ```html
 <input ktInputTrim type="text" class="form-control" [(ngModel)]="email" id="email" name="email" placeholder="如：xxxxxx@xx.com" maxlength="1024" #emailInput="ngModel" email>
 ```
+## 路由问题
+### history路由在开发环境刷新时报错
+当我们从`hash`模式的旧式风格切换到`history`新版路由风格时，我们会发现 出现了以下几个问题:
+* 如果在二级路由直接刷新或者在地址栏回车进入，会出现重定向失败，404的页面。
+* 引用 CSS、脚本和图片文件时使用的相对 URL 可能出现了问题(没有基准路径自动带上了当前路由路径)
+
+路由器默认使用 `“HTML 5 pushState”` 风格，所以你必须用一个 `<base href>` 来配置该策略（`Strategy`）。
+
+这时我们可以通过配置 基准路径 来解决：
+* 在`index.html`的`head`标签里添加`base`元素：
+```html
+<base href="/">
+```
+
+当然，如果你无法修改`index.html`你就可能需要通过其他方式来补救：[![WkBVET.png](https://z3.ax1x.com/2021/07/13/WkBVET.png)](https://imgtu.com/i/WkBVET)（极端情况）  
+
+参考链接：
+1. [angular中文官网- `<base href> 元素`](https://angular.cn/guide/router#base-href-1)
+2. [w3cschool- `<base href> 元素`](https://www.w3cschool.cn/angulerten/angulerten-4a2v3808.html)
 ## 推荐文章：
 1. [Angular运行性能（Runtime Performance）优化指南](https://zhuanlan.zhihu.com/p/37553497)
 2. [`ExpressionChangedAfterItHasBeenCheckedError`错误分析](https://segmentfault.com/a/1190000020886310#)
