@@ -204,8 +204,14 @@ docker container exec -it qinglong sh
 如果想查看docker某个文件内容，只需要前面就加上 `docker` 进入容器目录的指令即可：
 
 ```bash
+# 查看文件列表
+docker exec [容器名称] ls
+
 # cat 本来是在linux里查看指定路径的文件内容的指令，前面接上docker命令可直接查看dokcer目录内容
 docker exec -it qinglong cat /ql/scritps/要查看的文件.text
+
+# 移动或者重命名
+docker exec -it qinglong mv /ql/scritps/要查看的文件.text ./new-file.text
 ```
 
 进入容器目录后，我们可以通过执行容器内的 `linux命令` 查看当前容器内的运行进程：
@@ -231,6 +237,20 @@ exit
 ```bash
 # 将当前终端本地目录的xmsport.py文件复制到运行中的镜像里的scripts目录下
 docker cp xmsport.py 2aa8ca2c8d0a:/ql/scripts
+
+# 情景:比如一个docker实例无法正常启动
+# 我们通过：docker start 实例id -a 查看无法启动的原因，定位到要修改的配置文件
+
+# 把docker容器中的配置文件复制到主机中
+# docker cp 容器id：docker容器中配置文件路径  主机路径
+# docker cp eaaba6bd4423:/etc/mysql/mysql.conf.d/mysqld.cnf /root/mysqld.cnf  
+```
+### 本地文件复制回容器
+<!-- 通常用于解决docker无法启动的问题:我们修改配置文件后拷贝回去,然后docker会自动重启. -->
+```bash
+# 可以解决容器在无法启动的情况下，修改容器中的配置文件
+# docker cp 主机文件路径 容器id：docker容器中配置文件路径
+# docker cp /root/mysqld.cnf eaaba6bd4423:/etc/mysql/mysql.conf.d/mysqld.cnf
 ```
 
 ### 重启docker进程
