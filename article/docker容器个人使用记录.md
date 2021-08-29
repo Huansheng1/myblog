@@ -253,7 +253,16 @@ docker cp xmsport.py 2aa8ca2c8d0a:/ql/scripts
 # docker cp 主机文件路径 容器id：docker容器中配置文件路径
 # docker cp /root/mysqld.cnf eaaba6bd4423:/etc/mysql/mysql.conf.d/mysqld.cnf
 ```
+### 查看日志
+查看指定时间后的日志，只显示最后100行：
+```bash
+docker logs -f -t --since="2018-02-08" --tail=100 CONTAINER_ID
+```
 
+查看最近30分钟的日志:
+```bash
+docker logs --since 30m CONTAINER_ID
+```
 ### 重启docker进程
 
 ```bash
