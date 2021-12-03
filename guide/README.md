@@ -15,7 +15,10 @@
 
 ## git须知
 
-### [git体系整理](git体系整理.md)
+*  [git体系整理](git体系整理.md)
+*  [git踩到的坑](git踩到的坑.md)
+*  [git进阶操作](git进阶操作.md)
+*  [git](git.md)
 
 # vuePress概述
 

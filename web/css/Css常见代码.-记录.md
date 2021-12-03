@@ -1,7 +1,7 @@
 # 常用 Css 代码
 
 ## 文本
-
+> 注意：`display`模式会影响文本缩进，建议设置为 `inline-block`或者`block`保险一点。
 ### 单行文本居中左右对齐
 ```html
 <head>
@@ -108,3 +108,7 @@ text-overflow: ellipsis；
 /* 隐藏滚动条 */
 .scroll-container::-webkit-scrollbar {display:none}
 ```
+## fixed固定定位的特殊情况
+正常情况来讲，`position: fixed;`会使得该元素相对`屏幕窗口`定位。
+但是，如果父级或者祖先元素存在`transform`不为`none`的CSS样式时，`fixed`将会改为相对该元素定位。
+> 相关记录：[position:fixed失效的几种情况](https://blog.csdn.net/weixin_45464787/article/details/115752506)
