@@ -41,11 +41,11 @@
 
 ```css
 /* （文字长度超出限定宽度，则隐藏超出的内容） */
-overflow: hidden；
+overflow: hidden;
 /* （设置文字在一行显示，不能换行） */
-white-space: nowrap；
+white-space: nowrap;
 /* （规定当文本溢出时，显示省略符号来代表被修剪的文本） */
-text-overflow: ellipsis；
+text-overflow: ellipsis;
 ```
 
 适用场景：
@@ -58,15 +58,15 @@ text-overflow: ellipsis；
 
 ```css
 /* （用来限制在一个块元素显示的文本的行数，2 表示最多显示 2 行。为了实现该效果，它需要组合其他的 WebKit 属性） */
--webkit-line-clamp: 2；
+-webkit-line-clamp: 2;
 /* （和 上面代码 结合使用，将对象作为弹性伸缩盒子模型显示 ） */
-display: -webkit-box；
+display: -webkit-box;
 /* （和 上面代码 结合使用 ，设置或检索伸缩盒对象的子元素的排列方式 ） */
--webkit-box-orient: vertical；
+-webkit-box-orient: vertical;
 /* （文本溢出限定的宽度就隐藏内容） */
-overflow: hidden；
+overflow: hidden;
 /* （多行文本的情况下，用省略号 “…” 隐藏溢出范围的文本) */
-text-overflow: ellipsis；
+text-overflow: ellipsis;
 ```
 
 适用场景
@@ -112,3 +112,8 @@ text-overflow: ellipsis；
 正常情况来讲，`position: fixed;`会使得该元素相对`屏幕窗口`定位。
 但是，如果父级或者祖先元素存在`transform`不为`none`的CSS样式时，`fixed`将会改为相对该元素定位。
 > 相关记录：[position:fixed失效的几种情况](https://blog.csdn.net/weixin_45464787/article/details/115752506)
+
+## hidden不生效问题
+`hidden`属性遇见`display`属性时会失效！
+
+

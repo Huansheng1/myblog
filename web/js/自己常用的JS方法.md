@@ -64,3 +64,23 @@ isPicture(filleExtName: string) {
     return picExtNameFilter.indexOf(filleExtName.toLowerCase()) > -1;
 }
 ```
+## 复制某些内容
+>注： `copy`方法只在浏览器`dev tools`面板生效，无法在代码生效
+
+```js
+// 复制内容到剪切板
+function copyLink(rawStr) {
+        const inputRef = document.createElement('input');
+        document.body.appendChild(inputRef);
+        inputRef.value = rawStr;
+        inputRef.select();
+        if (document.execCommand) {
+            document.execCommand('copy');
+            document.body.removeChild(inputRef);
+            console.log('复制成功！');
+        } else {
+            console.error('当前浏览器不支持copy命令，请手动复制或者更换浏览器');
+            document.body.removeChild(inputRef);
+        }
+    }
+```

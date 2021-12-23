@@ -198,6 +198,8 @@ export class CountDownComponent implements OnInit {
 const beh$: BehaviorSubject<string> = new BehaviorSubject('初始值');
 // 一对多，支持多个订阅
 const sub$: Subject<string> = new Subject();
+// Behavior还支持同步获取最新的一次订阅结果数据
+console.log('最近的一次结果：',beh$.getValue());
 ```
 
 ### `switchMap` 高阶操作符
