@@ -1,5 +1,21 @@
 # git中踩到的坑
 ## 分支管理
+### 分支切换失败
+有时候我们明明先`git pull`拉取了远程分支，但还是无法切换：
+```bash
+$ git switch 1680
+fatal: Cannot switch branch to a non-commit '1680'
+```
+这个时候我们需要手动创建一个本地分支并将其与远程分支进行关联，这里我提供两种命令：
+1. `git checkout -b xxx分支 origin:服务器分支名xxx`
+2. `git switch -t origin/服务器分支名`：
+```bash
+$ git switch -t origin/1680
+Switched to a new branch '1680'
+Branch '1680' set up to track remote branch '1680' from 
+'origin'.
+```
+
 ### 分支切换
 * [保留/丢弃当前分支修改并切换至其他分支](https://www.cnblogs.com/yhjoker/p/11776240.html)
 

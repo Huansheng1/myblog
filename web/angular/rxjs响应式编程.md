@@ -1,5 +1,19 @@
 # Rxjs响应式编程
+## 前置
+### 如何在网页上调试rxjs
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.4.0/rxjs.umd.min.js"></script>
+<button id="btn">Click</button>
+<script>
+    const { of, fromEvent } = rxjs;
+    const { switchMap, delay } = rxjs.operators;
 
+    fromEvent(document.getElementById('btn'), 'click').pipe(
+        switchMap(e => of('some value').pipe(delay(1000)))
+      )
+      .subscribe(val => { console.log(val) });
+</script>
+```
 ## Rxjs初始
 
 ### `fromEvent(元素对象，事件名)
@@ -184,9 +198,21 @@ export class CountDownComponent implements OnInit {
 const beh$: BehaviorSubject<string> = new BehaviorSubject('初始值');
 // 一对多，支持多个订阅
 const sub$: Subject<string> = new Subject();
+// Behavior还支持同步获取最新的一次订阅结果数据
+console.log('最近的一次结果：',beh$.getValue());
 ```
 
 ### `switchMap` 高阶操作符
+```js
+
+```
+### `combineLatest` ：[合并多个Observable创建一个Observable，其值是根据其每个输入Observable的最新值计算得出的](https://www.cnblogs.com/coppsing/p/12309875.html)。
+> 与`forkJoin`不一样的在于，不是结果全部完成才合并数组返回
+```js
+combineLatest([Ob对象1, Ob对象2]).subscribe(result=>{
+    // result:[Ob对象1请求结果,Ob对象2请求结果]
+})
+```
 
 ### `forkJoin` - 类似 `Promise.all`
 
@@ -197,6 +223,40 @@ forkJoin([Ob对象1, Ob对象2]).subscribe(result=>{
     // result:[Ob对象1请求结果,Ob对象2请求结果]
 
 })
+```
+## 取消订阅
+在一个组件里，我们一般会有多个`subscription`对象，为了优化性能，我一般使用两种方式：
+1. 在组件里定义一个`subs`数组存放订阅对象，在组件销毁时统一取消订阅：
+```ts
+export class RxjsDemoComponent implements OnInit,OnDestroy {
+    subs: Subscription[] = [];
+    ngOnInit() {
+        const sub = rxjs$.subscribe(result => {
+            // ...代码
+        }, err => console.log('失败：', err));
+        this.subs.push(sub);
+    }
+    ngOnDestroy() {
+        this.subs.forEach(sub => sub.unsubscribe());
+    }
+}
+```
+2. 在组件里定义一个`Subject`对象，所有订阅数据通过`pipe`监听该对象，如果它`终止`了，则所有监听订阅统一停止监听：
+```ts
+export class RxjsDemoComponent implements OnInit,OnDestroy {
+    private $destory = new Subject<boolean>();
+    ngOnInit() {
+        rxjs$.pipe(takeUntil(this.$destory)).subscribe(result => {
+            // ...代码
+        }, err => console.log('失败：', err));
+    }
+    ngOnDestroy() {
+        this.$destory.next(true);
+        // 他结束则全部takeUntil了他的都取消订阅
+        this.$destory.unsubscribe();
+    }
+}
+```
 
 ## 推荐文章
 
@@ -206,3 +266,4 @@ forkJoin([Ob对象1, Ob对象2]).subscribe(result=>{
 * [RxJS Observable | 全栈修仙之路](http://www.semlinker.com/rxjs-observable/#Observer-Pattern)
 * [使用可观察对象（Observable）来传递值](https://angular.cn/guide/observables#creating-observables)
 * [rxjs简书](https://www.jianshu.com/p/1a90e39ec658)
+* [用可视化来理解switchMap, concatMap, flatMap,exhaustMap](https://blog.csdn.net/weixin_34148508/article/details/88811308)

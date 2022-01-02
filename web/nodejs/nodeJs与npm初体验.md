@@ -108,6 +108,11 @@
 
 更新其他的全局模块，比如：[`Vue Cli`](https://blog.csdn.net/qq_39953537/article/details/102759821)也是如此：
 * `npm install -g @vue/cli`
+
+更新包模块还可以通过`npm-check`来做到：
+1. 安装检测模块: `npm install -g npm-check`
+2. 更新全局模块：` npm-check -u -g --f`，更新后记得重启`cmd`
+3. 更多：[`npm更新包(全局单个，项目单个，全局所有，项目生产环境，项目开发环境)`](https://www.cnblogs.com/stronggirlyao/p/9772237.html)
 #### npm安装命令 效果差别  
 * npm install：本地安装  
 * > (1)将安装包放在 ./node_modules 下（运行 npm 命令时所在的目录），如果没有 node_modules 目录，会在当前执行 npm 命令的目录下生成 node_modules 目录。

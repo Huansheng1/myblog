@@ -43,3 +43,57 @@
 2. `View`指的是通过`#`直接调用子组件，而`Content`仅仅只是`ng-content`内容：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201031114446.png)
 
 > 以上内容，记录自[Angular』初学者必踩的十个坑](https://www.bilibili.com/video/BV1sZ4y1x7pP?from=search&seid=8078396507219473471)，用于我个人笔记，不支持商业用途。
+
+## 组件改造为带视图的指令
+> 适用于将某个弹出层：弹窗、提示之类的，改为指令，以便直接使用
+
+0. 以一个现成的 组件为例：`component-directive-demo`
+1. 改造`Component`装饰器：
+```ts
+@Component({
+    // 将组件选择器改为了属性选择器
+    selector: '[component-directive-demo]',
+    templateUrl: './component-directive-demo.component.html',
+    styleUrls: ['./component-directive-demo.component.scss'],
+    providers: [
+        HelperPipe
+    ]
+})
+```
+2. 改造`html`文件：
+```html
+<!-- xxx原来布局代码 -->
+
+<!-- 增加一行插槽 -->
+<ng-content></ng-content>
+```
+
+由此，我们可以发现：组件真的是带视图的指令
+
+## 宿主事件监听
+`Angular`里面的宿主事件监听有两种：
+1. 通过`Renderer2`的`listen`方法：
+```ts
+    // 监听某个dom元素的html事件：不支持组件的自定义事件、绑定的指令的事件
+    this.rd2.listen(this.el?.nativeElement, 'error', func);
+```
+2. 通过`HostListener`监听：
+```ts
+    // 还可以监听某个第三方插件的状态变更事件
+    @HostListener('某个指令的自定义事件', ['$event']) listenTestEvent = (result) => {
+        // 处理代码
+    }
+```
+之前我试图用`rd2`监听某个指令的事件，结果发现不行，所以建议能用`HostListener`最好不要用别的。
+## 开发模式和生产模式自定义`Input`的注意事项
+```ts
+// 因为某个指令，需要传入 lazyLoad 属性来输入数据；我想在另一个指令里 检测某个元素上是否存在该指令
+// 经过观察 元素，我发现 当给某个组件传入 [lazyLoad]="xxx"时，元素上会有 ng-reflect-驼峰表示法 的方式存在某个属性
+// 结果就这样写了
+if (!this.el.nativeElement?.attributes.hasOwnProperty('ng-reflect-lazy-image')){
+    // 如果存在某个懒加载指令
+}
+// 但是随后发现，生产环境上相关代码不生效；
+// 定位发现 生产打包环境 没有 ng-reflect-驼峰表示法 模式的属性！
+```
+不要试图使用`hasOwnProperty`来检测`html`标签上某个指令是否存在，因为该属性只在本地开发`ng serve`上出现，`ng build --prod`后运行是没有的！

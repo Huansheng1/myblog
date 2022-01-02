@@ -104,3 +104,58 @@ git rebase --continue
 1. 清除之前的缓存，来取消追踪：`git rm -r --cached .`
 2. 将所有文件添加到暂存区：`git add .`，此时就不会将配置文件里的东西一起加入
 3. 随便写个`commit`提交上去：`git commit -m 'update .gitignore'`，再 `git push -f`即可
+
+## 发布版本
+* 发布小版本：
+```bash
+# 切到某个分支
+git switch 1.3.x
+# 升级小版本
+npm version patch
+# 将本地标签tag推送到origin远程仓库
+git push --follow-tag
+```
+* 删除某个版本：
+```bash
+# 查看tag列表
+git tag
+# 输出：
+# v1.3.3
+# v1.0.1
+# v1.1.2
+# v1.4.6
+```
+* 撤回某个版本tag:
+```bash
+# 删除本地的1.4.8版本tag
+git tag -d v1.4.8
+# 将变更记录推送到服务器
+git push origin :refs/tags/v1.4.8
+# 重置当前git记录
+git reset HEAD~1
+# 取消全部变更，当然你可以上一步直接使用 --hard，只是我们为了看一下哪些变更不需要，确保一下
+git checkout .
+# 推送到当前远程分支
+git push -f
+```
+* 发布大版本 - 1.4.x为例：
+```bash
+# 创建新tag分支
+git branch 1.4.x
+# 推送到远程告诉仓库创建了一个分支
+git push origin 1.4.x:1.4.x
+# 进行本地与远程分支的关联
+git branch --set-upstream-to=origin/1.4.x 1.4.x
+
+# 后续步骤和打上小标签一样
+```
+
+## commit提交错了分支，需要将错误分支的提交commit记录提取到正确分支
+假设，我们想给`1888`分支提交几个`commit`，但是，突然发现我们之前是在`1666`分支上干的，`commit`提交记录已经进了`1666`分支：
+```bash
+# 切到正确分支
+git switch 1888
+# 将错误分支的commit提取到当前分支
+git cherry-pick commit哈希值1 commit哈希值2 commit哈希值3
+# 支持批量提取多个哦，用空格隔开
+```

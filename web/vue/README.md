@@ -1,7 +1,8 @@
 # Vue.js
 
 ## 基础
-### [Vue.js基础](https://mubu.com/doc/2xeGpkZPN_)
+### [Vue2.x基础](https://mubu.com/doc/2xeGpkZPN_)
+### [Vue3.x基础](./Vue3.x)
 ## 进阶
 ### [vue.config.js配置](vue.config配置.md)
 ### [Vue中踩过的坑与解决](Vue中踩过的坑与解决)
