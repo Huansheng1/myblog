@@ -15,6 +15,8 @@
 1. `npm` 安装 `TypeScript`：
 ```bash
 npm install -g typescript
+# 查看版本
+tsc --version
 ```
 2. 运行 `TypeScript` 编译器：
 ```bash
@@ -32,7 +34,17 @@ tsc demo.ts
 ```
 ## 开始学习
 > [官方手册](https://www.typescriptlang.org/docs/handbook/basic-types.html)
+### 与JavaScript的区别
+1. 增加类型约束
+2. 增加更多类型：枚举、元组等
 ### 声明方式
+#### 变量的定义
+格式：
+```ts
+const/let/var 变量名:变量类型 = 变量值;
+```
+其中，`:变量类型`的方式叫做 `类型注解`；注：如果不写类型注解的话，`ts`也是会根据值进行`类型推导`自动推断当前变量的值的！
+#### 类成员声明
 1. `public`：默认声明，所有文件都可获取使用该属性
 2. `protected`：只有当前类和其子类可访问该属性
 3. `private`：只有当前类可访问该属性
