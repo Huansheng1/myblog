@@ -61,6 +61,18 @@ console.log(notSure)
 notSure = false;
 console.log(notSure)
 ```
+为啥在有`any`的时候还需要引入`unknown`呢？
+```ts
+let unknownVar:unknown = 111;
+unknownVar = 'test';
+let newVar:string;
+// 不能将类型“unknown”分配给类型“string”。
+newVar = unknownVar;
+// 因此，对于unknown类型可以在赋值的时候限制，避免传入个非法的类型
+// 我们需要 newVar = String(unknownVar); 将其转换下
+
+// 而any类型就太过灵活，会导致使用和赋值没有任何影响，失去了ts的特性
+```
 
 注意事项：
 * `TypeScript`在编译时会对代码进行静态的分析 - 分析代码结构和提供的类型注解
@@ -156,21 +168,29 @@ function fail(message: string): never {
 }
 ```
 从上可以看出，如果`never`不是`boolean`的子集，那么，`checkNumber`编译时是会提示报错的。
+
+<!-- 看起来是不是不太明白`never`的使用场景？
+
+官方示例其实举了一种应用场景：
+```ts
+
+``` -->
 ### 函数注解
 `类型注解`：在方法形参可如此指定类型 - - > `function testFunc(name: string){}`
 ### 数组类型
 
 ```ts
-// 使用`类型` + `[]`来表示
+// 使用`类型` + `[]`来表示，推荐这种写法，兼容性最好
 const arr: number[] = [1,2,3]
 const arr2: string[] = ['1','2']
 
-// 泛型定义方式
+// 泛型定义方式（不推荐，因为在JSX语法中会和标签冲突，因此上面那种写法兼容性最好）
 const arr2: Array<number> = [1,2,3,3]
 const arr2: Array<string> = [1,2,3,3]
 
-// 接口定义数组
+// 接口定义数组（当然，会增加理解成本，也不太推荐）
 interface NumArr {
+    // 定义了该类型是一个对象，key和value都是number，且数量不确定 -> 这形容的不就是js里的数组么，因为js的数组其实可以看作为 属性名和属性值都是number的对象
     [index: number]: number;
 }
 let numArr: NumArr = [1,2,3];
@@ -186,6 +206,11 @@ const arr:[string,number] = ['2',3]
 function sum() {
     let args: IArguments = arguments;
 }
+```
+### 元组类型
+`ts`里，数组一般是同一类型的集合，但考虑到部分场景，确实需要用数组存储多个不同类型的数据的话，会引入一个 `元组`类型：
+```ts
+const tuple1:[string,number,boolean] = ['元组demo',3,false];
 ```
 ### 枚举类型
 > js中没有这类型，仿照强类型语言来的。值只能为数字，不定义默认值从0开始。
@@ -211,6 +236,52 @@ console.log(obj)
 这样可以接受 对象类型 和 Nul类型
 let obj: object | null = null;
 console.log(obj)
+```
+<!-- 但是，这样声明其实是有问题的，因为我们指定了类型是object，导致其编译器不会自动推导了，通用默认的object是没有name属性的，如果你在下面打印name就会报错 -->
+```ts
+const teacher:object = {
+    name:'玲儿',
+    age:18
+};
+// 类型“object”上不存在属性“name”。
+console.log(teacher.name);
+```
+因此，更推荐：
+1. 不直接写类型注释，让其自动推导，如果要用到的属性都在赋予的值里体现了，则是个简单的办法：
+```ts
+const teacher = {
+    name:'玲儿',
+    age:18
+};
+// 自动推导不会报错
+console.log(teacher.name);
+```
+2. 自定义对象类型有哪几个属性，就在类型注解的时候写明属性与属性值，如果多个地方使用则可以使用接口定义，不过这个就得利用下面的，请看下面的知识点：
+```ts
+const teacher:{
+    name:string,
+    age:number
+} = {
+    name:'玲儿',
+    age:18
+};
+// 写明了不会报错
+console.log(teacher.name);
+```
+如果对象的属性值是不固定的，则需要这样写：
+```ts
+// 比如，某个商品的属性数量是不固定的
+const product:{
+    // 他的属性名和属性值是开放的，但是这种的话，一般不建议这样做，可用数组代替，实在不行才这样做，把ts的优势又丢失了不少，快等于any了
+    // 不固定的属性名，多种类型的属性值
+    [propertyName:string]:string | number | boolean
+} = {
+    name:'苹果手机',
+    price:8888,
+    shuxing1:'666',
+    shuxing2:'999',
+    shuxing3:'奥术大师'
+}
 ```
 ### 接口interface
 接口 用于定义指定的对象类型，也可称之为 对对象的描述。
