@@ -14,7 +14,8 @@ cd build-git
 if [ ! -d ".git" ];then
   echo "build-git/.git文件夹不存在"
   git init
-  git remote add origin-2 git@github.com:Huansheng1/Huansheng1.github.io.git
+  git checkout --orphan gh-pages
+  git remote add origin git@github.com:Huansheng1/Myblog.git
 fi
 echo "build-git/.git文件夹存在"
 echo "执行命令，复制备份git分支gh-pages文件夹到dist文件夹"
@@ -29,7 +30,7 @@ git add -A
 echo "执行命令，commit到本地仓库"
 git commit -m 'auto-deploy'
 echo "执行命令，push到静态分支"
-git push -f origin-2 master
+git push -f origin gh-pages
 echo "执行备份命令，备份git分支gh-pages的.git文件夹到build-git文件夹"
 echo '当前路径：'+ $(cd "$(dirname "$0")";pwd)
 cp -arf .git ../build-git

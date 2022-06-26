@@ -8,7 +8,8 @@ if [ ! -d ".git" ];then
   echo "本地仓库.git文件夹不存在"
   git init
   git remote add origin 'git@github.com:Huansheng1/myblog.git'
-  git remote add origin 'git@gitee.com:huanshenga/Myblog.git'
+  git remote add origin 'git@github.com:Huansheng1/myblog.git'
+  git remote add origin-2 'git@github.com:Huansheng1/Huansheng1.github.io.git'
 else
   echo "/.git文件夹存在"
 fi

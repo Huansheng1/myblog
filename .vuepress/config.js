@@ -4,7 +4,6 @@ module.exports = { //这个js变动时本地调试服务会自动重新 启动�
     title: '幻生博客 - 不自卑，不焦虑，踏实向前', //网站标题
     description: '幻生前端开发博客，记录编程点点滴滴，前端自学,前端体系巩固,前端工程师,前端自学,高级前端工程师,中高级前端工程师,前端进阶知识,前端职业发展,前端进阶,高级前端,前端面试,幻生,vue,vuepress,vuepress技术博客,前端,blog,vuepress-blog,golang,script,windows,git,小程序', //网站描述，如有错误，敬请提交意见与指导，QQ：2933903535
     // keywords: '幻生,vue,vuepress,vuepress技术博客,前端,blog,vuepress-blog,golang,script,windows,git,小程序', // 关键字，貌似无效，不生效。
-    // repo: 'https://github.com/Huansheng1', //设置 repo属性，VuePress 会在导航栏中添加一个 Github 仓库的链接。
     //vuepress默认使用.vuepress/public存放静态资源(可以修改)，在config.js中base值会影响静态资源引用路径。 
     //一个 base 路径一旦被设置，它将会自动地作为前缀插入到 .vuepress/config.js 中所有以 / 开始的资源路径中。
     base: '/', //base 属性的默认值是 /。设置站点根路径，如果你在访问的地址是 'www.xxxx.com/wxDocs' 那么就设置成 '/wxDocs/'  
