@@ -18,10 +18,10 @@ git update-git-for-windows
 # 显示当前的Git配置
 $ git config --list
 # 编辑Git配置文件，只是配置用户信息的话直接看下面两行命令即可
-$ git config -e [--global]
+$ git config -e --global
 # 设置提交代码时的用户信息，是否加上全局--global自行决定，一般是直接设置全局的。另外用户邮箱需要注意最好使用gmail,QQ也可以，需要和你远程仓库保持一致不然你的contribution是不会被记录在远程仓库的
-$ git config [--global] user.name "[name]"
-$ git config [--global] user.email "[email address]"
+$ git config --global user.name "你的github用户名"
+$ git config --global user.email "你的github邮箱地址"
 ```
 > Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
 #### 常用指令

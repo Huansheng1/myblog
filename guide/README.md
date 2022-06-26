@@ -18,7 +18,7 @@
 *  [git体系整理](git体系整理.md)
 *  [git踩到的坑](git踩到的坑.md)
 *  [git进阶操作](git进阶操作.md)
-*  [git](git.md)
+*  [git初体验](git.md)
 
 # vuePress概述
 
