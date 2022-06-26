@@ -71,7 +71,7 @@ console.log('注释节点：', noteOfContentDom, noteOfContentDom.nodeName, note
 * 对于属性节点，`nodeValue` 属性包含属性值。
 * `nodeValue` 属性对于文档节点和元素节点是不可用的。  
 
-3. `nodeType` - 返回节点的类型：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210530172841.png)
+3. `nodeType` - 返回节点的类型：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210530172841.png)
 
 ## 参考文章
 

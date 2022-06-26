@@ -39,7 +39,7 @@
 
 ### DOCTYPE(⽂档类型) 的作⽤
 
-#### `DOCTYPE` ：标准通用标记语言的文档类型， `WEB` 网页历史上有 `html` 或 `xhtml` 两种，但是我们可以细分下：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/00ba097c8aaa83498e12f58a9b6fe813_cdeb5081-4ec6-4a5d-9c3b-3cc226e061b3-700991.jpg)
+#### `DOCTYPE` ：标准通用标记语言的文档类型， `WEB` 网页历史上有 `html` 或 `xhtml` 两种，但是我们可以细分下：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/00ba097c8aaa83498e12f58a9b6fe813_cdeb5081-4ec6-4a5d-9c3b-3cc226e061b3-700991.jpg)
 
 1. `HTML4.x`（再远古的`WEB`文档规范就不提了）：上一个HTML标准HTML 4.01发布于1999年12月24日，严重阻碍了当时互联网的发展；由于其对流媒体和网络游戏的支持度几乎没有，导致当时`flash`这个浏览器插件火爆一时，被`adobe`这个商业公司攫取了大量利益，而此时微软推出的`IE`由于系统捆绑，占据了大量的市场，为了打破这一困境 - 规范混乱，支持功能匮乏且被其他公司垄断，`Opera, Mozilla和Chrome, Safari`等浏览器厂商就表示我不和`W3C`玩了，一起成立了`WHATWG`来制定新一代的`WEB`规范 - `HTML5`，因此，此时`W3C`组织（之前制定`HTML`规范的机构）里的大浏览器公司就微软还在那，`W3C`这时还在更新从`HTML4`分离出来的`XHTML`规范；但是后来`W3C`发现浏览器厂商如果都支持`HTML5`规范的话，那么开发者都会选择投入他们的怀抱，不得已，迫于开发者和市场表现，`W3C`和`WHATWG`重新合作，一起商讨`HTML5`草案并提出；然而，在2012年，W3C和WHATWG再度分道扬镳。而两者的分歧在于WHATWG 集中于演进“living”标准，而 W3C 坚持使用传统的数字编号系统定义静态的“snapshots”。 WHATWG希望构建互联网的最后一个标准，即一个随着互联网发展不断更新的HTML5标准。他们认为W3C的HTML5标准一旦制定完成，即便出现错误也无法修正。而且他们认为W3C的标准制定模式太过复杂，每一代标准的制定时间过长，不符合互联网的发展速度。
 
@@ -284,7 +284,7 @@ load……4
 1. `sizes`规定了 小于`376px`时按`375px`算，小于`769px`时按`768px`算，其他的按`1024px`宽度尺寸算
 2. `srcset`设置了`375`宽度（单位其实就是px，只不过用`w`代表宽度）对应的图片地址，其他的同理。
 
-![https://zhuanlan.zhihu.com/p/197567126](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210614113203.png)
+![https://zhuanlan.zhihu.com/p/197567126](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210614113203.png)
 
 > 注意：
 
@@ -307,7 +307,7 @@ load……4
 
 > [对应标签的单双分类，元素也有差不多的概念，其分为 `常规元素` 和 `空元素` ](https://developer.mozilla.org/zh-CN/docs/Glossary/Empty_element)。
 
-* 常规元素：开始标签、结束标签与内容相结合，便是一个完整的常规元素 - ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/fe3728df58a8b96cdc2d302b685014b9_element.png)
+* 常规元素：开始标签、结束标签与内容相结合，便是一个完整的常规元素 - ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/fe3728df58a8b96cdc2d302b685014b9_element.png)
 
 * 空元素：一个不能存在子节点（例如内嵌的元素或者元素内的文本）的 `element`：
 
@@ -346,7 +346,7 @@ load……4
 Worker 线程一旦新建成功，就会始终运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这样有利于随时响应主线程的通信。但是，这也造成了 Worker 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该关闭。
 
 `Web Worker` 规范中定义了两类工作线程，分别是 `专用线程Dedicated Worker` 和 `共享线程 Shared Worker` ，其中，Dedicated Worker只能为一个页面所使用，而Shared Worker则可以被多个页面所共享。
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210614234733.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210614234733.png)
 
 基本用法：
 

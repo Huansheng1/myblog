@@ -101,9 +101,9 @@ axios.get('/user/12345')
 * > 判断请求是否成功 看的 返回状态码 `response.status` ，状态码在`2xx` 范围调用then处理成功数据；
 * get和post传递的参数不同：  
 * > get只需要传递两个参数：url，config对象
-* >>  传递data数据 为 config对象 里的 params对象![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200609182252.png)
+* >>  传递data数据 为 config对象 里的 params对象![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200609182252.png)
 * > post传递三个参数：url,data,config对象
-* >> data数据 为 一个单独对象，不在config 里![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200609182649.png)![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200609182340.png)
+* >> data数据 为 一个单独对象，不在config 里![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200609182649.png)![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200609182340.png)
 
 **并发请求all**：  
 ```js
@@ -449,7 +449,7 @@ axios.interceptors.request.eject(myInterceptor);// eject()移除
 注意：  
 * `interceptors` 创建拦截器 返回值是number类型
 * 第一个 拦截器 是 0 ，后面 的 返回值 递增
-* > 测试图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200609231255.png)![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200609231345.png)
+* > 测试图：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200609231255.png)![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200609231345.png)
 * 所以 ，我们通过 返回值（实际标识着从零开始的拦截器序号） 来 指定删除某个拦截器
 
 ### 设置错误码范围validateStatus
@@ -521,7 +521,7 @@ source.cancel('Operation canceled by the user.');
 更多：[axios中文文档](http://www.axios-js.com/zh-cn/docs/#取消)
 
 > 我们可以简单看一下这三个是什么：  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200609235522.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200609235522.png)
 * [使用CancelToken来取消请求](https://www.cnblogs.com/hahazexia/p/10001782.html)
 * [axios 之cancelToken原理以及使用](http://www.qiutianaimeili.com/html/page/2019/03/8grudzwvfmq.html)
 * [axios 之cancelToken原理以及使用](https://www.cnblogs.com/ysk123/p/11544211.html)
@@ -767,7 +767,7 @@ this.WeChat
 
 > 文件新建完毕，里面包含我们准备使用的三个文件：
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722120302.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200722120302.png)
 #### env.js封装完善
 > 首先，开始完善`env.js`：  
 
@@ -824,9 +824,9 @@ localStorage.setItem('apiURL','这里面写开发测试想设置的baseURL')
 **如何自定义`mode`？**
 
 1. 在项目根目录找到`package.json`文件，定位到`scripts`脚本设置
-2. 可加入我们的`npm scripts`设置：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722124635.png)
+2. 可加入我们的`npm scripts`设置：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200722124635.png)
 > 注意：默认无需设置支持的有：`development`、`production`、`test`（[官方](https://www.webpackjs.com/concepts/mode/)没写但确实支持）
-3. 对于我们自定义的模式：`testApi`，直接传入`process.env.NODE_ENV`是无法识别的，我们需要在项目根目录新建个文件`env.testApi`，里面写入：`NODE_ENV = 'testApi'`：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722125009.png)
+3. 对于我们自定义的模式：`testApi`，直接传入`process.env.NODE_ENV`是无法识别的，我们需要在项目根目录新建个文件`env.testApi`，里面写入：`NODE_ENV = 'testApi'`：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200722125009.png)
 4. `env.js`里通过`process.env.NODE_ENV`即可接收到该参数，然后我们可以进行想要的设置。
 
 **我们还可以通过`proxy`代理来实现切换`baseURL`**：
@@ -1017,10 +1017,10 @@ export default {
 ```
 简单的方法就封装完毕啦，我们可以去使用了。
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722204556.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200722204556.png)
 在项目入口`main.js`上引入我们的常用方法`api.js`，并将包含`get`与`post`方法的实例挂载到我们`Vue`原型上，方便我们的`Vue`实例调用
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722204743.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200722204743.png)
 在`Vue`组件上使用我们封装的方法
 
 #### 各接口抽离封装

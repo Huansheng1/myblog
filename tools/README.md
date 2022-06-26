@@ -5,7 +5,7 @@
 >> 一键下载网页资源，支持格式化后下载，下载后保留原来网站资源文件原始目录结构，相当给力的一款插件!  
 
 > 使用步骤：  
->> F12打开调试模式，选择对应按钮即可![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200606143342.png)
+>> F12打开调试模式，选择对应按钮即可![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200606143342.png)
 
 * 安装方式：[谷歌插件商店](https://chrome.google.com/webstore/detail/save-all-resources/abpdnfjocnmdomablahdcfnoggeeiedb/related)
 
@@ -14,7 +14,7 @@
 >> JSON自动格式化、手动格式化，支持排序、解码、下载、Http请求测试等，更多功能可在配置页按需安装！  
 
 > 使用步骤：  
->> 自己选择合适的插件安装使用![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200606144145.png)
+>> 自己选择合适的插件安装使用![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200606144145.png)
 
 * 安装方式：[谷歌插件商店](https://chrome.google.com/webstore/detail/fehelper%E5%89%8D%E7%AB%AF%E5%8A%A9%E6%89%8B/pkgccpejnmalmdinmhkkfafefagiiiad)、[官网](https://www.baidufe.com/fehelper)
 
@@ -24,14 +24,14 @@
 >> 不再需要手动敲击`ng g c components/tabbar`之类的动作，安装后鼠标右键即可快速完成
 
 > 好处：避免了路径过深时浪费太多时间在路径名上
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201108175003.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201108175003.png)
 
 **live-server**
 > 功能介绍
 >> 简易本地资源服务器，以真实的服务器托管的网页，而不是像直接用浏览器打开文件时是使用 file:// 协议托管的，更贴近实际生产环境，file:// 协议还会导致跨域等问题。  
 
 > 使用步骤：  
->> VSCode打开html文件后点击GoLive按钮自动开启本地服务器并用默认浏览器打开地址![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200606143658.png)
+>> VSCode打开html文件后点击GoLive按钮自动开启本地服务器并用默认浏览器打开地址![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200606143658.png)
 
 * 安装方式：VSCode商店搜索
 

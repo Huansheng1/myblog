@@ -1,6 +1,6 @@
 # nodeJs实现http服务
 ## 框架对比
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201024174233.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201024174233.png)
 ### 内置的`http`模块
 优点：
 1. 无需安装即可使用
@@ -104,11 +104,11 @@ otherServer.listen(8000, "0.0.0.0", () => {
     console.log("第二个服务器启动/监听成功")
 })
 ```
-效果：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201129124731.png)
+效果：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201129124731.png)
 
 #### 发送请求
-1. `Get`请求：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201130205538.png)
-2. `Post`请求：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201130205733.png)
+1. `Get`请求：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201130205538.png)
+2. `Post`请求：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201130205733.png)
 
 > 注意：
 * `res`参数其实与之前的`request`参数是一个对象类型
@@ -116,8 +116,8 @@ otherServer.listen(8000, "0.0.0.0", () => {
 * 现在我们通常使用`axios`库发送请求而不是原生的。
 
 #### 文件上传
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201129202412.png)
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201129202454.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201129202412.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201129202454.png)
 ### `express`框架
 优点：
 1. 最出名的`node`服务器开发框架
@@ -224,7 +224,7 @@ const upload = multer()
 // 解析常见的键值对表单数据
 app.use(upload.any())
 ```
-3. `postman`测试发送表单数据：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202212418.png)
+3. `postman`测试发送表单数据：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201202212418.png)
 4. 日志打印，发现运行成功：
 ```bash
 {
@@ -247,8 +247,8 @@ app.use(upload.single("file"))
 // 如果没有键名的话就传递空字符串即可
 // app.use(upload.single(""))
 ```
-6. `postman`继续测试，上传图片：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202215018.png)
-7. 在设置的目录上果然保存了图片：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202215052.png)
+6. `postman`继续测试，上传图片：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201202215018.png)
+7. 在设置的目录上果然保存了图片：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201202215052.png)
 8. 可以发现，保存的文件没有后缀名，而且文件名也是乱七八糟的，但是这其实也是配置的：
 ```js
 const path = require("path")
@@ -361,7 +361,7 @@ app.listen(8888, () => {
     console.log("express服务器启动成功")
 })
 ```
-2. 请求测试：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202225010.png)、![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201202225555.png)
+2. 请求测试：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201202225010.png)、![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201202225555.png)
 #### 返回数据常见方法
 ```js
 const express = require("express")
@@ -440,7 +440,7 @@ app.listen(8888, () => {
 })
 
 ```
-通过`express.static()`可快速搭建部署静态的资源文件，上面代码，我们启动后，访问服务器地址将会自动去`./dist`目录下寻找是否有`index.html`，有就返回，于是我们的网站就正常访问进去了：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201203205139.png)
+通过`express.static()`可快速搭建部署静态的资源文件，上面代码，我们启动后，访问服务器地址将会自动去`./dist`目录下寻找是否有`index.html`，有就返回，于是我们的网站就正常访问进去了：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201203205139.png)
 
 但是我们需要注意，通过`a`标签链接的相对页面地址得带上`.html`后缀，不然会报错`404`找不到资源哦。
 #### 全局错误处理中间件
@@ -608,7 +608,7 @@ router.put("/:id", (ctx, next) => {
 module.exports = router
 ```
 #### 响应与编码
-`koa`中我们一般对响应进行如下设置：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201205165302.png)
+`koa`中我们一般对响应进行如下设置：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201205165302.png)
 ```js
 const Koa = require("koa")
 const app = new Koa()
@@ -655,14 +655,14 @@ app.listen(8888, () => {
 ## RPC通信
 > 全称：`remote procedure call` - 远程过程调用
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201024175237.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201024175237.png)
 ### protocol buffers
 > 二进制通信的话，如果像`JSON`一样简单的将对象数据与二进制数据进行互相转化？
 
 1. 定义协议配置文件：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201024211026.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201024211026.png)
 2. 通过定义好的格式配置文件生成二进制对象数据：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201024210627.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201024210627.png)
 ### Http通讯
 > 使用到的内置模块：`http`
 ### Socket通讯
@@ -701,10 +701,10 @@ app.use(mount('/app.index',async (ctx)=>{
 // 监听端口
 app.listen(8080)
 ```
-2. 通过`nodemon`运行服务![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201025174937.png)，浏览器访问本地地址：`http://localhost:8080/app.index`
+2. 通过`nodemon`运行服务![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201025174937.png)，浏览器访问本地地址：`http://localhost:8080/app.index`
 
-3. 网页效果图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201025174917.png)
-4. 发现木有，样式乱了，通过`F12`我们可知道原因为`html`请求的静态文件找不到：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201025175055.png)
+3. 网页效果图：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201025174917.png)
+4. 发现木有，样式乱了，通过`F12`我们可知道原因为`html`请求的静态文件找不到：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201025175055.png)
 5. 通过`koa-static`中间件返回浏览器静态资源正确文件：
 ```js
 const Koa = require('koa')
@@ -724,7 +724,7 @@ app.use(mount('/app.index',async (ctx)=>{
 // 监听端口
 app.listen(8080)
 ```
-6. 成功效果图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201025175527.png)
+6. 成功效果图：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201025175527.png)
 
 ### 为什么使用`koa-mount`中间件
 因为 该中间件 第二个参数不一定是单纯的中间件函数，也可以是`koa`实例；
@@ -768,5 +768,5 @@ app.use(mount('/index',download))
 
 app.listen(8080)
 ```
-3. 运行`nodemon app.js`并打开`http://localhost:8080/index/app.index`查看效果：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201025175527.png)
-4. 当前代码文件：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201025180513.png)
+3. 运行`nodemon app.js`并打开`http://localhost:8080/index/app.index`查看效果：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201025175527.png)
+4. 当前代码文件：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201025180513.png)

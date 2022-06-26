@@ -39,7 +39,7 @@ connection.on('error', (err) => {
 
 ## 预处理语句 `Prepared Statement`
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201223210119.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201223210119.png)
 
 ``` js
 // 导入数据库
@@ -115,7 +115,7 @@ connectionPool.promise().execute(statement, [2, 15])
 
 ### 基本使用
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201227181342.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201227181342.png)
 
 1. 安装：`npm install sequelize`
 2. 查询操作：
@@ -264,7 +264,7 @@ Account.destroy({
 
 ### 多表查询（一对一查询）
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201228204421.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201228204421.png)
 
 ``` js
 const {
@@ -357,7 +357,7 @@ Account.findAll({
 
 ### 多表查询（多对多映射关系）
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201228221437.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201228221437.png)
 
 ``` js
 const {

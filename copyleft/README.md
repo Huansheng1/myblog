@@ -21,13 +21,13 @@
  `
 
 <!-- <img :src="$withBase('/img/myblog.png')" alt="myBlog">  加载太慢，我们图片改用gitee -->
-<img src="https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200701181426.png" alt="myBlog">
+<img src="https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200701181426.png" alt="myBlog">
 
 ## 已完成项目
 
 * [饿了么网站实战](vue-eleme)
 
-> 图片演示：[商品详情忘记录制了](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200729170157.gif)
+> 图片演示：[商品详情忘记录制了](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200729170157.gif)
 
 > Github：[饿了么源码地址](https://github.com/Huansheng1/eleme-page)   
 
@@ -45,7 +45,7 @@
 
 * [云开发邂逅豆瓣电影](doubanmovies/大概描述.md)
 
-> 图片演示：[隐私问题没展示上传图片操作](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200803183025.gif)
+> 图片演示：[隐私问题没展示上传图片操作](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200803183025.gif)
 
 > [Github源码](https://github.com/Huansheng1/movie-cloud)
 

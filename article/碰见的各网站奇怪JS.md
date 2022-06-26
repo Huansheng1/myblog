@@ -40,11 +40,11 @@
 ```
 ### 粗暴解决办法
 禁止断点再放行：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200617112945.png)  
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200617112945.png)  
 ### 条件断点解决
 找到`debugger;`这行代码，打上断点，邮件
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200617113557.png)
-再放行即可：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200617113656.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200617113557.png)
+再放行即可：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200617113656.png)
 
 更多方法：  
 * [突破前端反调试--阻止页面不断debugger](https://blog.csdn.net/qq_41879417/article/details/105494582)

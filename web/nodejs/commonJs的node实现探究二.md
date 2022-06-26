@@ -32,27 +32,27 @@ console.log(module);
 
 ## 模块加载机制
 ### 查找方式
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121132443.png)
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121132514.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121132443.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121132514.png)
 ### 加载顺序
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121120356.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121120356.png)
 注意：`node`里的`commonJs`加载规范是`同步的`，这意味如果你`require`导入模块，会先执行模块里的代码，才继续执行当前文件下面的代码。
 ### 加载方式区别
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121130949.png)
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121131011.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121130949.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121131011.png)
 ### 导出区别
 `Es6 Module`模块依赖关系是在编译时就确定的：
 
 `Es6 Module`导出的是值引用，而不是当前值，因此即使导出的是个变量，如果模块内部的基本属性变量值发生变化，其他地方导入该模块获取到的值也会发生变化（有个地方会动态绑定值的）：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121131440.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121131440.png)
 
 而且需要注意，导入模块的地方是无法修改模块内部导出的东西的，因为导出的变量是个常量，无法在外部进行修改，但是如果导出的是个对象，我们还是可以利用引用地址修改其内部属性的！
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121132230.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121132230.png)
 
 `CommonJs`在`Node`里的实现我们之前提到过，导出的只是个对象，因此还是很不一样的。
 ## CommonJs缺点
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121122217.png)
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121123055.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121122217.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121123055.png)
 
 ## 互相导入
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201122000119.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201122000119.png)

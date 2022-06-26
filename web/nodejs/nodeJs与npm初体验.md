@@ -1,9 +1,9 @@
 # node初体验
 ## 安装配置nodeJS
 ### Node.js概念
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121132818.png)  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121132919.png)  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121133002.png)  
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121132818.png)  
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121132919.png)  
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121133002.png)  
 > 官方解释：  
 * Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 Node.js使用了一个事件驱动、非阻塞式I/O的模型（ Node.js的特性），使其轻量级又高效。 Node.js 的包管理器 npm 是全球最大的开源库生态系统。  
 
@@ -24,7 +24,7 @@
 * Node.js 安装包及源码下载地址为：<https://nodejs.org/en/download/>  
 * 注意，我们建议使用偶数版（V4、V6等)，不要用奇数版（比如V5），因为奇数版不稳定。  
 * 下一步N次即可，检测node是否安装：  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605211642.png)  
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605211642.png)  
 
 * 其实并不推荐直接采用 Node.js.msi 安装包进行安装，原因如下：  
 * > 不方便 node 的更新，以前版本安装的很多全局的工具包需要重新安装；  
@@ -34,7 +34,7 @@
 ### npm配置
 > 输入 "npm -v" 来测试npm是否成功安装  
 
-> ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605211821.png)  
+> ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605211821.png)  
 
 > 如果有人以前安装过了老版本npm，Window 系统使用以下命令升级：  
 > `npm install npm -g`  
@@ -138,7 +138,7 @@ npm install -g：全局安装
 > **简单Http服务**  
 > 在 Node.js 上建一个 http 服务器：  
 * 新建一个文件 server01.js，然后在里面输入如下代码：  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605214136.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605214136.png)
 * 在浏览器端输入http://localhost:8080/，每请求一次，服务器的控制台就会打印 有人来访问我了。  
 
 * 上面的 js 代码跑起来，产生的问题是，无论我们在浏览器端输入http://localhost:8080/1.html，还是输入http://localhost:8080/2.jpg，浏览器上显示的都是不变的。  

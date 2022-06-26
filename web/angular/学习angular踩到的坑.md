@@ -44,7 +44,7 @@ ERROR in node_modules/@angular/common/http/http.d.ts:2823:22 - error NG6002: App
 ```
 表现：
 
-控制台虽然报错：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919135347.png)，但网页能正常运行获取到数据：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919135430.png)
+控制台虽然报错：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919135347.png)，但网页能正常运行获取到数据：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919135430.png)
 
 解决办法：
 > 删除`node_modules`目录，重新`npm install`即可。

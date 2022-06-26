@@ -2,7 +2,7 @@
 home: true
 lang: zh-CN
 heroText: 前端学习
-heroImage: https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200701181319.png
+heroImage: https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200701181319.png
 tagline: 一点一滴都是进步
 actionText: 如何搭建 →
 actionLink: /guide/

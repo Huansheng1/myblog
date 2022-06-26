@@ -12,12 +12,12 @@
 2. 结构型指令 - ngIf
 3. 属性型指令 - ngClass
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201108170822.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201108170822.png)
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201108171336.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201108171336.png)
 
 此外，装饰器是可嵌套的，因此，我们通过`@HostBinding()`装饰器和`@Input()`装饰器结合可实现 直接将获取到的输入值设置当前宿主样式的效果：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201108172840.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201108172840.png)
 
 通过`@HostListen()`我们可处理我们想要的监听事件：
 ```ts

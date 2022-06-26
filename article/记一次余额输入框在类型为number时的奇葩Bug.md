@@ -2,7 +2,7 @@
 
 ## 场景
 
-由于在一个项目引入了 `余额` 的设计，因此我需要实现一个类似于 `阿里云` 支付系统里的 `余额输入框` 功能，大概长这样：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201211173012.png)
+由于在一个项目引入了 `余额` 的设计，因此我需要实现一个类似于 `阿里云` 支付系统里的 `余额输入框` 功能，大概长这样：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201211173012.png)
 
 看起来很简单对吧？
 
@@ -20,7 +20,7 @@
                     <input name="chargedCurrency" class="form-control col-xl-3 chargedCurrency" type="number" [(ngModel)]="deductedBalanceAmount" (input)="inputDeductedBalance(deductedBalanceInput.value)" #deductedBalanceInput />
 ```
 
-昨天理了很久没搞明白为啥会导致这个Bug。。。于是我打开阿里云看了下，发现竟然也有这个问题。。，截图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201211184831.gif)
+昨天理了很久没搞明白为啥会导致这个Bug。。。于是我打开阿里云看了下，发现竟然也有这个问题。。，截图：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201211184831.gif)
 
 最后我去经过大佬指点，人家告诉我这是 `number` 输入框的坑， `type=number` 时的 `input` 输入框的 `input` 事件是监听不到小数点这个键盘输入事件的。
 

@@ -24,9 +24,9 @@
 
 步骤图示：
 1. 安装`mockjs`插件：
-2. 在项目源代码文件夹创建`mock`目录，里面存放我们的`api.js`用来`mock`掉我们的`api`请求：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721221329.png)
+2. 在项目源代码文件夹创建`mock`目录，里面存放我们的`api.js`用来`mock`掉我们的`api`请求：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200721221329.png)
 > 上面代码可让我们`vue`项目请求`/api/user/login`时自动拦截并返回传入的`JSON`格式对象
-3. 在`main.js`里加入我们少量的`mock`代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200721221520.png)
+3. 在`main.js`里加入我们少量的`mock`代码：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200721221520.png)
 > 注意`require`与`import`的区别：`import`导入插件会在项目发布时编译，`require`则在项目运行时才决定是否运行（我们这里通过`mock`状态判断是否引入`mock.js`）
 
 **注意**：

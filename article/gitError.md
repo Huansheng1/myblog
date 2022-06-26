@@ -10,8 +10,8 @@
 解决办法：
 
 1. 打开文档管理器，输入以下地址：`控制面板\用户帐户\凭据管理器`
-2. 找到 `Window凭证`，选择 对应的普通凭证：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210419230728.png)
-3. 编辑修改对应的用户名和密码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210419230821.png)
+2. 找到 `Window凭证`，选择 对应的普通凭证：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210419230728.png)
+3. 编辑修改对应的用户名和密码：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210419230821.png)
 
 ### git push -u origin master报错：Permission denied (publickey).
 
@@ -108,6 +108,20 @@ git push -u origin master
 ```
 
 >> 然后强制push！  
+
+### 推送报错：`error: RPC failed; HTTP 504 curl 22 The requested URL returned error: 504；send-pack: unexpected disconnect while reading sideband packet；Writing objects: 100% (550/550), 54.09 MiB | 500.00 KiB/s, done.；Total 550 (delta 0), reused 0 (delta 0), pack-reused 0 fatal: the remote end hung up unexpectedly`
+
+解决方式有两种：
+1. 加大缓存区的大小：
+```bash
+git config --global http.postBuffer 524288000 
+```
+
+2. 从`http`换协议为`git`：
+```bash
+git remote remove  origin
+git remote add origin xxx.git
+```
 
 ## 连接仓库
 

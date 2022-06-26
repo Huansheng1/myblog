@@ -96,7 +96,7 @@ const sortNumbers = (...numbers) => numbers.sort();
 注意：匿名函数后面需要加分号，不然会把这三行当做一行导致报错。  
 
 更多：
-[ES6专题—扩展运算符和rest运算符](https://zhuanlan.zhihu.com/p/59502528)![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200619114530.jpg)
+[ES6专题—扩展运算符和rest运算符](https://zhuanlan.zhihu.com/p/59502528)![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200619114530.jpg)
 ## 扩展运算符...
 扩展运算符 是 REST参数 的 逆向运算  
 ### 数组扩展运算符-ES6

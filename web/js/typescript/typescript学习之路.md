@@ -389,9 +389,9 @@ arr = constArr; // 注意！ 将readonly的值赋值给一个可变得数组也�
 
 #### 接口支持对 函数使用的：
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200830112942.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200830112942.png)
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200830113010.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200830113010.png)
 
 ### 类型断言
 > 待续

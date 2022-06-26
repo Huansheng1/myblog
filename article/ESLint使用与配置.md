@@ -3,7 +3,7 @@
 Eslint插件：根据工程目录的`.eslintrc.js`配置文件在编辑器中显示一些错误提示，后面的自动格式化`Prettier`根据这里的错误提示进行格式化操作。
 ### VSCode安装插件
 商店搜索安装插件：  
-* `ESLint`![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200606164953.png)  
+* `ESLint`![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200606164953.png)  
 * `Prettier - Code formatter`  
 * `EditorConfig`  
 ### Vue项目安装ESLint模块
@@ -11,11 +11,11 @@ Eslint插件：根据工程目录的`.eslintrc.js`配置文件在编辑器中显
 > Linter / Formatter：Javascript语法检查模块  
 * 选择这个模块  
 
-选择ES语法规则![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605224905.png)
+选择ES语法规则![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605224905.png)
 > 选择 ESLint + Standard config  
 > * 如果需要自动格式化，则选择 Eslint+Prettier  
 
-选择ES语法检查时机![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605225020.png)
+选择ES语法检查时机![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605225020.png)
 * 1. 保存文件时检查  
 * 2. Git提交时检查  
 * > *注意* : 多选选项  
@@ -24,7 +24,7 @@ Eslint插件：根据工程目录的`.eslintrc.js`配置文件在编辑器中显
 * >> 如果之前创建忘记选了，后续开发突然想加上，输入命令：`vue add eslint`  
 
 选择 模块配置文件选择放在何处  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605225155.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605225155.png)
 * 1. 放在相应的配置文件里  
 * 2. 放在package.json里  
 * > 我们选择 1. 放在相应的 配置文件 里  
@@ -32,7 +32,7 @@ Eslint插件：根据工程目录的`.eslintrc.js`配置文件在编辑器中显
 这时，我们可以看见 项目目录有变动的文件：  
 * .eslintrc.js  
 * package.json  
-* > 格式化整个项目代码：`npm run lint`![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200606165930.png)  
+* > 格式化整个项目代码：`npm run lint`![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200606165930.png)  
 * >> 本命令依赖于 vue-cli-service  
 如果项目中缺少这个依赖就会报错  
 这个时候我们只要添加这个依赖即可  

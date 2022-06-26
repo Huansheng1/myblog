@@ -202,7 +202,7 @@ async function test() {
 
 > 为了利用多核 `CPU` 的计算能力， `HTML5` 提出 `Web Worker` 标准，允许 `JavaScript` 脚本创建多个线程，但是子线程完全受主线程控制，且不得操作 `DOM` 。所以，这个新标准并没有改变 `JavaScript` 单线程的本质。
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200717175339.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200717175339.png)
 
 因此，我们需要明白，尽管我们打开一个标签页访问页面时，浏览器给这个页面分配了多个线程同时进行准备、渲染、执行工作，但是一个标签页只会分配出一个线程去执行 `JavaScript` 代码（尽管 `JavaScript` 引擎/内核 存在多个线程，但 `JavaScript` 脚本只会在一个主线程执行，其他都是提供的辅助线程），因此 `JavaScript` 在代码执行过程中，一次只能处理一个事情，所以说JS是单线程的。
 
@@ -220,13 +220,13 @@ async function test() {
 **回调地狱的出现**：  
 回调地狱 `callback hell` ：
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200720170222.jpg)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200720170222.jpg)
 
 在 `ES5` 中，当进行多层嵌套回调时，会导致代码层次过多，很难进行维护和二次开发；而且会导致回调地狱的问题。 `ES6` 中的 `Promise` 就可以解决这两个问题。
 
 如果使用 `Promise` 的话：
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200720170316.jpg)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200720170316.jpg)
 
 ### Promise优缺点
 
@@ -249,7 +249,7 @@ async function test() {
 * 处于`pending`状态时，无法得知目前进展（内部执行刚开始还是快结束）。
 * `Promise`本质还是`callback function`，只是表现形式改变
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200717173105.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200717173105.png)
 
 ## Promise常用语法和API
 
@@ -788,7 +788,7 @@ Promise.resolve(thenable);
 3. 情况三，`thenable`对象 被传入则将其转为`Promise`对象并调用其`then`方法确定状态
 
 `thenable` 对象底层转换代码类似于：  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200720161324.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200720161324.png)
 
 ```js
 new Promise((resolve, reject) => {

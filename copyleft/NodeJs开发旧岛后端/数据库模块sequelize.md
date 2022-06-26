@@ -7,21 +7,21 @@
 * > 可能下载需要翻墙。
 * [MySQL 安装 | 菜鸟教程](https://www.runoob.com/mysql/mysql-install.html)
 
-1. `xampp`一键安装所需软件,包括数据库`mysql`，然后启动数据库服务：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004163856.png)
-2. 安装`navicat`连接数据库，连接，默认用户名为root，密码为空不填即可：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004175809.png)
+1. `xampp`一键安装所需软件,包括数据库`mysql`，然后启动数据库服务：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004163856.png)
+2. 安装`navicat`连接数据库，连接，默认用户名为root，密码为空不填即可：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004175809.png)
 * > 通过`XAMPP`安装`MySQL`其实是`MariaDB`，而后者没有`password_lifetime`，取而代之的是`password_expired`；因此我们需要选择`MariaDB`连接。
-3. 新建数据库：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004170515.png)
-4. 新建/修改用户和密码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004180224.png)
-5. 检验密码是否设置成功：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004180935.png)
-6. 关闭连接，重新编辑连接再验证密码是否正确：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004181036.png)
+3. 新建数据库：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004170515.png)
+4. 新建/修改用户和密码：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004180224.png)
+5. 检验密码是否设置成功：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004180935.png)
+6. 关闭连接，重新编辑连接再验证密码是否正确：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004181036.png)
 ## sequelize模块管理数据库
 安装插件：`npm install --save sequelize`，然后尽量看一下官网[sequelize中文文档](https://github.com/demopark/sequelize-docs-Zh-CN)；
 
-首先，我们需要指定如何使用：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004181529.png)
+首先，我们需要指定如何使用：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004181529.png)
 
-当然，为了代码解耦，我们应该在配置文件中配置数据库相关设置再引入到这里：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004181655.png)
+当然，为了代码解耦，我们应该在配置文件中配置数据库相关设置再引入到这里：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004181655.png)
 
-可是，在正式使用之前，我们还需要知道，如果`sequelize`想要连接操作`mysql`数据库，还需要先安装对应驱动：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004182205.png)
+可是，在正式使用之前，我们还需要知道，如果`sequelize`想要连接操作`mysql`数据库，还需要先安装对应驱动：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004182205.png)
 ```
 # 选择以下之一:
 $ npm install --save pg pg-hstore # Postgres
@@ -33,9 +33,9 @@ $ npm install --save tedious # Microsoft SQL Server
 
 ### 连接mysql实战
 1. 连接数据库的实例：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004182529.png)
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201004182508.png)
-2. 建立模型`Model`，模型相当于数据库里的数据表：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201005182758.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004182529.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201004182508.png)
+2. 建立模型`Model`，模型相当于数据库里的数据表：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201005182758.png)
 * > 模型是 `Sequelize` 的本质. 模型是代表数据库中表的抽象. 在 `Sequelize` 中,它是一个 `Model` 的扩展类.  
 
 * > 该模型告诉 `Sequelize` 有关它代表的实体的几件事,例如数据库中表的名称以及它具有的列(及其数据类型).  
@@ -110,10 +110,10 @@ console.log(huansheng.name); // "huansheng"
 await huansheng.destroy();
 // 现在该条目已从数据库中删除
 ```
-5. 查询数据：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201006094631.png)
+5. 查询数据：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201006094631.png)
 ### 模型同步与`define`属性
 在之前的连接配置里，我们`define`属性没具体介绍有哪些常用的选项：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201005182318.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201005182318.png)
 > 强烈注意：图中搞错了，**`createAt`属性指的就是`createTime`创建时间**，只是属性名和默认的列名不一样，所以我之前搞错了！
 
 

@@ -83,7 +83,7 @@ Branch '1680' set up to track remote branch '1680' from
 4. 在分支做完并推送后记得切回主分支：`git checkout master`
 ## 项目推送
 ### `git push`时被拒绝
-场景：将本地一个目录代码推送到远程仓库，我于是在码云上新建一个仓库，然后在本地按[以前的文章](http://hs.xuexizuoye.com/guide/git.html#指令与基础)进行仓库关联，结果在最后一步`git push`上出现了问题：
+场景：将本地一个目录代码推送到远程仓库，我于是在码云上新建一个仓库，然后在本地按[以前的文章](/guide/git.html#指令与基础)进行仓库关联，结果在最后一步`git push`上出现了问题：
 ```bash
 error: failed to push some refs to 'gitee.com:huanshenga/ng-img-lazyload.git'
 hint: Updates were rejected because the remote contains work that you do

@@ -8,7 +8,7 @@
 * 通俗点 将 不可存储与传输 的 对象类型 转换为 字符串 形式的数据！  
 反序列化：  
 * 顾名思义： 将 字符串 数据 转换为 当前语言的 对象类型  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200608210822.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200608210822.png)
 ### 为什么需要序列化
 > 场景：  
 * 当前运行的程序里存在几个对象：foo 和 bar，我们可以随意操作取出foo和bar对象的属性与方法，看起来很美好。  
@@ -89,7 +89,7 @@ jsonData = JSON.stringify(jsonData)// 将JSON对象解析成JSON格式的文本
 console.log(jsonData)
 console.log(eval('(' + jsonData + ')'))// JSON字符串转换为JSON对象，危险性太大，不推荐使用该方法 ： eval can be harmful
 ```
-结果：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200608223042.png)
+结果：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200608223042.png)
 * JSON序列化：
 * > JSON.stringify() -> JSON格式数据/对象 转换 JSON格式数据
 * JSON反序列化：

@@ -12,7 +12,7 @@
 npm install @angular/router --S
 ```
 
-2. 创建`router`模块：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919152928.png)
+2. 创建`router`模块：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919152928.png)
 
 ```bash
 ng g m router
@@ -132,7 +132,7 @@ export class AppModule {}
 </div>
 ```
 
-- 安装了插件的快捷提示：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919164554.png)
+- 安装了插件的快捷提示：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919164554.png)
 
 2. `app.component.html`：
 
@@ -143,7 +143,7 @@ export class AppModule {}
 <router-outlet></router-outlet>
 ```
 
-效果展示：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919164245.png)
+效果展示：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919164245.png)
 
 3. 路由活跃时类名：
 
@@ -178,7 +178,7 @@ export class AppModule {}
   color: red !important;
 }
 ```
-效果展示：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919165340.png)
+效果展示：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919165340.png)
 
 ## 动态路由与JS跳转
 ### Hmtl跳转
@@ -284,8 +284,8 @@ const routes: Routes = [
 export class AppRouterModule {}
 ```
 效果展示：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919174234.png)
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919174210.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919174234.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919174210.png)
 #### 动态传值
 地址栏表现形式：`https://hs.xuexizuoye.com/666`
 
@@ -375,7 +375,7 @@ export class NewsComponent implements OnInit {
 ```
 效果：
 * 地址：`http://localhost:4200/#/news/7`
-* 效果图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919175258.png)
+* 效果图：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919175258.png)
 ### Js跳转
 
 上面的一般用于导航栏或者按钮跳转，而`javascript`切换路由 常用于 某个条件触发后自动跳转，如：当前用户权限不足跳转登录页、注册页等等。
@@ -415,13 +415,13 @@ export class HomeComponent implements OnInit {
 3. 其他保存和之前一致
 
 效果图：
-* ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919180757.png)
+* ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919180757.png)
 * 跳转地址：http://localhost:4200/#/news/6
-* ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919180718.png)
+* ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919180718.png)
 
 #### Get传值
 
-1. 配置引入`NavigationExtras`服务：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919181420.png)
+1. 配置引入`NavigationExtras`服务：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919181420.png)
 ```ts
 import { Component } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
@@ -503,13 +503,13 @@ export class NewsComponent implements OnInit {
 }
 ```
 效果展示：
-* 准备点击：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919182147.png)
+* 准备点击：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919182147.png)
 * 跳转地址：http://localhost:4200/#/news?userId=3&more=test
-* 效果图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919182130.png)
+* 效果图：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919182130.png)
 
 ## 路由嵌套/父子路由
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919184425.png)
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919184447.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919184425.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919184447.png)
 与`vue`类似，通过 配置路由表的`children`属性与`<router-outlet>`标签实现，不再赘述，请参考文档：[Angular - 子路由组件](https://angular.cn/guide/router#a-crisis-center-with-child-routes)
 
 ## 模块懒加载

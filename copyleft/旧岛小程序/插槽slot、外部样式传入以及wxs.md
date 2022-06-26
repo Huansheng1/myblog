@@ -6,7 +6,7 @@
 但是，需要注意到一点：在搜索界面的标签 与 书籍详情页标签 的样式是不一致的，搜索页书签是没有数字的；
 
 详情页标签而外需要数字显示：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200811162219.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200811162219.png)
 
 我这里有两种方案：
 1. 我们需要传入一对象，通过`wx:if`判断对象是否有`nums`属性来决定是否显示 数字标签

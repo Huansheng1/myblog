@@ -1,7 +1,7 @@
 # buffer二进制处理
 `Buffer`是`NodeJs`内置的二进制对象，其形式可以简单理解为每个成员为一个字节 - `8b，或者成为 8比特`的数组。
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201125220453.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201125220453.png)
 ## 字符串与二进制互转
 ```js
 const text = "世界你好！"
@@ -31,10 +31,10 @@ sharp("./1.png")
 ## 事件循环
 > [Node.js 事件循环](https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/)
 
-图示：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201125230449.png)
+图示：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201125230449.png)
 
 ## Stream数据流
-[![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201129124059.png)](http://nodejs.cn/api/stream.html)
+[![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201129124059.png)](http://nodejs.cn/api/stream.html)
 ### readStream读取数据流
 > 参考文档：
 1. [fs.ReadStream 类](http://nodejs.cn/api/fs.html#fs_class_fs_readstream)

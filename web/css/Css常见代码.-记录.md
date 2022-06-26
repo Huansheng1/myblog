@@ -96,7 +96,7 @@ text-overflow: ellipsis;
 }
 ```
 ## 垂直滚动
-> [往期相关文章](http://hs.xuexizuoye.com/copyleft/vue-eleme/%E5%95%86%E5%93%81%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91.html#原生局部滚动)
+> [往期相关文章](/copyleft/vue-eleme/%E5%95%86%E5%93%81%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91.html#原生局部滚动)
 ```css
 .scroll-container{
     /* 当然记得设置固定高度！ */

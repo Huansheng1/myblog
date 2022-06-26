@@ -84,7 +84,7 @@ systemctl enable docker
 
 ### 查看docker信息
 
-该命令会返回所有容器和镜像的数量、Docker使用的执行驱动和存储驱动以及Docker的基本配置：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210718125623.png)
+该命令会返回所有容器和镜像的数量、Docker使用的执行驱动和存储驱动以及Docker的基本配置：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210718125623.png)
 
 ```bash
 docker info
@@ -165,7 +165,7 @@ docker start 容器名/容器ID
 
 ### 查看docker容器列表/信息
 
-默认情况下docker ps只能看到正在运行的容器，但是加上-a会列出所有的容器，包括正在运行的和已经停止的：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210718130642.png)
+默认情况下docker ps只能看到正在运行的容器，但是加上-a会列出所有的容器，包括正在运行的和已经停止的：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210718130642.png)
 
 ```bash
 # 查看运行中的docker列表
@@ -183,7 +183,7 @@ docker inspect 容器名/容器ID
 
 ### 进入docker容器目录
 
-docker类似于一个独立的系统小环境，有其单独的系统目录，我们要想查看某个镜像文件，可以进入其容器目录查看：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210718131137.png)
+docker类似于一个独立的系统小环境，有其单独的系统目录，我们要想查看某个镜像文件，可以进入其容器目录查看：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210718131137.png)
 
 注意： `exec` 是打开一个新的shell交互式任务， `attach` 是附加到原有的shell终端上，这点需要注意哦。
 
@@ -222,7 +222,7 @@ ps -elf
 ```
 
 运行进程有两个特殊的进程：上面这个是我们当前运行的 `Bash Shell` 终端, 第二个进程是临时进程，由 `ps -elf` 这个命令产生，命令执行完进程也会结束。
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210718132451.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210718132451.png)
 
 退出终端进入的容器：
 

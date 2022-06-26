@@ -478,7 +478,7 @@ git push origin gh-pages
 > 打开文件-文本方式，粘贴一下shell指令：  
 
 ``` shell
-# 如果你是要部署到自定义域名
+# 如果你是要部署到自定义域名，也就是说：在项目根目录下创建个CNAME文件，里面写上自己的 域名 即可通过该域名访问github页面
 # echo 'www.example.com' > CNAME
 # git init
 #!/usr/bin/env sh

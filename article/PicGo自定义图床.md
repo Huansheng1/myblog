@@ -63,7 +63,7 @@
 最后创建新的Token  
 > * 码云为例：  
 >> * 创建私人令牌步骤如下：访问新建Gitee令牌，在私人令牌描述中写上便于你了解该令牌用处的文字，并勾选需要的权限，PicGo要使用的私人令牌只需要user_info和projects权限，勾选上后提交，gitee将会返回私人令牌的token，保存该token，因为该token只会出现一次，离开页面过后再不会出现。  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605211339.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605211339.png)
 > * 注：创建成功后，会生成一串token，这串token之后不会再显示，所以第一次看到的时候，就要好好保存
 ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo-img/20200605155230.png)  
 
@@ -82,6 +82,17 @@
 
 >>> * 因为我们要使用 [jsDelivr](https://www.dazhuanlan.com/2020/03/26/5e7c9c9250cb8/) 加速访问，所以可以设置为【https://cdn.jsdelivr.net/gh/用户名/图床仓库名 】  
 > * 码云配置：  
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200605211057.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200605211057.png)
 
 4. 我们随便选个图片，在md文本里，快捷键：`ctrl + shift + p` ，再`ctrl + v`，哇，图片自动上传并且粘贴到了 我们的文档里，完美！  
+
+## 码云迁移github
+注意，gitee因为不知名原因，图床仓库被限制无法公开，故弃用，以后不再使用码云，还是`github`YYDS，因此我们需要将原有的`gitee`仓库迁移回`github`，毕竟它搞这操作，说不准啥时候就倒闭了，国内厂商还是不太靠谱。。。唯一的访问优势被它搞得。
+
+先去`gitee`下载回我们的仓库，然后将其推送到`github`仓库里，然后统一将项目里使用到的路径进行修改，以我的为例，大概是这样：
+
+原来的`gitee`图片地址：`https://gitee.com/huanshenga/myimg/raw/master/PicGo/20210516130554.png`
+
+新的`github`仓库地址：`https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20210516130554.png`
+
+因此，我们只需要这样替换一下：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo-img/20220626131621.png)

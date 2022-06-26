@@ -5,7 +5,7 @@
 通过 `node` 运行 `js` 文件通常我们是这样做的： `node test.js` ；
 
 可是，如果我们想给运行的 `js` 传递参数呢？  
-其实 `node` 也是支持该操作，为了实现获取参数的效果，我们需要知道一个对象： `process` ：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201020212503.png)
+其实 `node` 也是支持该操作，为了实现获取参数的效果，我们需要知道一个对象： `process` ：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201020212503.png)
 
 通过打印 `process.argv` ，我们可用知道：
 
@@ -18,7 +18,7 @@
 node demo.js testArg
 ```
 
-结果：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201020212926.png)
+结果：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201020212926.png)
 
 那么，我们要做的非常简单，**只需通过 `process.argv[process.argv.length-1]` 即可读取最后一个参数**
 
@@ -33,7 +33,7 @@ process.stdin.on('data', e => {
 })
 ```
 
-运行后终端我们可一直输入：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201020220942.png)
+运行后终端我们可一直输入：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201020220942.png)
 
 ## `CommonJs` 与 `Es6` 模块的规范区别
 
@@ -97,9 +97,9 @@ export default obj
 // }
 ```
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121124810.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121124810.png)
 
-还可导入一模块又直接导出：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121125137.png)
+还可导入一模块又直接导出：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121125137.png)
 
 3. 导入：
 
@@ -116,16 +116,16 @@ console.log(obj)
 // { obj: { name: 'foo', age: 18 }, name: 'fooObj' }
 ```
 
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121125111.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121125111.png)
 
-4. `import()`函数：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121130508.png)
+4. `import()`函数：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121130508.png)
 
 **注意**：
 
 1. `Es6`标准规范导入`import {a,b,c} from './xxx.js'`这里的`{}`不是对象，`a,b,c`也不是通过`Es6`语法糖 - 对象解构 来导入的，就单纯只是`ES6 module`的规范！
 2. 官方的`import`不是`require`这种函数，且不会自动增加`.js`的文件后缀，在`Vue`项目里可以省略后缀名是因为脚手架采用了`webpack`自动帮我们加的！
-3. ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121125712.png)
-4. ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121125923.png)
+3. ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121125712.png)
+4. ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121125923.png)
 
 ### `CommonJs` 规范 - `NodeJs` 使用
 
@@ -296,7 +296,7 @@ console.log(foo) // 这就是为什么其他地方导入数据和内部打印不
 ```
 
 **总结**：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201121002020.png)  
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201121002020.png)  
 
 * 本质上，`node`里的`commonJs`规范导入导出的对象是`module.exports`对象，内部通过`exports = module.exports`形式将其导出数据对象地址给了`exports`，但如果通过`module.exports`修改对象地址，那么`exports`数据其他模块就无法读取到了，它们读取到的都是`module.exports`对象值。
 * 引用类型的导入导出决定了 其实其他模块导入一个模块是可以反过来修改模块对象里的内容的，但是不要这样干

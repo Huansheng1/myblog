@@ -705,9 +705,9 @@ export class AppComponent {
 
 注意： 
 
-1. 此外还支持引用`TemplateRef`模版：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201107115254.png)
+1. 此外还支持引用`TemplateRef`模版：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201107115254.png)
 
-2. `@ViewChild()`对于多个同样的只会取第一个，因此我们需要知道`@ViewChildren()`可多个引入元素：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201107115452.png)
+2. `@ViewChild()`对于多个同样的只会取第一个，因此我们需要知道`@ViewChildren()`可多个引入元素：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201107115452.png)
 
 3. `Angular`不推荐我们直接通过`nativeElement`来直接修改元素，推荐使用`Renderer2`来进行操作`Dom元素`。
 
@@ -1338,7 +1338,7 @@ export class ServiceService {
 
 2. 其他代码不变，查看效果：
 
-   ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919123601.png)
+   ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919123601.png)
 
 #### 管道和工具方法
 
@@ -1398,7 +1398,7 @@ export class HomeComponent implements OnInit {
 }
 ```
 
-3. 携带参数的话：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201115171109.png)
+3. 携带参数的话：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201115171109.png)
 
 ``` ts
 // 此时get请求地址将会自动转换为http://a.itying.com/api/productlist?name=test&id=666
@@ -1421,12 +1421,12 @@ this.http.get('http://a.itying.com/api/productlist',
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 ```
 
-2. 主要代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919141149.png)
+2. 主要代码：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919141149.png)
 
 **JsonP 跨域请求**：
 
-1. ![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919141803.png)
-2. 组件内使用主要代码：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200919143119.png)
+1. ![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919141803.png)
+2. 组件内使用主要代码：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200919143119.png)
 
 ## axios - 前端最流行请求模块
 

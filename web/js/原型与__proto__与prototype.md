@@ -82,7 +82,7 @@ f1.say()//myName is trump, myAge is 18
 f2.say()//myName is trump, myAge is 18
 ```
 原型图示例：由 [doris](http://zhihu.com) 绘制
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200710105708.jpg)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200710105708.jpg)
 
 我们最后来通俗总结下：  
 1. 有一个小孩`foo`对象实例张三，其父亲为`[[prototype]]`隐式原型对象。
@@ -96,7 +96,7 @@ f2.say()//myName is trump, myAge is 18
 9. 所以，儿子的母亲构造函数 就是 老爹的妻子`constructor`属性 ，这也就说得过去了！
 10. end...
 
-图示总结：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200712125621.png)
+图示总结：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200712125621.png)
 
 相关文章：  
 * [js中__proto__和prototype的区别和关系？](https://www.zhihu.com/question/34183746)

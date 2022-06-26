@@ -58,7 +58,7 @@ devServer: {
   }
 ```
 结果：
-![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20200722144959.png)
+![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20200722144959.png)
 
 解析：
 * 浏览器以为我们请求的接口是：`http://localhost:8080/api/todayVideo`

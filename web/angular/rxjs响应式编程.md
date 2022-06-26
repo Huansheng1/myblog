@@ -189,7 +189,7 @@ export class CountDownComponent implements OnInit {
 }
 ```
 
-效果图：![](https://gitee.com/huanshenga/myimg/raw/master/PicGo/20201115162725.png)
+效果图：![](https://cdn.jsdelivr.net/gh/Huansheng1/myimg/PicGo/20201115162725.png)
 
 ### 一对多的可观察对象
 
